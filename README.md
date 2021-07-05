@@ -1,5 +1,7 @@
 # Spring Boot - Gateway Server (API)
 
+## React + Gateway Server + API Server + Style Server
+
 ## Client Repository
 
 https://github.com/HyunwooP/react_template
