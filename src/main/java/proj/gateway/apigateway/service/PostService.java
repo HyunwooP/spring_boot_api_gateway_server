@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import proj.gateway.apigateway.common.service.CommonService;
 
 /**
- * Get 서비스
+ * Post 서비스
  */
 @Service
-public class GetService extends CommonService {
+public class PostService extends CommonService {
 
   public String response(String path, Map<String, String> params) throws Exception {
-    return queryRequest(path, params, "GET");
+    return bodyRequest(path, params, "POST");
   }
 }

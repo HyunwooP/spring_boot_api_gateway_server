@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import proj.gateway.apigateway.common.service.CommonService;
 
 /**
- * Get 서비스
+ * Delete 서비스
  */
 @Service
-public class GetService extends CommonService {
+public class DeleteService extends CommonService {
 
   public String response(String path, Map<String, String> params) throws Exception {
-    return queryRequest(path, params, "GET");
+    return queryRequest(path, params, "DELETE");
   }
 }

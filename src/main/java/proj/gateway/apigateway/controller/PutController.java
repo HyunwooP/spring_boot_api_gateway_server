@@ -3,17 +3,17 @@ package proj.gateway.apigateway.controller;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import proj.gateway.apigateway.service.GetService;
+import proj.gateway.apigateway.service.PutService;
 
 /**
- * Get 컨트롤러
+ * Put 컨트롤러
  */
 @Controller
-public class GetController {
+public class PutController {
   @Autowired
-  private GetService getService;
+  private PutService putService;
 
   public String reqeust(String path, Map<String, String> params) throws Exception {
-    return getService.response(path, params);
+    return putService.response(path, params);
   }
 }
