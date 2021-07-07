@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,7 +22,8 @@ public class HttpUtils {
    * @return
    * @throws Exception
    */
-  public static HttpURLConnection request(String url, String method) throws Exception {
+  public static HttpURLConnection request(String url, String method, Map<String, String> header)
+      throws Exception {
     URL endpoint = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
     connection.setRequestMethod(method);
@@ -29,6 +31,7 @@ public class HttpUtils {
     connection.setDoOutput(true);
     connection.setRequestProperty("Cache-Control", "no-cache");
     connection.setRequestProperty("Content-Type", "application/json");
+    connection.setRequestProperty("authorization", header.get("authorization"));
     return connection;
   }
 

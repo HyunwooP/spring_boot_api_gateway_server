@@ -47,7 +47,7 @@ public class CommonService {
       Map<String, String> header) throws Exception {
     String domain = generateDomain(path);
     String url = domain + path + (params.size() > 0 ? ConvertUtils.queryToString(params) : "");
-    HttpURLConnection request = HttpUtils.request(url, method);
+    HttpURLConnection request = HttpUtils.request(url, method, header);
     String reponse = HttpUtils.response(request);
     return reponse;
   }
@@ -69,7 +69,7 @@ public class CommonService {
     // Json string로 변환시킨 후, Node 서버에서 파싱
     String jsonParams = ConvertUtils.objectToJsonString(params);
 
-    HttpURLConnection request = HttpUtils.request(url, method);
+    HttpURLConnection request = HttpUtils.request(url, method, header);
 
     DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
     dataOutputStream.writeBytes(jsonParams);

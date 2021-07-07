@@ -21,7 +21,7 @@ public class Request {
   @Autowired
   RequestController requestController;
 
-  // todo = header에 대해서 고민해보기
+  // todo = header객체 및 token을 어떻게 전해줄지 고민해보기
 
   @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.GET)
   private String get(@PathVariable String path, @RequestParam Map<String, String> allRequestParams,
