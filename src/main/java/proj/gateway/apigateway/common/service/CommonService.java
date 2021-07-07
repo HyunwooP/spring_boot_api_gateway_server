@@ -3,6 +3,8 @@ package proj.gateway.apigateway.common.service;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.common.commonEnum.Endpoint;
@@ -13,6 +15,8 @@ import proj.gateway.apigateway.common.utils.ConvertUtils;
  */
 @Service
 public class CommonService {
+
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   /**
    * API별 맞는 도메인을 전달
@@ -43,12 +47,13 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public static String queryRequest(String path, Map<String, String> params, String method,
+  public String queryRequest(String path, Map<String, String> params, String method,
       Map<String, String> header) throws Exception {
     String domain = generateDomain(path);
     String url = domain + path + (params.size() > 0 ? ConvertUtils.queryToString(params) : "");
     HttpURLConnection request = HttpUtils.request(url, method, header);
     String reponse = HttpUtils.response(request);
+    logger.info(method + " Request - " + url);
     return reponse;
   }
 
@@ -60,7 +65,7 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public static String bodyRequest(String path, Map<String, String> params, String method,
+  public String bodyRequest(String path, Map<String, String> params, String method,
       Map<String, String> header) throws Exception {
     String domain = generateDomain(path);
     String url = domain + path;
@@ -77,6 +82,7 @@ public class CommonService {
     dataOutputStream.close();
 
     String reponse = HttpUtils.response(request);
+    logger.info(method + " Request - " + url);
     return reponse;
   }
 }
