@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Endpoint Enum
  */
 @Component
-public class Endpoints {
+public class Endpoint {
 
   /**
    * API 서버의 endpoint -> Map

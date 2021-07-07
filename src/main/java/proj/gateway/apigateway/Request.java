@@ -4,18 +4,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 // Http Request Utils
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-// Controllers
-import proj.gateway.apigateway.controller.DeleteController;
-import proj.gateway.apigateway.controller.GetController;
-import proj.gateway.apigateway.controller.PatchController;
-import proj.gateway.apigateway.controller.PostController;
-import proj.gateway.apigateway.controller.PutController;
+import proj.gateway.apigateway.controller.RequestController;
 
 /**
  * Main 객체 클라이언트의 모든 요청을 받아, API별 맞는 도메인에 내려준다.
@@ -24,48 +19,38 @@ import proj.gateway.apigateway.controller.PutController;
 public class Request {
 
   @Autowired
-  GetController getController;
+  RequestController requestController;
 
-  @Autowired
-  PostController postController;
-
-  @Autowired
-  DeleteController deleteController;
-
-  @Autowired
-  PutController putController;
-
-  @Autowired
-  PatchController patchController;
-
+  // todo = header에 대해서 고민해보기
 
   @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.GET)
-  private String get(@PathVariable String path, @RequestParam Map<String, String> allRequestParams)
-      throws Exception {
-    return getController.reqeust(path, allRequestParams);
+  private String get(@PathVariable String path, @RequestParam Map<String, String> allRequestParams,
+      @RequestHeader Map<String, String> header) throws Exception {
+    return requestController.getReqeust(path, allRequestParams, header);
   }
 
   @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.DELETE)
   private String delete(@PathVariable String path,
-      @RequestParam Map<String, String> allRequestParams) throws Exception {
-    return deleteController.reqeust(path, allRequestParams);
+      @RequestParam Map<String, String> allRequestParams, @RequestHeader Map<String, String> header)
+      throws Exception {
+    return requestController.deleteReqeust(path, allRequestParams, header);
   }
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.POST)
-  private String post(@PathVariable String path, @RequestBody Map<String, String> allRequestParams)
-      throws Exception {
-    return postController.reqeust(path, allRequestParams);
+  private String post(@PathVariable String path, @RequestBody Map<String, String> allRequestParams,
+      @RequestHeader Map<String, String> header) throws Exception {
+    return requestController.postReqeust(path, allRequestParams, header);
   }
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.PUT)
-  private String put(@PathVariable String path, @RequestBody Map<String, String> allRequestParams)
-      throws Exception {
-    return putController.reqeust(path, allRequestParams);
+  private String put(@PathVariable String path, @RequestBody Map<String, String> allRequestParams,
+      @RequestHeader Map<String, String> header) throws Exception {
+    return requestController.putReqeust(path, allRequestParams, header);
   }
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.PATCH)
-  private String patch(@PathVariable String path, @RequestBody Map<String, String> allRequestParams)
-      throws Exception {
-    return patchController.reqeust(path, allRequestParams);
+  private String patch(@PathVariable String path, @RequestBody Map<String, String> allRequestParams,
+      @RequestHeader Map<String, String> header) throws Exception {
+    return requestController.patchReqeust(path, allRequestParams, header);
   }
 }

@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import proj.gateway.apigateway.common.utils.HttpUtils;
-import proj.gateway.apigateway.common.commonEnum.Endpoints;
+import proj.gateway.apigateway.common.commonEnum.Endpoint;
 import proj.gateway.apigateway.common.utils.ConvertUtils;
 
 /**
@@ -22,12 +22,12 @@ public class CommonService {
    */
   private static String generateDomain(String path) {
 
-    Map<String, String> apiServerEndpoints = Endpoints.getApiServerEndpoints();
+    Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndpoints();
     if (apiServerEndpoints.containsValue(path) == true) {
       return "http://localhost:3001/";
     }
 
-    Map<String, String> designServerEndpoints = Endpoints.getDesignServerEndpoints();
+    Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndpoints();
     if (designServerEndpoints.containsValue(path) == true) {
       return "http://localhost:3002/";
     }
@@ -43,8 +43,8 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public static String queryRequest(String path, Map<String, String> params, String method)
-      throws Exception {
+  public static String queryRequest(String path, Map<String, String> params, String method,
+      Map<String, String> header) throws Exception {
     String domain = generateDomain(path);
     String url = domain + path + (params.size() > 0 ? ConvertUtils.queryToString(params) : "");
     HttpURLConnection request = HttpUtils.request(url, method);
@@ -60,8 +60,8 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public static String bodyRequest(String path, Map<String, String> params, String method)
-      throws Exception {
+  public static String bodyRequest(String path, Map<String, String> params, String method,
+      Map<String, String> header) throws Exception {
     String domain = generateDomain(path);
     String url = domain + path;
 
