@@ -1,7 +1,7 @@
 package proj.gateway.apigateway;
 
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,10 +18,8 @@ import proj.gateway.apigateway.controller.RequestController;
 @RestController
 public class Request {
 
-  @Autowired
-  RequestController requestController;
-
-  // todo = header객체 및 token을 어떻게 전해줄지 고민해보기
+  @Resource(name = "requestController")
+  private RequestController requestController;
 
   @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.GET)
   private String get(@PathVariable String path, @RequestParam Map<String, String> allRequestParams,

@@ -1,14 +1,14 @@
 package proj.gateway.apigateway.controller;
 
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import proj.gateway.apigateway.service.ReqeustService;
 
 @Controller
 public class RequestController {
 
-  @Autowired
+  @Resource(name = "requestService")
   ReqeustService requestService;
 
   public String getReqeust(String path, Map<String, String> params, Map<String, String> header)
