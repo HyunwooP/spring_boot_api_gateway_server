@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import proj.gateway.apigateway.service.ReqeustService;
 
-@Controller
+@Controller("requestController")
 public class RequestController {
 
   @Resource(name = "requestService")

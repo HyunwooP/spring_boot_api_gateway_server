@@ -4,7 +4,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service
+@Service("requestService")
 public class ReqeustService extends CommonService {
 
   public String getReponse(String path, Map<String, String> params, Map<String, String> header)
