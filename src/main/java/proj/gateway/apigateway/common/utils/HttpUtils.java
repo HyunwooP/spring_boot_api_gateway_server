@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HttpUtils {
-  HttpURLConnection connection;
 
   /**
    * request 객체
