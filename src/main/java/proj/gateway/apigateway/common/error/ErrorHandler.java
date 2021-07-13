@@ -5,10 +5,12 @@ import javax.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Error Handler
  */
+@EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
 
@@ -34,7 +36,7 @@ public class ErrorHandler {
 
   /**
    * errorHandler
-   * 
+   *
    * @param e
    * @return
    */
@@ -42,8 +44,14 @@ public class ErrorHandler {
   private ResponseEntity<Object> errorHandler(Exception e) {
     // ex: Server returned HTTP response code: 403 for URL: http://localhost:3001/findUserProfile
     String[] error = e.getMessage().split(" ");
-    // ex: 403
-    int code = Integer.parseInt(error[5]);
+    int code;
+
+    // Node Server에서 404를 리턴할 경우, Spring에서 FindNotFoundException으로 제어한다.
+    if (error.length < 2) {
+      code = 404;
+    } else {
+      code = Integer.parseInt(error[5]);
+    }
 
     returnMap = new HashMap<String, Object>();
     returnMap.put("status", code);

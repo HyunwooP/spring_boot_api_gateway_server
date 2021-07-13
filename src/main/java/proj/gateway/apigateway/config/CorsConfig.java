@@ -10,6 +10,6 @@ public class CorsConfig implements WebMvcConfigurer {
   // todo = 3000, 3001, 3002 각 도메인들 한곳으로 따놓기
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+    registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost:3003");
   }
 }
