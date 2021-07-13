@@ -24,6 +24,13 @@ public class HttpUtils {
       throws Exception {
     URL endpoint = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
+
+    // https://stackoverflow.com/questions/25163131/httpurlconnection-invalid-http-method-patch
+    if (method.equals("PATCH") || method.equals("PUT")) {
+      connection.setRequestProperty("X-HTTP-Method-Override", method);
+      method = "POST";
+    }
+
     connection.setRequestMethod(method);
     connection.setDoInput(true);
     connection.setDoOutput(true);

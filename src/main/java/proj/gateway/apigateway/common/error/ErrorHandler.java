@@ -45,6 +45,10 @@ public class ErrorHandler {
     String[] error = e.getMessage().split(" ");
     int code;
 
+    System.out.println("===========");
+    System.out.println(e);
+    System.out.println("===========");
+
     // Node Server에서 404를 리턴할 경우, Spring에서 FindNotFoundException으로 제어한다.
     if (error.length < 2) {
       code = 404;
