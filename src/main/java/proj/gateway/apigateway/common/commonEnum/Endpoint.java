@@ -19,7 +19,7 @@ public class Endpoint {
     Map<String, String> enumMap = new HashMap<String, String>();
 
     for (ApiServerEndpoints endpoint : ApiServerEndpoints.values()) {
-      enumMap.put(endpoint.name(), endpoint.toString());
+      enumMap.put(endpoint.name(), "/" + endpoint.toString());
     }
 
     return enumMap;
@@ -35,7 +35,7 @@ public class Endpoint {
     Map<String, String> enumMap = new HashMap<String, String>();
 
     for (DesignServerEndpoints endpoint : DesignServerEndpoints.values()) {
-      enumMap.put(endpoint.name(), endpoint.toString());
+      enumMap.put(endpoint.name(), "/" + endpoint.toString());
     }
 
     return enumMap;
@@ -43,7 +43,7 @@ public class Endpoint {
 
   // Node Api Server
   public enum ApiServerEndpoints {
-    findUserProfile, findContents, signIn, signOut, signUp, removeUser, updateUser;
+    findUser, findUserProfile, findContents, signIn, signOut, signUp, removeUser, updateUser;
   }
 
   // Design Server

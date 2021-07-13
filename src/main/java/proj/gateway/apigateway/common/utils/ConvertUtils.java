@@ -9,29 +9,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ConvertUtils {
-
-  /**
-   * query 객체를 String으로 변환
-   * 
-   * @param params
-   * @return
-   */
-  public static String queryToString(Map<String, String> params) {
-    String query = "";
-    int i = 0;
-
-    for (Map.Entry<String, String> entry : params.entrySet()) {
-      if (i == 0) {
-        query += "?" + entry.getKey() + "=" + entry.getValue();
-      } else {
-        query += "&" + entry.getKey() + "=" + entry.getValue();
-      }
-      i++;
-    }
-
-    return query;
-  }
-
   /**
    * String Key Value 객체를 Json String으로 변환
    * 

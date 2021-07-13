@@ -51,8 +51,8 @@ public class HttpUtils {
     }
     bufferedReader.close();
 
-    String reponse = stringBuffer.toString();
-    return reponse;
+    String _response = stringBuffer.toString();
+    return _response;
   }
 
 }
