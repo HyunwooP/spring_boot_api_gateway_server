@@ -82,25 +82,31 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public String bodyRequest(String path, Map<String, String> params, String method,
-      Map<String, String> header) throws Exception {
+  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, String> body)
+      throws Exception {
+    path = req.getRequestURI();
+    method = req.getMethod();
+    token = req.getHeader("authorization");
+
+    generateDomain();
+
     String url = domain + path;
 
     // Spring Gateway server -> Node Server (Contents Type: JSON)
     // Json string로 변환시킨 후, Node 서버에서 파싱
-    String jsonParams = ConvertUtils.objectToJsonString(params);
+    String jsonParams = ConvertUtils.objectToJsonString(body);
 
-    generateDomain();
-
-    HttpURLConnection request = HttpUtils.request(url, method, header.get("authorization"));
+    HttpURLConnection request = HttpUtils.request(url, method, token);
 
     DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
     dataOutputStream.writeBytes(jsonParams);
     dataOutputStream.flush();
     dataOutputStream.close();
 
-    String reponse = HttpUtils.response(request);
+    response.put("status", request.getResponseCode());
+    response.put("data", HttpUtils.response(request));
+
     logger.info(method + " Request - " + url);
-    return reponse;
+    return response;
   }
 }

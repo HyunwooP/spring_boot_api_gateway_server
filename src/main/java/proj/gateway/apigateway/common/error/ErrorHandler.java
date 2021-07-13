@@ -15,9 +15,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class ErrorHandler {
 
   // Client에 던질 멤버변수
-  private HashMap<String, Object> returnMap;
+  private HashMap<String, Object> returnMap = new HashMap<String, Object>();
   // Node 서버들의 에러를 init
-  private HashMap<Integer, String> errorMap;
+  private HashMap<Integer, String> errorMap = new HashMap<Integer, String>();
 
   @PostConstruct
   private void init() {
@@ -25,7 +25,6 @@ public class ErrorHandler {
      * Node Error List UNAUTHORIZED = 401 FORBIDDEN = 403 NOT_FOUND = 404 BAD_REQUEST = 400
      * DUPLICATE = 409 INTERNAL_SERVER_ERROR = 500
      */
-    errorMap = new HashMap<Integer, String>();
     errorMap.put(401, "UNAUTHORIZED");
     errorMap.put(403, "FORBIDDEN");
     errorMap.put(404, "NOT_FOUND");
@@ -53,7 +52,6 @@ public class ErrorHandler {
       code = Integer.parseInt(error[5]);
     }
 
-    returnMap = new HashMap<String, Object>();
     returnMap.put("status", code);
     returnMap.put("message", errorMap.get(code));
 

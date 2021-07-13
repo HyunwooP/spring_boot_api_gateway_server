@@ -17,18 +17,18 @@ public class ReqeustService extends CommonService {
     return queryRequest(req);
   }
 
-  public String postResponse(String path, Map<String, String> params, Map<String, String> header)
+  public HashMap<String, Object> postResponse(HttpServletRequest req, Map<String, String> body)
       throws Exception {
-    return bodyRequest(path, params, "POST", header);
+    return bodyRequest(req, body);
   }
 
-  public String putResponse(String path, Map<String, String> params, Map<String, String> header)
+  public HashMap<String, Object> putResponse(HttpServletRequest req, Map<String, String> body)
       throws Exception {
-    return bodyRequest(path, params, "PUT", header);
+    return bodyRequest(req, body);
   }
 
-  public String patchResponse(String path, Map<String, String> params, Map<String, String> header)
+  public HashMap<String, Object> patchResponse(HttpServletRequest req, Map<String, String> body)
       throws Exception {
-    return bodyRequest(path, params, "PATCH", header);
+    return bodyRequest(req, body);
   }
 }
