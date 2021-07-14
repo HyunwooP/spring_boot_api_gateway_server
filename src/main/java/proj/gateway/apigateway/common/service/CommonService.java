@@ -64,7 +64,7 @@ public class CommonService {
 
     generateDomain();
 
-    String url = domain + path + (queryString != null ? queryString : "");
+    String url = domain + path + (queryString != null ? "?" + queryString : "");
     HttpURLConnection request = HttpUtils.request(url, method, token);
 
     response.put("status", request.getResponseCode());
