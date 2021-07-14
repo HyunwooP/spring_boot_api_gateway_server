@@ -43,7 +43,7 @@ public class Endpoint {
 
   // Node Api Server
   public enum ApiServerEndpoints {
-    findUser, findUserProfile, findContents, signIn, signOut, signUp, removeUser, updateUser;
+    findUser, findUserProfile, findContents, signInUser, signInAdmin, signOut, signUp, removeUser, updateUser;
   }
 
   // Design Server
