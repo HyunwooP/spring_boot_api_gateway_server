@@ -17,17 +17,17 @@ public class ReqeustService extends CommonService {
     return queryRequest(req);
   }
 
-  public HashMap<String, Object> postResponse(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> postResponse(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return bodyRequest(req, body);
   }
 
-  public HashMap<String, Object> putResponse(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> putResponse(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return bodyRequest(req, body);
   }
 
-  public HashMap<String, Object> patchResponse(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> patchResponse(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return bodyRequest(req, body);
   }

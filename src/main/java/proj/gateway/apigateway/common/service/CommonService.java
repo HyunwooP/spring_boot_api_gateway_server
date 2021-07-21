@@ -82,7 +82,7 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     path = req.getRequestURI();
     method = req.getMethod();

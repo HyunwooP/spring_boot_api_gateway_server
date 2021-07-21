@@ -21,17 +21,17 @@ public class RequestController {
     return requestService.deleteResponse(req);
   }
 
-  public HashMap<String, Object> postReqeust(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> postReqeust(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return requestService.postResponse(req, body);
   }
 
-  public HashMap<String, Object> putReqeust(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> putReqeust(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return requestService.putResponse(req, body);
   }
 
-  public HashMap<String, Object> patchReqeust(HttpServletRequest req, Map<String, String> body)
+  public HashMap<String, Object> patchReqeust(HttpServletRequest req, Map<String, Object> body)
       throws Exception {
     return requestService.patchResponse(req, body);
   }

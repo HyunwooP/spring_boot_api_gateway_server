@@ -45,21 +45,21 @@ public class Request {
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.POST)
   private String post(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, String> body) throws Exception {
+      @RequestBody Map<String, Object> body) throws Exception {
     response = requestController.postReqeust(req, body);
     return send(res);
   }
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.PUT)
   private String put(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, String> body) throws Exception {
+      @RequestBody Map<String, Object> body) throws Exception {
     response = requestController.putReqeust(req, body);
     return send(res);
   }
 
   @RequestMapping(value = {"/{path}"}, method = RequestMethod.PATCH)
   private String patch(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, String> body) throws Exception {
+      @RequestBody Map<String, Object> body) throws Exception {
     response = requestController.patchReqeust(req, body);
     return send(res);
   }

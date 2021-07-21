@@ -15,7 +15,7 @@ public class ConvertUtils {
    * @param params
    * @return
    */
-  public static String objectToJsonString(Map<String, String> params) throws Exception {
+  public static String objectToJsonString(Map<String, Object> params) throws Exception {
     ObjectMapper mapper = new ObjectMapper();
     String jsonParams = mapper.writeValueAsString(params);
 
