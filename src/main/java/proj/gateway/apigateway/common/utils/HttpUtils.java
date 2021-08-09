@@ -35,7 +35,7 @@ public class HttpUtils {
     connection.setDoInput(true);
     connection.setDoOutput(true);
     connection.setRequestProperty("Cache-Control", "no-cache");
-    connection.setRequestProperty("Content-Type", "application/json");
+    connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
     connection.setRequestProperty("authorization", token);
     return connection;
   }

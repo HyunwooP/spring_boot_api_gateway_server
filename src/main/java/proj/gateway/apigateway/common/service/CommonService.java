@@ -99,7 +99,7 @@ public class CommonService {
     HttpURLConnection request = HttpUtils.request(url, method, token);
 
     DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
-    dataOutputStream.writeBytes(jsonParams);
+    dataOutputStream.write(jsonParams.getBytes("UTF-8"));
     dataOutputStream.flush();
     dataOutputStream.close();
 
