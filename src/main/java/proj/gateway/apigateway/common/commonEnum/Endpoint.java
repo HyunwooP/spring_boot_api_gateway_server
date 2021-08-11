@@ -48,6 +48,6 @@ public class Endpoint {
 
   // Design Server
   public enum DesignServerEndpoints {
-    findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount, findThemeCount
+    findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount, findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme
   }
 }
