@@ -20,11 +20,9 @@ https://github.com/HyunwooP/node_api_server
 
 https://github.com/HyunwooP/node_design_server
 
-## Framework & Library
+## [노트]
 
-```
-Spring
-```
+### 설명
 
 ## 작성자
 
@@ -33,8 +31,10 @@ Spring
 Author: 박현우
 ```
 
-## [노트]
+## Framework & Library
 
-### 설명
+```
+Spring
+```
 
-### 실행
+## 실행
