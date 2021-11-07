@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,8 +21,7 @@ public class HttpUtils {
    * @return
    * @throws Exception
    */
-  public static HttpURLConnection request(String url, String method, String token)
-      throws Exception {
+  public static HttpURLConnection request(String url, String method, String token) throws Exception {
     URL endpoint = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
@@ -48,8 +48,7 @@ public class HttpUtils {
    * @throws Exception
    */
   public static String response(HttpURLConnection request) throws Exception {
-    BufferedReader bufferedReader =
-        new BufferedReader(new InputStreamReader(request.getInputStream()));
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
     StringBuffer stringBuffer = new StringBuffer();
     String inputLine;
 

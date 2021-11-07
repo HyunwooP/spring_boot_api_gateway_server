@@ -2,14 +2,17 @@ package proj.gateway.apigateway;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestBody;
 // Http Request Utils
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import proj.gateway.apigateway.controller.RequestController;
 
 /**
@@ -22,7 +25,6 @@ public class Request {
   @Resource(name = "requestController")
   private RequestController requestController;
 
-
   private String send(HttpServletResponse res) {
     int status = (int) response.get("status");
     String jsonString = (String) response.get("data");
@@ -31,35 +33,35 @@ public class Request {
     return jsonString;
   };
 
-  @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.GET)
+  @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.GET)
   private String get(HttpServletRequest req, HttpServletResponse res) throws Exception {
     response = requestController.getReqeust(req);
     return send(res);
   }
 
-  @RequestMapping(value = {"/{path}", "/{path}/"}, method = RequestMethod.DELETE)
+  @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.DELETE)
   private String delete(HttpServletRequest req, HttpServletResponse res) throws Exception {
     response = requestController.deleteReqeust(req);
     return send(res);
   }
 
-  @RequestMapping(value = {"/{path}"}, method = RequestMethod.POST)
-  private String post(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, Object> body) throws Exception {
+  @RequestMapping(value = { "/{path}" }, method = RequestMethod.POST)
+  private String post(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+      throws Exception {
     response = requestController.postReqeust(req, body);
     return send(res);
   }
 
-  @RequestMapping(value = {"/{path}"}, method = RequestMethod.PUT)
-  private String put(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, Object> body) throws Exception {
+  @RequestMapping(value = { "/{path}" }, method = RequestMethod.PUT)
+  private String put(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+      throws Exception {
     response = requestController.putReqeust(req, body);
     return send(res);
   }
 
-  @RequestMapping(value = {"/{path}"}, method = RequestMethod.PATCH)
-  private String patch(HttpServletRequest req, HttpServletResponse res,
-      @RequestBody Map<String, Object> body) throws Exception {
+  @RequestMapping(value = { "/{path}" }, method = RequestMethod.PATCH)
+  private String patch(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+      throws Exception {
     response = requestController.patchReqeust(req, body);
     return send(res);
   }

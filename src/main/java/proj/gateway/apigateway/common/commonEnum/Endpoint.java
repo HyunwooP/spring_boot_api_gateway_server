@@ -2,6 +2,7 @@ package proj.gateway.apigateway.common.commonEnum;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +26,6 @@ public class Endpoint {
     return enumMap;
   }
 
-
   /**
    * Design 서버의 endpoint -> Map
    * 
@@ -43,11 +43,13 @@ public class Endpoint {
 
   // Node Api Server
   public enum ApiServerEndpoints {
-    findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp, removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount
+    findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
+    removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount
   }
 
   // Design Server
   public enum DesignServerEndpoints {
-    findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount, findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme
+    findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
+    findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme
   }
 }

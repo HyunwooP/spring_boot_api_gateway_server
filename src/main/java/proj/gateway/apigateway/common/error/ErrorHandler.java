@@ -1,7 +1,9 @@
 package proj.gateway.apigateway.common.error;
 
 import java.util.HashMap;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,8 +24,8 @@ public class ErrorHandler {
   @PostConstruct
   private void init() {
     /**
-     * Node Error List UNAUTHORIZED = 401 FORBIDDEN = 403 NOT_FOUND = 404 BAD_REQUEST = 400
-     * DUPLICATE = 409 INTERNAL_SERVER_ERROR = 500
+     * Node Error List UNAUTHORIZED = 401 FORBIDDEN = 403 NOT_FOUND = 404
+     * BAD_REQUEST = 400 DUPLICATE = 409 INTERNAL_SERVER_ERROR = 500
      */
     errorMap.put(401, "UNAUTHORIZED");
     errorMap.put(403, "FORBIDDEN");
@@ -41,7 +43,8 @@ public class ErrorHandler {
    */
   @ExceptionHandler(Exception.class)
   private ResponseEntity<Object> errorHandler(Exception e) {
-    // ex: Server returned HTTP response code: 403 for URL: http://localhost:3001/findUserProfile
+    // ex: Server returned HTTP response code: 403 for URL:
+    // http://localhost:3001/findUserProfile
     String[] error = e.getMessage().split(" ");
     int code;
 

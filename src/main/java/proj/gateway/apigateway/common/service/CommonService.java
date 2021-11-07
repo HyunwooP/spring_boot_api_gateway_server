@@ -4,13 +4,16 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import proj.gateway.apigateway.common.utils.HttpUtils;
+
 import proj.gateway.apigateway.common.commonEnum.Endpoint;
 import proj.gateway.apigateway.common.utils.ConvertUtils;
+import proj.gateway.apigateway.common.utils.HttpUtils;
 
 /**
  * 공통 서비스 객체
@@ -82,8 +85,7 @@ public class CommonService {
    * @return JSON.stringify
    * @throws Exception
    */
-  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, Object> body)
-      throws Exception {
+  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, Object> body) throws Exception {
     path = req.getRequestURI();
     method = req.getMethod();
     token = req.getHeader("authorization");
