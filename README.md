@@ -6,19 +6,19 @@
 
 ## Client Repository
 
-https://github.com/HyunwooP/react_client_template
+https://github.com/awakelife93/react_client_template
 
 ## Admin Repository
 
-https://github.com/HyunwooP/react_admin_template
+https://github.com/awakelife93/react_admin_template
 
 ## API Server Repository
 
-https://github.com/HyunwooP/node_api_server
+https://github.com/awakelife93/node_api_server
 
 ## Style Server Repository
 
-https://github.com/HyunwooP/node_design_server
+https://github.com/awakelife93/node_design_server
 
 ## [노트]
 
