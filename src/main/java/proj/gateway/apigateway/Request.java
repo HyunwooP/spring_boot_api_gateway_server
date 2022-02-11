@@ -35,34 +35,34 @@ public class Request {
 
   @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.GET)
   private String get(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    response = requestController.getReqeust(req);
+    response = requestController.get(req);
     return send(res);
   }
 
   @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.DELETE)
   private String delete(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    response = requestController.deleteReqeust(req);
+    response = requestController.delete(req);
     return send(res);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.POST)
   private String post(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.postReqeust(req, body);
+    response = requestController.post(req, body);
     return send(res);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.PUT)
   private String put(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.putReqeust(req, body);
+    response = requestController.put(req, body);
     return send(res);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.PATCH)
   private String patch(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.patchReqeust(req, body);
+    response = requestController.patch(req, body);
     return send(res);
   }
 }

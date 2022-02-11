@@ -53,7 +53,7 @@ public class CommonService {
   }
 
   /**
-   * query를 던지는 HTTP Method를 위한 Reqeust
+   * query를 던지는 HTTP Method를 위한 Request
    * 
    * @param req
    * @return HashMap<String, Object> response
@@ -78,7 +78,7 @@ public class CommonService {
   }
 
   /**
-   * Body를 던지는 HTTP Method를 위한 Reqeust
+   * Body를 던지는 HTTP Method를 위한 Request
    * 
    * @param path
    * @param method

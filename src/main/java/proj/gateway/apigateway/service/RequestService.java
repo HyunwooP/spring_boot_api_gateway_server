@@ -1,38 +1,34 @@
-package proj.gateway.apigateway.controller;
+package proj.gateway.apigateway.service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-import proj.gateway.apigateway.service.RequestService;
+import proj.gateway.apigateway.common.service.CommonService;
 
-@Controller("requestController")
-public class RequestController {
-
-  @Resource(name = "requestService")
-  RequestService requestService;
+@Service("requestService")
+public class RequestService extends CommonService {
 
   public HashMap<String, Object> get(HttpServletRequest req) throws Exception {
-    return requestService.get(req);
+    return queryRequest(req);
   }
 
   public HashMap<String, Object> delete(HttpServletRequest req) throws Exception {
-    return requestService.delete(req);
+    return queryRequest(req);
   }
 
   public HashMap<String, Object> post(HttpServletRequest req, Map<String, Object> body) throws Exception {
-    return requestService.post(req, body);
+    return bodyRequest(req, body);
   }
 
   public HashMap<String, Object> put(HttpServletRequest req, Map<String, Object> body) throws Exception {
-    return requestService.put(req, body);
+    return bodyRequest(req, body);
   }
 
   public HashMap<String, Object> patch(HttpServletRequest req, Map<String, Object> body) throws Exception {
-    return requestService.patch(req, body);
+    return bodyRequest(req, body);
   }
 }
