@@ -16,13 +16,18 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<!-- spring cloud version - msa를 위한 목적으로 등록 -->
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
 	<dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -38,7 +43,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- circuit breakers 목적으로 추가 -->
+		<dependency> 
+			<groupId>org.springframework.cloud</groupId> 
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId> 
+		</dependency> 
 	</dependencies>
+  
+  <!-- spring cloud 의존성 추가 -->
+  <dependencyManagement>
+	  <dependencies>
+		  <dependency>
+  			<groupId>org.springframework.cloud</groupId>
+  			<artifactId>spring-cloud-dependencies</artifactId>
+  			<version>${spring-cloud.version}</version>
+  			<type>pom</type>
+  			<scope>import</scope>
+		  </dependency>
+	  </dependencies>
+  </dependencyManagement>
 
 	<build>
 		<plugins>
@@ -54,6 +77,15 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- 개인 프로젝트이므로 테스트 유닛은 제거 -->
+		  <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-surefire-plugin</artifactId>  
+        <version>2.22.2</version>  
+        <configuration>  
+          <skipTests>true</skipTests>  
+        </configuration>  
+      </plugin>
 		</plugins>
 	</build>
 
