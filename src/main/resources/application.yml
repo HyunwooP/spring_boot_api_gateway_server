@@ -1,0 +1,26 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: 50
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 60000
+        permittedNumberOfCallsInHalfOpenState: 4
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        maxWaitDurationInHalfOpenState: 1000
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 10
+        waitDurationInOpenState: 10000
+    instances:
+      get:
+        baseConfig: default
+      delete:
+        baseConfig: default
+      post:
+        baseConfig: default
+      put:
+        baseConfig: default
+      patch:
+        baseConfig: default
