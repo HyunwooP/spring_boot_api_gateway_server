@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<!-- spring cloud version - msa를 위한 목적으로 등록 -->
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		<spring-cloud.version>2020.0.2</spring-cloud.version>
 	</properties>
 	<dependencies>
     <dependency>
@@ -47,6 +47,7 @@
 		<dependency> 
 			<groupId>org.springframework.cloud</groupId> 
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId> 
+			<version>2.2.7.RELEASE</version>
 		</dependency> 
 	</dependencies>
   
