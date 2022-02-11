@@ -49,10 +49,11 @@ public class ErrorHandler {
     int code;
 
     System.out.println("===========");
-    System.out.println(e);
+    System.out.println(e.getMessage());
     System.out.println("===========");
 
     // Node Server에서 404를 리턴할 경우, Spring에서 FindNotFoundException으로 제어한다.
+    // todo: CircuitBreaker를 붙이면서 더 이상 조건에 의한 에러 구분을 하지 못함. 아래 리팩토링 필요
     if (error.length < 2) {
       code = 404;
     } else {
