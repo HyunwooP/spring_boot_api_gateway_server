@@ -40,8 +40,9 @@ public class ErrorHandler {
     if (messageArray[0].equals("CircuitBreaker")) {
       return 429;
     }
-
-    if (messageArray.length < 2) {
+    // ex: Server returned HTTP response code: 403 for URL:
+    // http://localhost:3001/findUserProfile
+    if (messageArray.length < 6) {
       // Node Server에서 404를 리턴할 경우, Spring에서 FindNotFoundException으로 Catch하기 때문에 따로
       // 404처리
       return 404;
@@ -69,8 +70,6 @@ public class ErrorHandler {
    */
   @ExceptionHandler(Exception.class)
   private ResponseEntity<Object> errorHandler(Exception e) {
-    // ex: Server returned HTTP response code: 403 for URL:
-    // http://localhost:3001/findUserProfile
     String errorMessage = e.getMessage();
     String[] messageArray = errorMessage.split(" ");
     int code = getErrorCode(messageArray);
