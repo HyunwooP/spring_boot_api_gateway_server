@@ -20,14 +20,6 @@ import proj.gateway.apigateway.common.utils.HttpUtils;
  */
 @Service
 public class CommonService {
-  // API 엔드포인트
-  private String path;
-  // API Method
-  private String method;
-  // API 토큰
-  private String token;
-  // Node 서버 도메인
-  private String domain;
   // RestController에 넘길 reponse 객체
   private HashMap<String, Object> response = new HashMap<String, Object>();
   // Logger
@@ -39,17 +31,18 @@ public class CommonService {
    * @param path
    * @return
    */
-  private void generateDomain() {
-
+  private String generateDomain(String path) {
     Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndpoints();
     if (apiServerEndpoints.containsValue(path) == true) {
-      domain = "http://localhost:3001";
+      return "http://localhost:3001";
     }
 
     Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndpoints();
     if (designServerEndpoints.containsValue(path) == true) {
-      domain = "http://localhost:3002";
+      return "http://localhost:3002";
     }
+
+    return "";
   }
 
   /**
@@ -61,11 +54,14 @@ public class CommonService {
    */
   public HashMap<String, Object> queryRequest(HttpServletRequest req) throws Exception {
     String queryString = req.getQueryString();
-    path = req.getRequestURI();
-    method = req.getMethod();
-    token = req.getHeader("authorization");
+    String path = req.getRequestURI();
+    String method = req.getMethod();
+    String token = req.getHeader("authorization");
+    String domain = generateDomain(path);
 
-    generateDomain();
+    if (domain == "") {
+      throw new Error("That API doesn't exist.");
+    }
 
     String url = domain + path + (queryString != null ? "?" + queryString : "");
     HttpURLConnection request = HttpUtils.request(url, method, token);
@@ -86,11 +82,14 @@ public class CommonService {
    * @throws Exception
    */
   public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, Object> body) throws Exception {
-    path = req.getRequestURI();
-    method = req.getMethod();
-    token = req.getHeader("authorization");
+    String path = req.getRequestURI();
+    String method = req.getMethod();
+    String token = req.getHeader("authorization");
+    String domain = generateDomain(path);
 
-    generateDomain();
+    if (domain == "") {
+      throw new Error("That API doesn't exist.");
+    }
 
     String url = domain + path;
 
