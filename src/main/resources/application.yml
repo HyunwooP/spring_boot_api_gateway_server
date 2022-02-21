@@ -7,7 +7,7 @@ resilience4j:
         slowCallDurationThreshold: 60000
         permittedNumberOfCallsInHalfOpenState: 4
         registerHealthIndicator: true
-        automaticTransitionFromOpenToHalfOpenEnabled: true
+        automaticTransitionFromOpenToHalfOpenEnabled: false
         maxWaitDurationInHalfOpenState: 1000
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 10
