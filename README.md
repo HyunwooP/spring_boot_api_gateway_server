@@ -14,11 +14,11 @@ https://github.com/awakelife93/react-admin-template
 
 ## API Server Repository
 
-https://github.com/awakelife93/node-api-server
+https://github.com/awakelife93/node-api-template
 
 ## Style Server Repository
 
-https://github.com/awakelife93/node-design-server
+https://github.com/awakelife93/node-design-template
 
 ## [노트]
 
