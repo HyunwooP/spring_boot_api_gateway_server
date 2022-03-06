@@ -13,6 +13,7 @@ import proj.gateway.apigateway.common.service.CommonService;
 @Service("requestService")
 public class RequestService extends CommonService {
 
+  // todo: queryRequest, bodyRequest 활용해서 Api, Design Service 호출
   @CircuitBreaker(name = "get", fallbackMethod = "queryRequestFallBack")
   public HashMap<String, Object> get(HttpServletRequest req) throws Exception {
     return queryRequest(req);
