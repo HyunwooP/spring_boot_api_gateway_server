@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestBody;
-// Http Request Utils
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +21,6 @@ import proj.gateway.apigateway.controller.StyleController;
 import proj.gateway.apigateway.controller.ThemeController;
 import proj.gateway.apigateway.controller.UserController;
 
-/**
- * Main 객체 클라이언트의 모든 요청을 받아, API별 맞는 도메인에 내려준다.
- */
 @RestController
 public class Request {
 
