@@ -13,56 +13,164 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import proj.gateway.apigateway.controller.RequestController;
+import proj.gateway.apigateway.controller.AuthController;
+import proj.gateway.apigateway.controller.CommonModelController;
+import proj.gateway.apigateway.controller.ComponentController;
+import proj.gateway.apigateway.controller.ContentsController;
+import proj.gateway.apigateway.controller.LayoutController;
+import proj.gateway.apigateway.controller.StyleController;
+import proj.gateway.apigateway.controller.ThemeController;
+import proj.gateway.apigateway.controller.UserController;
 
 /**
  * Main 객체 클라이언트의 모든 요청을 받아, API별 맞는 도메인에 내려준다.
  */
 @RestController
 public class Request {
-  HashMap<String, Object> response;
 
-  @Resource(name = "RequestController")
-  private RequestController requestController;
+  @Resource(name = "UserController")
+  private UserController userController;
 
-  private String send(HttpServletResponse res) {
-    int status = (int) response.get("status");
-    String jsonString = (String) response.get("data");
+  @Resource(name = "AuthController")
+  private AuthController authController;
 
-    res.setStatus(status);
+  @Resource(name = "ContentsController")
+  private ContentsController contentsController;
+
+  @Resource(name = "ComponentController")
+  private ComponentController componentController;
+
+  @Resource(name = "LayoutController")
+  private LayoutController layoutController;
+
+  @Resource(name = "StyleController")
+  private StyleController styleController;
+
+  @Resource(name = "ThemeController")
+  private ThemeController themeController;
+
+  @Resource(name = "CommonModelController")
+  private CommonModelController commonModelController;
+
+  private String send(HashMap<String, Object> apiResponse, HttpServletResponse response) {
+    if (apiResponse == null) {
+      throw new Error("Empty Api Response.");
+    }
+
+    int status = (int) apiResponse.get("status");
+    String jsonString = (String) apiResponse.get("data");
+
+    response.setStatus(status);
     return jsonString;
   };
 
   @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.GET)
-  private String get(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    response = requestController.get(req);
-    return send(res);
+  private String get(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String path = request.getRequestURI();
+    HashMap<String, Object> apiResponse = null;
+
+    switch (path) {
+      case "/findUser":
+        apiResponse = userController.findUser(request);
+      case "/findUserCount":
+        apiResponse = userController.findUserCount(request);
+      case "/findUserProfile":
+        apiResponse = userController.findUserProfile(request);
+      case "/findContentsCount":
+        apiResponse = contentsController.findContentsCount(request);
+      case "/findContents":
+        apiResponse = contentsController.findContents(request);
+      case "/findComponentCount":
+        apiResponse = componentController.findComponentCount(request);
+      case "/findComponent":
+        apiResponse = componentController.findComponent(request);
+      case "/findLayoutCount":
+        apiResponse = layoutController.findLayoutCount(request);
+      case "/findLayout":
+        apiResponse = layoutController.findLayout(request);
+      case "/findStyleCount":
+        apiResponse = styleController.findStyleCount(request);
+      case "/findStyle":
+        apiResponse = styleController.findStyle(request);
+      case "/findThemeCount":
+        apiResponse = themeController.findThemeCount(request);
+      case "/findThemeItem":
+        apiResponse = themeController.findThemeItem(request);
+      case "/findTheme":
+        apiResponse = themeController.findTheme(request);
+    }
+
+    return send(apiResponse, response);
   }
 
   @RequestMapping(value = { "/{path}", "/{path}/" }, method = RequestMethod.DELETE)
-  private String delete(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    response = requestController.delete(req);
-    return send(res);
+  private String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String path = request.getRequestURI();
+    HashMap<String, Object> apiResponse = null;
+
+    switch (path) {
+      case "/removeUser":
+        apiResponse = userController.removeUser(request);
+      case "/tokenRemoveUser":
+        apiResponse = userController.tokenRemoveUser(request);
+      case "/removeContents":
+        apiResponse = contentsController.removeContents(request);
+      case "/removeComponent":
+        apiResponse = componentController.removeComponent(request);
+      case "/removeLayout":
+        apiResponse = layoutController.removeLayout(request);
+      case "/removeStyle":
+        apiResponse = styleController.removeStyle(request);
+      case "/removeTheme":
+        apiResponse = themeController.removeTheme(request);
+    }
+
+    return send(apiResponse, response);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.POST)
-  private String post(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+  private String post(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.post(req, body);
-    return send(res);
+    String path = request.getRequestURI();
+    HashMap<String, Object> apiResponse = null;
+
+    switch (path) {
+      case "/signInUser":
+        apiResponse = authController.signInUser(request, body);
+      case "/signInAdmin":
+        apiResponse = authController.signInAdmin(request, body);
+      case "/signUp":
+        apiResponse = authController.signUp(request, body);
+      case "/signOut":
+        apiResponse = authController.signOut(request, body);
+      case "/createContents":
+        apiResponse = contentsController.createContents(request, body);
+    }
+
+    return send(apiResponse, response);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.PUT)
-  private String put(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+  private String put(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.put(req, body);
-    return send(res);
+    String path = request.getRequestURI();
+    HashMap<String, Object> apiResponse = null;
+    return send(apiResponse, response);
   }
 
   @RequestMapping(value = { "/{path}" }, method = RequestMethod.PATCH)
-  private String patch(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, Object> body)
+  private String patch(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> body)
       throws Exception {
-    response = requestController.patch(req, body);
-    return send(res);
+    String path = request.getRequestURI();
+    HashMap<String, Object> apiResponse = null;
+
+    switch (path) {
+      case "/updateUser":
+        apiResponse = userController.updateUser(request, body);
+      case "/updateContents":
+        apiResponse = contentsController.updateContents(request, body);
+    }
+
+    return send(apiResponse, response);
   }
 }
