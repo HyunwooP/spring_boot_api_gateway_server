@@ -1,1 +1,0 @@
-// todo: node design endpoint 나열
