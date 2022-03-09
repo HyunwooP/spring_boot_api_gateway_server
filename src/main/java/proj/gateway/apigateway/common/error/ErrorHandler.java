@@ -21,10 +21,6 @@ public class ErrorHandler {
 
   @PostConstruct
   private void init() {
-    /**
-     * Node Error List UNAUTHORIZED = 401 FORBIDDEN = 403 NOT_FOUND = 404
-     * BAD_REQUEST = 400 DUPLICATE = 409 INTERNAL_SERVER_ERROR = 500
-     */
     errorMap.put(401, "UNAUTHORIZED");
     errorMap.put(403, "FORBIDDEN");
     errorMap.put(404, "NOT_FOUND");

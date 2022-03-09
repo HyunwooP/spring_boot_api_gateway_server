@@ -6,9 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.stereotype.Component;
 
-/**
- * 공통 데이터 변환 객체
- */
 @Component
 public class ConvertUtils {
 
