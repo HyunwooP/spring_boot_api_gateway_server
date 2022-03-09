@@ -5,8 +5,6 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,45 +23,25 @@ public class CommonService {
   // Logger
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  /**
-   * API별 맞는 도메인을 전달
-   * 
-   * @param path
-   * @return
-   */
   private String generateDomain(String path) {
     Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndpoints();
-    if (apiServerEndpoints.containsValue(path) == true) {
+    if (apiServerEndpoints.containsValue(path)) {
       return "http://localhost:3001";
     }
 
     Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndpoints();
-    if (designServerEndpoints.containsValue(path) == true) {
+    if (designServerEndpoints.containsValue(path)) {
       return "http://localhost:3002";
     }
 
-    return "";
+    throw new Error("That API doesn't exist.");
   }
 
-  /**
-   * query를 던지는 HTTP Method를 위한 Request
-   * 
-   * @param req
-   * @return HashMap<String, Object> response
-   * @throws Exception
-   */
-  public HashMap<String, Object> queryRequest(HttpServletRequest req) throws Exception {
-    String queryString = req.getQueryString();
-    String path = req.getRequestURI();
-    String method = req.getMethod();
-    String token = req.getHeader("authorization");
+  public HashMap<String, Object> queryRequest(String queryString, String path, String method, String token)
+      throws Exception {
     String domain = generateDomain(path);
-
-    if (domain == "") {
-      throw new Error("That API doesn't exist.");
-    }
-
     String url = domain + path + (queryString != null ? "?" + queryString : "");
+
     HttpURLConnection request = HttpUtils.request(url, method, token);
 
     response.put("status", request.getResponseCode());
@@ -73,24 +51,9 @@ public class CommonService {
     return response;
   }
 
-  /**
-   * Body를 던지는 HTTP Method를 위한 Request
-   * 
-   * @param path
-   * @param method
-   * @return JSON.stringify
-   * @throws Exception
-   */
-  public HashMap<String, Object> bodyRequest(HttpServletRequest req, Map<String, Object> body) throws Exception {
-    String path = req.getRequestURI();
-    String method = req.getMethod();
-    String token = req.getHeader("authorization");
+  public HashMap<String, Object> bodyRequest(String path, String method, String token,
+      Map<String, Object> body) throws Exception {
     String domain = generateDomain(path);
-
-    if (domain == "") {
-      throw new Error("That API doesn't exist.");
-    }
-
     String url = domain + path;
 
     // Spring Gateway server -> Node Server (Contents Type: JSON)
