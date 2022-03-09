@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
+  // todo: Empty Api Response, That API doesn't exist 공통 객체 만들고 이에 대한 처리
 
   // Client에 던질 멤버변수
   private HashMap<String, Object> returnMap = new HashMap<String, Object>();
