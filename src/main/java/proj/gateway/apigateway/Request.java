@@ -22,7 +22,7 @@ import proj.gateway.apigateway.controller.RequestController;
 public class Request {
   HashMap<String, Object> response;
 
-  @Resource(name = "requestController")
+  @Resource(name = "RequestController")
   private RequestController requestController;
 
   private String send(HttpServletResponse res) {
