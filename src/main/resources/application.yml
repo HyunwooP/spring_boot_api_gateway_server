@@ -13,17 +13,6 @@ resilience4j:
         slidingWindowSize: 10
         waitDurationInOpenState: 10000
     instances:
-      # todo : 리팩토링 끝나면 get, delete, post, put, patch 제거
-      get:
-        baseConfig: default
-      delete:
-        baseConfig: default
-      post:
-        baseConfig: default
-      put:
-        baseConfig: default
-      patch:
-        baseConfig: default
       # API Server
       findUser:
         baseConfig: default
@@ -55,6 +44,8 @@ resilience4j:
         baseConfig: default
       findDashboardCount:
         baseConfig: default
+      clientHealth:
+        baseConfig: default
       # Design Server
       findThemeItem:
         baseConfig: default
@@ -81,4 +72,6 @@ resilience4j:
       removeStyle:
         baseConfig: default
       removeTheme:
+        baseConfig: default
+      designHealth:
         baseConfig: default
