@@ -11,12 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ConvertUtils {
-  /**
-   * String Key Value 객체를 Json String으로 변환
-   * 
-   * @param params
-   * @return
-   */
+
   public static String objectToJsonString(Map<String, Object> params) throws Exception {
     ObjectMapper mapper = new ObjectMapper();
     String jsonParams = mapper.writeValueAsString(params);

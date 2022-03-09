@@ -5,17 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-/**
- * Endpoint Enum
- */
 @Component
 public class Endpoint {
 
-  /**
-   * API 서버의 endpoint -> Map
-   * 
-   * @return
-   */
   public static Map<String, String> getApiServerEndpoints() {
     Map<String, String> enumMap = new HashMap<String, String>();
 
@@ -26,11 +18,6 @@ public class Endpoint {
     return enumMap;
   }
 
-  /**
-   * Design 서버의 endpoint -> Map
-   * 
-   * @return
-   */
   public static Map<String, String> getDesignServerEndpoints() {
     Map<String, String> enumMap = new HashMap<String, String>();
 

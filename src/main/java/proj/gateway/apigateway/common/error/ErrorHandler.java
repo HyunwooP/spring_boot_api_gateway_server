@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-/**
- * Error Handler
- */
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
@@ -62,12 +59,6 @@ public class ErrorHandler {
     return errorMap.get(code);
   }
 
-  /**
-   * errorHandler
-   *
-   * @param e
-   * @return
-   */
   @ExceptionHandler(Exception.class)
   private ResponseEntity<Object> errorHandler(Exception e) {
     String errorMessage = e.getMessage();

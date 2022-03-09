@@ -13,9 +13,6 @@ import proj.gateway.apigateway.common.commonEnum.Endpoint;
 import proj.gateway.apigateway.common.utils.ConvertUtils;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 
-/**
- * 공통 서비스 객체
- */
 @Service
 public class CommonService {
   // RestController에 넘길 reponse 객체

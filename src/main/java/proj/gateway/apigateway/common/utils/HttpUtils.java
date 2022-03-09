@@ -7,20 +7,9 @@ import java.net.URL;
 
 import org.springframework.stereotype.Component;
 
-/**
- * HTTP 통신을 위한 Utils
- */
 @Component
 public class HttpUtils {
 
-  /**
-   * request 객체
-   * 
-   * @param url
-   * @param method
-   * @return
-   * @throws Exception
-   */
   public static HttpURLConnection request(String url, String method, String token) throws Exception {
     URL endpoint = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
@@ -40,13 +29,6 @@ public class HttpUtils {
     return connection;
   }
 
-  /**
-   * response 객체
-   * 
-   * @param request
-   * @return
-   * @throws Exception
-   */
   public static String response(HttpURLConnection request) throws Exception {
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
     StringBuffer stringBuffer = new StringBuffer();
@@ -60,5 +42,4 @@ public class HttpUtils {
     String _response = stringBuffer.toString();
     return _response;
   }
-
 }
