@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+// todo: 리팩토링 할 것
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
   // todo: Empty Api Response, That API doesn't exist 공통 객체 만들고 이에 대한 처리
-
-  // Client에 던질 멤버변수
-  private HashMap<String, Object> returnMap = new HashMap<String, Object>();
   // Node 서버들의 에러를 init
   private HashMap<Integer, String> errorMap = new HashMap<Integer, String>();
 
@@ -59,6 +57,14 @@ public class ErrorHandler {
   @ExceptionHandler(Exception.class)
   private ResponseEntity<Object> errorHandler(Exception e) {
     String errorMessage = e.getMessage();
+    HashMap<String, Object> returnMap = new HashMap<String, Object>();
+
+    if (errorMessage.equals("Connection refused (Connection refused)")) {
+      returnMap.put("status", 502);
+      returnMap.put("message", errorMessage);
+      return ResponseEntity.status(502).body(returnMap);
+    }
+
     String[] messageArray = errorMessage.split(" ");
     int code = getErrorCode(messageArray);
     String message = checkGetErrorMessage(code) ? getErrorMessage(code) : errorMessage;
