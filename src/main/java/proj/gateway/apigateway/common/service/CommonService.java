@@ -38,7 +38,7 @@ public class CommonService {
 
     HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
     HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
-    
+
     logger.info(method + " Request - " + url);
     return response;
   }
@@ -58,7 +58,7 @@ public class CommonService {
     dataOutputStream.write(jsonParams.getBytes("UTF-8"));
     dataOutputStream.flush();
     dataOutputStream.close();
-      
+
     HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
 
     logger.info(method + " Request - " + url);

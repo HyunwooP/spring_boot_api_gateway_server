@@ -40,7 +40,8 @@ public class UserController {
   }
 
   @PatchMapping(value = "/updateUser")
-  public String updateUser(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body) throws Exception {
+  public String updateUser(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+      throws Exception {
     HashMap<String, Object> apiResponse = userService.updateUser(request, body);
     return HttpUtils.send(apiResponse, response);
   }

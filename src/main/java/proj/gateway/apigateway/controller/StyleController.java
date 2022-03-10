@@ -30,7 +30,7 @@ public class StyleController {
     HashMap<String, Object> apiResponse = styleService.findStyle(request);
     return HttpUtils.send(apiResponse, response);
   }
-  
+
   @DeleteMapping(value = "/removeStyle")
   public String removeStyle(HttpServletRequest request, HttpServletResponse response) throws Exception {
     HashMap<String, Object> apiResponse = styleService.findStyle(request);

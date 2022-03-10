@@ -21,7 +21,7 @@ public class ContentsController {
 
   @Resource(name = "ContentsService")
   private ContentsService contentsService;
-  
+
   @GetMapping(value = "/findContentsCount")
   public String findContentsCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
     HashMap<String, Object> apiResponse = contentsService.findContentsCount(request);
@@ -35,13 +35,15 @@ public class ContentsController {
   }
 
   @PostMapping(value = "/createContents")
-  public String createContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body) throws Exception {
+  public String createContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+      throws Exception {
     HashMap<String, Object> apiResponse = contentsService.createContents(request, body);
     return HttpUtils.send(apiResponse, response);
   }
 
   @PatchMapping(value = "/updateContents")
-  public String updateContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body) throws Exception {
+  public String updateContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+      throws Exception {
     HashMap<String, Object> apiResponse = contentsService.updateContents(request, body);
     return HttpUtils.send(apiResponse, response);
   }
