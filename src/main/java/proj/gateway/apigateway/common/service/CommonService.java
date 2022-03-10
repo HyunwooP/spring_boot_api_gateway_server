@@ -15,9 +15,6 @@ import proj.gateway.apigateway.common.utils.HttpUtils;
 
 @Service
 public class CommonService {
-  // RestController에 넘길 reponse 객체
-  private HashMap<String, Object> response = new HashMap<String, Object>();
-  // Logger
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private String generateDomain(String path) {
@@ -39,11 +36,9 @@ public class CommonService {
     String domain = generateDomain(path);
     String url = domain + path + (queryString != null ? "?" + queryString : "");
 
-    HttpURLConnection request = HttpUtils.request(url, method, token);
-
-    response.put("status", request.getResponseCode());
-    response.put("data", HttpUtils.response(request));
-
+    HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
+    HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
+    
     logger.info(method + " Request - " + url);
     return response;
   }
@@ -57,15 +52,14 @@ public class CommonService {
     // Json string로 변환시킨 후, Node 서버에서 파싱
     String jsonParams = ConvertUtils.objectToJsonString(body);
 
-    HttpURLConnection request = HttpUtils.request(url, method, token);
+    HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
 
     DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
     dataOutputStream.write(jsonParams.getBytes("UTF-8"));
     dataOutputStream.flush();
     dataOutputStream.close();
-
-    response.put("status", request.getResponseCode());
-    response.put("data", HttpUtils.response(request));
+      
+    HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
 
     logger.info(method + " Request - " + url);
     return response;
