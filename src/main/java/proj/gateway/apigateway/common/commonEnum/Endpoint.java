@@ -31,12 +31,12 @@ public class Endpoint {
   // Node Api Server
   public enum ApiServerEndpoints {
     findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
-    removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount
+    removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
   }
 
   // Design Server
   public enum DesignServerEndpoints {
     findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
-    findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme
+    findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme, designHealth
   }
 }
