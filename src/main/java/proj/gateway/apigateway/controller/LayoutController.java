@@ -4,26 +4,36 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.LayoutService;
 
-@Controller("LayoutController")
+@RestController("LayoutController")
 public class LayoutController {
 
   @Resource(name = "LayoutService")
   private LayoutService layoutService;
 
-  public HashMap<String, Object> findLayoutCount(HttpServletRequest request) throws Exception {
-    return layoutService.findLayoutCount(request);
+  @GetMapping(value = "/findLayoutCount")
+  public String findLayoutCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = layoutService.findLayoutCount(request);
+    return HttpUtils.send(apiResponse, response);
   }
 
-  public HashMap<String, Object> findLayout(HttpServletRequest request) throws Exception {
-    return layoutService.findLayout(request);
+  @GetMapping(value = "/findLayout")
+  public String findLayout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = layoutService.findLayout(request);
+    return HttpUtils.send(apiResponse, response);
   }
 
-  public HashMap<String, Object> removeLayout(HttpServletRequest request) throws Exception {
-    return layoutService.removeLayout(request);
+  @DeleteMapping(value = "/removeLayout")
+  public String removeLayout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = layoutService.removeLayout(request);
+    return HttpUtils.send(apiResponse, response);
   }
 }

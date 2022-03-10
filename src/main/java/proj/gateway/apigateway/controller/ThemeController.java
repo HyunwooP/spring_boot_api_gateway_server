@@ -4,30 +4,42 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.ThemeService;
 
-@Controller("ThemeController")
+@RestController("ThemeController")
 public class ThemeController {
 
   @Resource(name = "ThemeService")
   private ThemeService themeService;
 
-  public HashMap<String, Object> findThemeCount(HttpServletRequest request) throws Exception {
-    return themeService.findThemeCount(request);
+  @GetMapping(value = "/findThemeCount")
+  public String findThemeCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = themeService.findThemeCount(request);
+    return HttpUtils.send(apiResponse, response);
   }
 
-  public HashMap<String, Object> findThemeItem(HttpServletRequest request) throws Exception {
-    return themeService.findThemeItem(request);
+  @GetMapping(value = "/findThemeItem")
+  public String findThemeItem(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = themeService.findThemeItem(request);
+    return HttpUtils.send(apiResponse, response);
   }
 
-  public HashMap<String, Object> findTheme(HttpServletRequest request) throws Exception {
-    return themeService.findTheme(request);
+  @GetMapping(value = "/findTheme")
+  public String findTheme(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = themeService.findTheme(request);
+    return HttpUtils.send(apiResponse, response);
   }
 
-  public HashMap<String, Object> removeTheme(HttpServletRequest request) throws Exception {
-    return themeService.removeTheme(request);
+  @DeleteMapping(value = "/removeTheme")
+  public String removeTheme(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HashMap<String, Object> apiResponse = themeService.removeTheme(request);
+    return HttpUtils.send(apiResponse, response);
   }
 }
