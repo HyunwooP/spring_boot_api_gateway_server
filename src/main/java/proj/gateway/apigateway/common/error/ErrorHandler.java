@@ -1,81 +1,89 @@
 package proj.gateway.apigateway.common.error;
 
+import java.util.Date;
 import java.util.HashMap;
 
-import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-// todo: 리팩토링 할 것
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
-  // todo: Empty Api Response, That API doesn't exist 공통 객체 만들고 이에 대한 처리
-  // Node 서버들의 에러를 init
-  private HashMap<Integer, String> errorMap = new HashMap<Integer, String>();
+  private static final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {{
+    put(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED");
+    put(HttpStatus.FORBIDDEN, "FORBIDDEN");
+    put(HttpStatus.NOT_FOUND, "NOT_FOUND");
+    put(HttpStatus.BAD_REQUEST, "BAD_REQUEST");
+    put(HttpStatus.CONFLICT, "CONFLICT");
+    put(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR");
+    put(HttpStatus.TOO_MANY_REQUESTS, "TOO_MANY_REQUESTS");
+    put(HttpStatus.BAD_GATEWAY, "BAD_GATEWAY");
+  }};
 
-  @PostConstruct
-  private void init() {
-    errorMap.put(401, "UNAUTHORIZED");
-    errorMap.put(403, "FORBIDDEN");
-    errorMap.put(404, "NOT_FOUND");
-    errorMap.put(400, "BAD_REQUEST");
-    errorMap.put(409, "DUPLICATE");
-    errorMap.put(500, "INTERNAL_SERVER_ERROR");
+  private String getErrorMessage(HttpStatus status) {
+    return errorMap.get(status);
   }
+  
+  private HashMap<String, Object> getResponseErrorMap(HttpStatus status) {
+    HashMap<String, Object> responseErrorMap = new HashMap<String, Object>();
+    
+    String message = getErrorMessage(status);
 
-  private int getErrorCode(String[] messageArray) {
+    responseErrorMap.put("status", status.value());
+    responseErrorMap.put("message", message);
 
-    if (messageArray[0].equals("CircuitBreaker")) {
-      return 429;
-    }
-    // ex: Server returned HTTP response code: 403 for URL:
-    // http://localhost:3001/findUserProfile
-    if (messageArray.length < 6) {
-      // Node Server에서 404를 리턴할 경우, Spring에서 FindNotFoundException으로 Catch하기 때문에 따로
-      // 404처리
-      return 404;
-    } else {
-      return Integer.parseInt(messageArray[5]);
-    }
-  }
-
-  // 해당 메소드를 통해서 원초적인 에러 메세지를 얻을지 상태 에러 메세지를 얻을지 결정
-  private boolean checkGetErrorMessage(int code) {
-    if (code == 429)
-      return false;
-    return true;
-  }
-
-  private String getErrorMessage(int code) {
-    return errorMap.get(code);
+    return responseErrorMap;
   }
 
   @ExceptionHandler(Exception.class)
-  private ResponseEntity<Object> errorHandler(Exception e) {
-    String errorMessage = e.getMessage();
-    HashMap<String, Object> returnMap = new HashMap<String, Object>();
+  private ResponseEntity<HashMap<String, Object>> exceptionHandler(Throwable throwable) {
+    System.out.println("============= Unknown Error =============" + " : " + new Date().getTime());
+    System.out.println(throwable.getMessage());
+    System.out.println("=========================================");
 
-    if (errorMessage.equals("Connection refused (Connection refused)")) {
-      returnMap.put("status", 502);
-      returnMap.put("message", errorMessage);
-      return ResponseEntity.status(502).body(returnMap);
-    }
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.INTERNAL_SERVER_ERROR);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseErrorMap);
+  }
 
-    String[] messageArray = errorMessage.split(" ");
-    int code = getErrorCode(messageArray);
-    String message = checkGetErrorMessage(code) ? getErrorMessage(code) : errorMessage;
+  @ExceptionHandler(APIResponseException.class)
+  private ResponseEntity<HashMap<String, Object>> apiResponseExceptionHandler(Throwable throwable) {
+    System.out.println("============= API Error =============" + " : " + new Date().getTime());
+    String status = throwable.getMessage();
+    HttpStatus apiErrorCode = HttpStatus.valueOf(Integer.parseInt(status));
 
-    System.out.println("===========");
-    System.out.println(errorMessage);
-    System.out.println("===========");
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(apiErrorCode);
+    return ResponseEntity.status(apiErrorCode).body(responseErrorMap);
+  }
 
-    returnMap.put("status", code);
-    returnMap.put("message", message);
+  @ExceptionHandler(NoHandlerFoundException.class)
+  private ResponseEntity<HashMap<String, Object>> notFoundExceptionHandler(Throwable throwable) {
+    System.out.println("============= NotFound Error =============" + " : " + new Date().getTime());
 
-    return ResponseEntity.status(code).body(returnMap);
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseErrorMap);
+  }
+
+  @ExceptionHandler(FallbackException.class)
+  private ResponseEntity<HashMap<String, Object>> fallbackExceptionHandler(Throwable throwable) {
+    String endPoint = throwable.getMessage();
+    System.out.println("============= FallBack Error =============" + " : "  + endPoint + " : " + new Date().getTime());
+
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.TOO_MANY_REQUESTS);
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(responseErrorMap);
+  }
+
+  @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+  public ResponseEntity<HashMap<String, Object>> methodNotSupportErrorHandler(HttpServletRequest request, Throwable throwable) throws Exception {
+    System.out.println("============= RestFul Error =============" + " : " + new Date().getTime());
+
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.BAD_REQUEST);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrorMap);
   }
 }
