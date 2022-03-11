@@ -1,6 +1,7 @@
 package proj.gateway.apigateway.common.service;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import proj.gateway.apigateway.common.commonEnum.Endpoint;
+import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.NotFoundAPIException;
 import proj.gateway.apigateway.common.utils.ConvertUtils;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 
@@ -28,40 +31,73 @@ public class CommonService {
       return "http://localhost:3002";
     }
 
-    throw new Error("That API doesn't exist.");
+    throw new NotFoundAPIException();
   }
 
   public HashMap<String, Object> queryRequest(String queryString, String path, String method, String token)
-      throws Exception {
-    String domain = generateDomain(path);
-    String url = domain + path + (queryString != null ? "?" + queryString : "");
+      throws APIResponseException {
+    
+    HashMap<String, Object> response = new HashMap<String, Object>();
 
-    HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
-    HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
+    try {
+      String domain = generateDomain(path);
+      String url = domain + path + (queryString != null ? "?" + queryString : "");
 
-    logger.info(method + " Request - " + url);
-    return response;
+      HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
+      response.put("status", request.getResponseCode());
+      response.put("data", HttpUtils.generateResponse(request));
+      
+      logger.info(method + " Request - " + url);
+      return response;
+    } catch (Exception exception) {
+      String _status = "500";
+      
+      if (exception instanceof IOException) {
+        Object status = response.get("status");
+        _status = status == null ? "502" : status.toString();
+      } else if (exception instanceof NotFoundAPIException) {
+        _status = "404";
+      }
+
+      throw new APIResponseException(_status);
+    }
   }
 
   public HashMap<String, Object> bodyRequest(String path, String method, String token,
-      Map<String, Object> body) throws Exception {
-    String domain = generateDomain(path);
-    String url = domain + path;
+      Map<String, Object> body) throws APIResponseException {
+    
+    HashMap<String, Object> response = new HashMap<String, Object>();
 
-    // Spring Gateway server -> Node Server (Contents Type: JSON)
-    // Json string로 변환시킨 후, Node 서버에서 파싱
-    String jsonParams = ConvertUtils.objectToJsonString(body);
+    try {
+      String domain = generateDomain(path);
+      String url = domain + path;
 
-    HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
+      // Spring Gateway server -> Node Server (Contents Type: JSON)
+      // Json string로 변환시킨 후, Node 서버에서 파싱
+      String jsonParams = ConvertUtils.objectToJsonString(body);
+      HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
 
-    DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
-    dataOutputStream.write(jsonParams.getBytes("UTF-8"));
-    dataOutputStream.flush();
-    dataOutputStream.close();
+      DataOutputStream dataOutputStream = new DataOutputStream(request.getOutputStream());
+      dataOutputStream.write(jsonParams.getBytes("UTF-8"));
+      dataOutputStream.flush();
+      dataOutputStream.close();
 
-    HashMap<String, Object> response = HttpUtils.generateResponseFormat(request);
+      response.put("status", request.getResponseCode());
+      response.put("data", HttpUtils.generateResponse(request));
 
-    logger.info(method + " Request - " + url);
-    return response;
+      logger.info(method + " Request - " + url);
+      return response;
+    } catch (Exception exception) {
+      String _status = "500";
+      
+      if (exception instanceof IOException) {
+        Object status = response.get("status");
+        _status = status == null ? "502" : status.toString();
+      } else if (exception instanceof NotFoundAPIException) {
+        _status = "404";
+      }
+
+      throw new APIResponseException(_status);
+    }
   }
 }
