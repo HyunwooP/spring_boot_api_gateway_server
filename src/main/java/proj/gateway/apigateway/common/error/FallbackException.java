@@ -1,16 +1,16 @@
 package proj.gateway.apigateway.common.error;
 
-public class FallbackException extends RuntimeException {
+public class FallBackException extends RuntimeException {
 
-  public FallbackException(String message) {
+  public FallBackException(String message) {
     super(message);
   }
 
-  public FallbackException(Throwable throwable) {
+  public FallBackException(Throwable throwable) {
     super(throwable);
   }
 
-  public FallbackException(String message, Throwable throwable) {
+  public FallBackException(String message, Throwable throwable) {
     super(message, throwable);
   }
 }

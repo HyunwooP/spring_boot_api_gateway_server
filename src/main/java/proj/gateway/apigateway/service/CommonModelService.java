@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import proj.gateway.apigateway.common.error.APIResponseException;
-import proj.gateway.apigateway.common.error.FallbackException;
+import proj.gateway.apigateway.common.error.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("CommonModelService")
@@ -45,17 +45,17 @@ public class CommonModelService extends CommonService {
   }
 
   public HashMap<String, Object> clientHealthFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> designHealthFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> findDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 }

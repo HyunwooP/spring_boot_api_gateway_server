@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import proj.gateway.apigateway.common.error.APIResponseException;
-import proj.gateway.apigateway.common.error.FallbackException;
+import proj.gateway.apigateway.common.error.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("ContentsService")
@@ -66,29 +66,29 @@ public class ContentsService extends CommonService {
   }
 
   public HashMap<String, Object> findContentsCountFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> findContentsFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> createContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> updateContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> removeContentsFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallbackException {
-    throw new FallbackException(request.getRequestURI());
+      throws FallBackException {
+    throw new FallBackException(request.getRequestURI());
   }
 }

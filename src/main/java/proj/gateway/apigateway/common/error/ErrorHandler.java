@@ -72,7 +72,7 @@ public class ErrorHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseErrorMap);
   }
 
-  @ExceptionHandler(FallbackException.class)
+  @ExceptionHandler(FallBackException.class)
   private ResponseEntity<HashMap<String, Object>> fallbackExceptionHandler(Throwable throwable) {
     String endPoint = throwable.getMessage();
     System.out.println("============= FallBack Error =============" + " : " + endPoint + " : " + new Date().getTime());
