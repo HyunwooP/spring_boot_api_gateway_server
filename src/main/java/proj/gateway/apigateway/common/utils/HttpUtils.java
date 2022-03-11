@@ -1,6 +1,7 @@
 package proj.gateway.apigateway.common.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HttpUtils {
 
-  public static HttpURLConnection generateRequest(String url, String method, String token) throws Exception {
+  public static HttpURLConnection generateRequest(String url, String method, String token) throws IOException {
     URL endpoint = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
@@ -32,7 +33,7 @@ public class HttpUtils {
     return connection;
   }
 
-  public static String generateResponse(HttpURLConnection request) throws Exception {
+  public static String generateResponse(HttpURLConnection request) throws IOException {
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
     StringBuffer stringBuffer = new StringBuffer();
     String inputLine;
@@ -46,15 +47,7 @@ public class HttpUtils {
     return _response;
   }
 
-  public static HashMap<String, Object> generateResponseFormat(HttpURLConnection request) throws Exception {
-    HashMap<String, Object> response = new HashMap<String, Object>();
-
-    response.put("status", request.getResponseCode());
-    response.put("data", HttpUtils.generateResponse(request));
-    return response;
-  }
-
-  public static String send(HashMap<String, Object> apiResponse, HttpServletResponse response) throws Exception {
+  public static String send(HashMap<String, Object> apiResponse, HttpServletResponse response) {
     int status = (int) apiResponse.get("status");
     String jsonString = (String) apiResponse.get("data");
 
