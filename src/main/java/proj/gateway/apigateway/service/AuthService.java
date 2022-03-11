@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.FallbackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("AuthService")
 public class AuthService extends CommonService {
 
   @CircuitBreaker(name = "signInUser", fallbackMethod = "signInUserFallBack")
-  public HashMap<String, Object> signInUser(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> signInUser(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -23,7 +25,7 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signInAdmin", fallbackMethod = "signInAdminFallBack")
-  public HashMap<String, Object> signInAdmin(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> signInAdmin(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -32,7 +34,7 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signOut", fallbackMethod = "signOutFallBack")
-  public HashMap<String, Object> signOut(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> signOut(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -41,7 +43,7 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signUp", fallbackMethod = "signUpFallBack")
-  public HashMap<String, Object> signUp(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> signUp(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -51,25 +53,25 @@ public class AuthService extends CommonService {
 
   public HashMap<String, Object> signInUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> signInAdminFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> signOutFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> signUpFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 }

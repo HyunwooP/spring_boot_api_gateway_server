@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.FallbackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("LayoutService")
 public class LayoutService extends CommonService {
 
   @CircuitBreaker(name = "findLayoutCount", fallbackMethod = "findLayoutCountFallBack")
-  public HashMap<String, Object> findLayoutCount(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> findLayoutCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -23,7 +25,7 @@ public class LayoutService extends CommonService {
   }
 
   @CircuitBreaker(name = "findLayout", fallbackMethod = "findLayoutFallBack")
-  public HashMap<String, Object> findLayout(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> findLayout(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -33,7 +35,7 @@ public class LayoutService extends CommonService {
   }
 
   @CircuitBreaker(name = "removeLayout", fallbackMethod = "removeLayoutFallBack")
-  public HashMap<String, Object> removeLayout(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> removeLayout(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -43,17 +45,17 @@ public class LayoutService extends CommonService {
   }
 
   public HashMap<String, Object> findLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> findLayoutFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> removeLayoutFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 }

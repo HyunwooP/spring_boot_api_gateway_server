@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.FallbackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("ContentsService")
 public class ContentsService extends CommonService {
 
   @CircuitBreaker(name = "findContentsCount", fallbackMethod = "findContentsCountFallBack")
-  public HashMap<String, Object> findContentsCount(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> findContentsCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -24,7 +26,7 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "findContents", fallbackMethod = "findContentsFallBack")
-  public HashMap<String, Object> findContents(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> findContents(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -34,7 +36,7 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "createContents", fallbackMethod = "createContentsFallBack")
-  public HashMap<String, Object> createContents(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> createContents(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -43,7 +45,7 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "updateContents", fallbackMethod = "updateContentsFallBack")
-  public HashMap<String, Object> updateContents(HttpServletRequest request, Map<String, Object> body) throws Exception {
+  public HashMap<String, Object> updateContents(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -52,7 +54,7 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "removeContents", fallbackMethod = "removeContentsFallBack")
-  public HashMap<String, Object> removeContents(HttpServletRequest request) throws Exception {
+  public HashMap<String, Object> removeContents(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
     String method = request.getMethod();
@@ -62,29 +64,29 @@ public class ContentsService extends CommonService {
   }
 
   public HashMap<String, Object> findContentsCountFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> findContentsFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> createContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> updateContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 
   public HashMap<String, Object> removeContentsFallBack(HttpServletRequest request, Throwable throwable)
-      throws Exception {
-    throw new Exception(throwable.getMessage());
+      throws FallbackException {
+    throw new FallbackException(request.getRequestURI());
   }
 }
