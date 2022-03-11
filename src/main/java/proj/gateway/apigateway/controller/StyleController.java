@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import proj.gateway.apigateway.common.error.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.StyleService;
 
@@ -20,20 +21,32 @@ public class StyleController {
   private StyleService styleService;
 
   @GetMapping(value = "/findStyleCount")
-  public String findStyleCount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    HashMap<String, Object> apiResponse = styleService.findStyleCount(request);
-    return HttpUtils.send(apiResponse, response);
+  public String findStyleCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+    try {
+      HashMap<String, Object> apiResponse = styleService.findStyleCount(request);
+      return HttpUtils.send(apiResponse, response);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
+    }
   }
 
   @GetMapping(value = "/findStyle")
-  public String findStyle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    HashMap<String, Object> apiResponse = styleService.findStyle(request);
-    return HttpUtils.send(apiResponse, response);
+  public String findStyle(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+    try {
+      HashMap<String, Object> apiResponse = styleService.findStyle(request);
+      return HttpUtils.send(apiResponse, response);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
+    }
   }
 
   @DeleteMapping(value = "/removeStyle")
-  public String removeStyle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    HashMap<String, Object> apiResponse = styleService.findStyle(request);
-    return HttpUtils.send(apiResponse, response);
+  public String removeStyle(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+    try {
+      HashMap<String, Object> apiResponse = styleService.removeStyle(request);
+      return HttpUtils.send(apiResponse, response);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
+    }
   }
 }
