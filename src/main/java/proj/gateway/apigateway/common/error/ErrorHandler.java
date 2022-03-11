@@ -16,24 +16,26 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
-  private static final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {{
-    put(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED");
-    put(HttpStatus.FORBIDDEN, "FORBIDDEN");
-    put(HttpStatus.NOT_FOUND, "NOT_FOUND");
-    put(HttpStatus.BAD_REQUEST, "BAD_REQUEST");
-    put(HttpStatus.CONFLICT, "CONFLICT");
-    put(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR");
-    put(HttpStatus.TOO_MANY_REQUESTS, "TOO_MANY_REQUESTS");
-    put(HttpStatus.BAD_GATEWAY, "BAD_GATEWAY");
-  }};
+  private static final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {
+    {
+      put(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED");
+      put(HttpStatus.FORBIDDEN, "FORBIDDEN");
+      put(HttpStatus.NOT_FOUND, "NOT_FOUND");
+      put(HttpStatus.BAD_REQUEST, "BAD_REQUEST");
+      put(HttpStatus.CONFLICT, "CONFLICT");
+      put(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR");
+      put(HttpStatus.TOO_MANY_REQUESTS, "TOO_MANY_REQUESTS");
+      put(HttpStatus.BAD_GATEWAY, "BAD_GATEWAY");
+    }
+  };
 
   private String getErrorMessage(HttpStatus status) {
     return errorMap.get(status);
   }
-  
+
   private HashMap<String, Object> getResponseErrorMap(HttpStatus status) {
     HashMap<String, Object> responseErrorMap = new HashMap<String, Object>();
-    
+
     String message = getErrorMessage(status);
 
     responseErrorMap.put("status", status.value());
@@ -73,14 +75,15 @@ public class ErrorHandler {
   @ExceptionHandler(FallbackException.class)
   private ResponseEntity<HashMap<String, Object>> fallbackExceptionHandler(Throwable throwable) {
     String endPoint = throwable.getMessage();
-    System.out.println("============= FallBack Error =============" + " : "  + endPoint + " : " + new Date().getTime());
+    System.out.println("============= FallBack Error =============" + " : " + endPoint + " : " + new Date().getTime());
 
     HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.TOO_MANY_REQUESTS);
     return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(responseErrorMap);
   }
 
   @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<HashMap<String, Object>> methodNotSupportErrorHandler(HttpServletRequest request, Throwable throwable) throws Exception {
+  public ResponseEntity<HashMap<String, Object>> methodNotSupportErrorHandler(HttpServletRequest request,
+      Throwable throwable) throws Exception {
     System.out.println("============= RestFul Error =============" + " : " + new Date().getTime());
 
     HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.BAD_REQUEST);

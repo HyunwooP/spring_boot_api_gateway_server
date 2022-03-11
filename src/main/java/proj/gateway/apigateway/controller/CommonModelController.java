@@ -40,7 +40,8 @@ public class CommonModelController {
   }
 
   @GetMapping(value = "/findDashboardCount")
-  public String findDashboardCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public String findDashboardCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = commonModelService.findDashboardCount(request);
       return HttpUtils.send(apiResponse, response);

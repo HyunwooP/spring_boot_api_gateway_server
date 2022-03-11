@@ -46,11 +46,12 @@ public class UserService extends CommonService {
   }
 
   @CircuitBreaker(name = "updateUser", fallbackMethod = "updateUserFallBack")
-  public HashMap<String, Object> updateUser(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> updateUser(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
-    
+
     return bodyRequest(path, method, token, body);
   }
 

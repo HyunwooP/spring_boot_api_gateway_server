@@ -18,7 +18,7 @@ public class ProtocolConfig implements WebMvcConfigurer {
   }
 
   @Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new Interceptor()).addPathPatterns("/**");
-	}
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new Interceptor()).addPathPatterns("/**");
+  }
 }

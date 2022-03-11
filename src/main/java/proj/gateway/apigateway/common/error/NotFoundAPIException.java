@@ -1,7 +1,7 @@
 package proj.gateway.apigateway.common.error;
 
 public class NotFoundAPIException extends RuntimeException {
-  
+
   public NotFoundAPIException() {
     super();
   }

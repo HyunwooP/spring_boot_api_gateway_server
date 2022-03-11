@@ -24,7 +24,8 @@ public class ContentsController {
   private ContentsService contentsService;
 
   @GetMapping(value = "/findContentsCount")
-  public String findContentsCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public String findContentsCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = contentsService.findContentsCount(request);
       return HttpUtils.send(apiResponse, response);

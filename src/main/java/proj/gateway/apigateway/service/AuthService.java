@@ -16,7 +16,8 @@ import proj.gateway.apigateway.common.service.CommonService;
 public class AuthService extends CommonService {
 
   @CircuitBreaker(name = "signInUser", fallbackMethod = "signInUserFallBack")
-  public HashMap<String, Object> signInUser(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> signInUser(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -25,7 +26,8 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signInAdmin", fallbackMethod = "signInAdminFallBack")
-  public HashMap<String, Object> signInAdmin(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> signInAdmin(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -34,7 +36,8 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signOut", fallbackMethod = "signOutFallBack")
-  public HashMap<String, Object> signOut(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> signOut(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -43,7 +46,8 @@ public class AuthService extends CommonService {
   }
 
   @CircuitBreaker(name = "signUp", fallbackMethod = "signUpFallBack")
-  public HashMap<String, Object> signUp(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> signUp(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");

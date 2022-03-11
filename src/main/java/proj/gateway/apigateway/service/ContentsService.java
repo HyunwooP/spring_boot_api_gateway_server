@@ -36,7 +36,8 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "createContents", fallbackMethod = "createContentsFallBack")
-  public HashMap<String, Object> createContents(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> createContents(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");
@@ -45,7 +46,8 @@ public class ContentsService extends CommonService {
   }
 
   @CircuitBreaker(name = "updateContents", fallbackMethod = "updateContentsFallBack")
-  public HashMap<String, Object> updateContents(HttpServletRequest request, Map<String, Object> body) throws APIResponseException {
+  public HashMap<String, Object> updateContents(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
     String path = request.getRequestURI();
     String method = request.getMethod();
     String token = request.getHeader("authorization");

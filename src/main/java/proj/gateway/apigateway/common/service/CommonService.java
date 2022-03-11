@@ -36,7 +36,7 @@ public class CommonService {
 
   public HashMap<String, Object> queryRequest(String queryString, String path, String method, String token)
       throws APIResponseException {
-    
+
     HashMap<String, Object> response = new HashMap<String, Object>();
 
     try {
@@ -46,12 +46,12 @@ public class CommonService {
       HttpURLConnection request = HttpUtils.generateRequest(url, method, token);
       response.put("status", request.getResponseCode());
       response.put("data", HttpUtils.generateResponse(request));
-      
+
       logger.info(method + " Request - " + url);
       return response;
     } catch (Exception exception) {
       String _status = "500";
-      
+
       if (exception instanceof IOException) {
         Object status = response.get("status");
         _status = status == null ? "502" : status.toString();
@@ -65,7 +65,7 @@ public class CommonService {
 
   public HashMap<String, Object> bodyRequest(String path, String method, String token,
       Map<String, Object> body) throws APIResponseException {
-    
+
     HashMap<String, Object> response = new HashMap<String, Object>();
 
     try {
@@ -89,7 +89,7 @@ public class CommonService {
       return response;
     } catch (Exception exception) {
       String _status = "500";
-      
+
       if (exception instanceof IOException) {
         Object status = response.get("status");
         _status = status == null ? "502" : status.toString();

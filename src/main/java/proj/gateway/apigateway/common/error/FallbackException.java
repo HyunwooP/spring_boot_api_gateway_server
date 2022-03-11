@@ -1,7 +1,7 @@
 package proj.gateway.apigateway.common.error;
 
 public class FallbackException extends RuntimeException {
-  
+
   public FallbackException() {
     super();
   }

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @Configuration
 public class ApplicationConfig {
-  
+
   @Resource
   void configureDispatcherServlet(DispatcherServlet dispatcherServlet) {
     dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);

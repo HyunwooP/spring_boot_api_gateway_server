@@ -21,7 +21,8 @@ public class ComponentController {
   private ComponentService componentService;
 
   @GetMapping(value = "/findComponentCount")
-  public String findComponentCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public String findComponentCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = componentService.findComponentCount(request);
       return HttpUtils.send(apiResponse, response);
