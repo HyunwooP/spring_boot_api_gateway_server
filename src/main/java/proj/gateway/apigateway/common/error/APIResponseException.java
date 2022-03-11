@@ -4,10 +4,6 @@ import java.io.IOException;
 
 public class APIResponseException extends IOException {
 
-  public APIResponseException() {
-    super("500");
-  }
-
   public APIResponseException(String message) {
     super(message);
   }
