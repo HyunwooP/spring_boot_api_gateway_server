@@ -77,32 +77,38 @@ public class UserService extends CommonService {
 
   public HashMap<String, Object> findUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findUserFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findUserCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findUserCountFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findUserProfileFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findUserProfileFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> updateUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== updateUserFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> removeUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== removeUserFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> tokenRemoveUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== tokenRemoveUserFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }

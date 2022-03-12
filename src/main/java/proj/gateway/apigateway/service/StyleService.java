@@ -46,16 +46,19 @@ public class StyleService extends CommonService {
 
   public HashMap<String, Object> findStyleCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findStyleCountFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findStyleFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> removeStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== removeStyleFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }

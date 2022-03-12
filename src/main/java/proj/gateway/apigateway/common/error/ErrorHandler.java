@@ -74,11 +74,13 @@ public class ErrorHandler {
 
   @ExceptionHandler(FallBackException.class)
   private ResponseEntity<HashMap<String, Object>> fallbackExceptionHandler(Throwable throwable) {
-    String endPoint = throwable.getMessage();
-    System.out.println("============= FallBack Error =============" + " : " + endPoint + " : " + new Date().getTime());
+    System.out.println("============= FallBack Error =============" + " : " + new Date().getTime());
+    String status = throwable.getMessage();
+    HttpStatus fallBackErrorCode = status == null ? HttpStatus.TOO_MANY_REQUESTS
+        : HttpStatus.valueOf(Integer.parseInt(status));
 
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.TOO_MANY_REQUESTS);
-    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(responseErrorMap);
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(fallBackErrorCode);
+    return ResponseEntity.status(fallBackErrorCode).body(responseErrorMap);
   }
 
   @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)

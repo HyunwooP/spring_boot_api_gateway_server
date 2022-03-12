@@ -58,24 +58,28 @@ public class AuthService extends CommonService {
   public HashMap<String, Object> signInUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== signInUserFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> signInAdminFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== signInAdminFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> signOutFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== signOutFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> signUpFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== signUpFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }

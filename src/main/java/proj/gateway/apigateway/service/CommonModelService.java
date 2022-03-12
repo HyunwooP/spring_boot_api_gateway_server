@@ -46,16 +46,19 @@ public class CommonModelService extends CommonService {
 
   public HashMap<String, Object> clientHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== clientHealthFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> designHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== designHealthFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findDashboardCountFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }

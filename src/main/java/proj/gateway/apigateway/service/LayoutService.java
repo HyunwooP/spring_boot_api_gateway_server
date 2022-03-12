@@ -46,16 +46,19 @@ public class LayoutService extends CommonService {
 
   public HashMap<String, Object> findLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findLayoutCountFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findLayoutFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findLayoutFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> removeLayoutFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== removeLayoutFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }

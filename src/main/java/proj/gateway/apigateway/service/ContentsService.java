@@ -67,28 +67,33 @@ public class ContentsService extends CommonService {
 
   public HashMap<String, Object> findContentsCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findContentsCountFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> findContentsFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== findContentsFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> createContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== createContentsFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> updateContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== updateContentsFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 
   public HashMap<String, Object> removeContentsFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    throw new FallBackException(request.getRequestURI());
+    System.out.println("============== removeContentsFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
   }
 }
