@@ -38,17 +38,17 @@ public class Endpoint {
     return enumMap;
   }
 
-  public enum ApiServerEndPoints {
+  private static enum ApiServerEndPoints {
     findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
     removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
   }
 
-  public enum DesignServerEndPoints {
+  private static enum DesignServerEndPoints {
     findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
     findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme, designHealth
   }
 
-  public enum CertificateEndPoints {
+  private static enum CertificateEndPoints {
     signOut, findDashboardCount, findContentsCount, createContents, updateContents, removeContents, findUser,
     findUserCount, findUserProfile, updateUser, removeUser, tokenRemoveUser
   }
