@@ -12,7 +12,7 @@ resilience4j:
         maxWaitDurationInHalfOpenState: 1000
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 10
-        waitDurationInOpenState: 10000
+        waitDurationInOpenState: 10s
     instances:
       # API Server
       findUser:
