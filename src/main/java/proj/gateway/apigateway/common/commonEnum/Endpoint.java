@@ -8,20 +8,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class Endpoint {
 
-  public static Map<String, String> getApiServerEndpoints() {
+  public static Map<String, String> getApiServerEndPoints() {
     Map<String, String> enumMap = new HashMap<String, String>();
 
-    for (ApiServerEndpoints endpoint : ApiServerEndpoints.values()) {
+    for (ApiServerEndPoints endpoint : ApiServerEndPoints.values()) {
       enumMap.put(endpoint.name(), "/" + endpoint.toString());
     }
 
     return enumMap;
   }
 
-  public static Map<String, String> getDesignServerEndpoints() {
+  public static Map<String, String> getDesignServerEndPoints() {
     Map<String, String> enumMap = new HashMap<String, String>();
 
-    for (DesignServerEndpoints endpoint : DesignServerEndpoints.values()) {
+    for (DesignServerEndPoints endpoint : DesignServerEndPoints.values()) {
+      enumMap.put(endpoint.name(), "/" + endpoint.toString());
+    }
+
+    return enumMap;
+  }
+
+  public static Map<String, String> getCertificateEndPoints() {
+    Map<String, String> enumMap = new HashMap<String, String>();
+
+    for (CertificateEndPoints endpoint : CertificateEndPoints.values()) {
       enumMap.put(endpoint.name(), "/" + endpoint.toString());
     }
 
@@ -29,14 +39,19 @@ public class Endpoint {
   }
 
   // Node Api Server
-  public enum ApiServerEndpoints {
+  public enum ApiServerEndPoints {
     findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
     removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
   }
 
   // Design Server
-  public enum DesignServerEndpoints {
+  public enum DesignServerEndPoints {
     findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
     findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme, designHealth
+  }
+
+  public enum CertificateEndPoints {
+    signOut, findDashboardCount, findContentsCount, createContents, updateContents, removeContents, findUser,
+    findUserCount, findUserProfile, updateUser, removeUser, tokenRemoveUser
   }
 }
