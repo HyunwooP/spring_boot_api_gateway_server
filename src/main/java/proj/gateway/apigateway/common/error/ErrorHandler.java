@@ -82,11 +82,20 @@ public class ErrorHandler {
   }
 
   @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<HashMap<String, Object>> methodNotSupportErrorHandler(HttpServletRequest request,
+  public ResponseEntity<HashMap<String, Object>> methodNotSupportExceptionHandler(HttpServletRequest request,
       Throwable throwable) throws Exception {
     System.out.println("============= RestFul Error =============" + " : " + new Date().getTime());
 
     HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.BAD_REQUEST);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrorMap);
+  }
+
+  @ExceptionHandler(value = NotCertificateException.class)
+  public ResponseEntity<HashMap<String, Object>> notCertificateExceptionHandler(HttpServletRequest request,
+      Throwable throwable) throws Exception {
+    System.out.println("============= No Certificate Error =============" + " : " + new Date().getTime());
+
+    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.FORBIDDEN);
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseErrorMap);
   }
 }
