@@ -14,7 +14,8 @@ import proj.gateway.apigateway.common.utils.CertificateUtils;
 public class Interceptor implements HandlerInterceptor {
 
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+      throws NotCertificateException {
     String path = request.getRequestURI();
     String token = request.getHeader("authorization");
 
