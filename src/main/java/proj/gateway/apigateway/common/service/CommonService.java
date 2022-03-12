@@ -21,12 +21,12 @@ public class CommonService {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private String generateDomain(String path) {
-    Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndpoints();
+    Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndPoints();
     if (apiServerEndpoints.containsValue(path)) {
       return "http://localhost:3001";
     }
 
-    Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndpoints();
+    Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndPoints();
     if (designServerEndpoints.containsValue(path)) {
       return "http://localhost:3002";
     }
