@@ -10,10 +10,12 @@ import proj.gateway.apigateway.common.component.Interceptor;
 @Configuration
 public class ProtocolConfig implements WebMvcConfigurer {
 
-  // todo = 3000, 3001, 3002 각 도메인들 한곳으로 따놓기
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost:3003").allowedMethods("GET",
+    final String reactClientUrl = "http://localhost:3000";
+    final String reactAdminUrl = "http://localhost:3003";
+
+    registry.addMapping("/**").allowedOrigins(reactClientUrl, reactAdminUrl).allowedMethods("GET",
         "PUT", "DELETE", "POST", "PATCH");
   }
 
