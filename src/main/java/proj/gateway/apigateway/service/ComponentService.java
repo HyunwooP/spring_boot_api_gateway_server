@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import proj.gateway.apigateway.common.error.APIResponseException;
-import proj.gateway.apigateway.common.error.FallBackException;
+import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
+import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
 @Service("ComponentService")

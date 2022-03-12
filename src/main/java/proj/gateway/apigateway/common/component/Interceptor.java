@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import proj.gateway.apigateway.common.error.NotCertificateException;
+import proj.gateway.apigateway.common.error.exceptions.NotCertificateException;
 import proj.gateway.apigateway.common.utils.CertificateUtils;
 
 @Component

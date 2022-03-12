@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.AuthService;
 

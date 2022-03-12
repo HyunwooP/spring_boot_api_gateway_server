@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import proj.gateway.apigateway.common.error.APIResponseException;
+import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.StyleService;
 

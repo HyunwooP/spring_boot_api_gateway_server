@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
+import proj.gateway.apigateway.common.error.exceptions.FallBackException;
+import proj.gateway.apigateway.common.error.exceptions.NotCertificateException;
+
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {

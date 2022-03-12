@@ -1,4 +1,4 @@
-package proj.gateway.apigateway.common.error;
+package proj.gateway.apigateway.common.error.exceptions;
 
 import java.io.IOException;
 
