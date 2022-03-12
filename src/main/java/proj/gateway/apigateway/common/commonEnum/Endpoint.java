@@ -38,13 +38,11 @@ public class Endpoint {
     return enumMap;
   }
 
-  // Node Api Server
   public enum ApiServerEndPoints {
     findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
     removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
   }
 
-  // Design Server
   public enum DesignServerEndPoints {
     findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
     findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme, designHealth
