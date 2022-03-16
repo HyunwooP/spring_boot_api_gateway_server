@@ -17,7 +17,11 @@ import proj.gateway.apigateway.service.CommonModelService;
 public class CommonModelController {
 
   @Resource(name = "CommonModelService")
-  private CommonModelService commonModelService;
+  private final CommonModelService commonModelService;
+
+  CommonModelController(CommonModelService commonModelService) {
+    this.commonModelService = commonModelService;
+  }
 
   @GetMapping(value = "/clientHealth")
   public String clientHealth(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

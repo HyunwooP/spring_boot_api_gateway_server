@@ -21,7 +21,11 @@ import proj.gateway.apigateway.service.ContentsService;
 public class ContentsController {
 
   @Resource(name = "ContentsService")
-  private ContentsService contentsService;
+  private final ContentsService contentsService;
+
+  ContentsController(ContentsService contentsService) {
+    this.contentsService = contentsService;
+  }
 
   @GetMapping(value = "/findContentsCount")
   public String findContentsCount(HttpServletRequest request, HttpServletResponse response)

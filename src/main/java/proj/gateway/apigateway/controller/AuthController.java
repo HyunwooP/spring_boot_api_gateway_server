@@ -19,7 +19,11 @@ import proj.gateway.apigateway.service.AuthService;
 public class AuthController {
 
   @Resource(name = "AuthService")
-  private AuthService authService;
+  private final AuthService authService;
+
+  AuthController(AuthService authService) {
+    this.authService = authService;
+  }
 
   @PostMapping(value = "/signInUser")
   public String signInUser(HttpServletRequest request, HttpServletResponse response,

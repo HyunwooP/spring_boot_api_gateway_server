@@ -18,7 +18,11 @@ import proj.gateway.apigateway.service.StyleService;
 public class StyleController {
 
   @Resource(name = "StyleService")
-  private StyleService styleService;
+  private final StyleService styleService;
+
+  StyleController(StyleService styleService) {
+    this.styleService = styleService;
+  }
 
   @GetMapping(value = "/findStyleCount")
   public String findStyleCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

@@ -18,7 +18,11 @@ import proj.gateway.apigateway.service.ComponentService;
 public class ComponentController {
 
   @Resource(name = "ComponentService")
-  private ComponentService componentService;
+  private final ComponentService componentService;
+
+  ComponentController(ComponentService componentService) {
+    this.componentService = componentService;
+  }
 
   @GetMapping(value = "/findComponentCount")
   public String findComponentCount(HttpServletRequest request, HttpServletResponse response)

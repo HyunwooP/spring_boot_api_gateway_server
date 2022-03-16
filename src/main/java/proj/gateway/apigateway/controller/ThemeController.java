@@ -18,7 +18,11 @@ import proj.gateway.apigateway.service.ThemeService;
 public class ThemeController {
 
   @Resource(name = "ThemeService")
-  private ThemeService themeService;
+  private final ThemeService themeService;
+
+  ThemeController(ThemeService themeService) {
+    this.themeService = themeService;
+  }
 
   @GetMapping(value = "/findThemeCount")
   public String findThemeCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

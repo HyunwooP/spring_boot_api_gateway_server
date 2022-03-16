@@ -20,7 +20,11 @@ import proj.gateway.apigateway.service.UserService;
 public class UserController {
 
   @Resource(name = "UserService")
-  private UserService userService;
+  private final UserService userService;
+
+  UserController(UserService userService) {
+    this.userService = userService;
+  }
 
   @GetMapping(value = "/findUser")
   public String findUser(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

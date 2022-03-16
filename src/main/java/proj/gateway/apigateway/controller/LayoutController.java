@@ -18,7 +18,11 @@ import proj.gateway.apigateway.service.LayoutService;
 public class LayoutController {
 
   @Resource(name = "LayoutService")
-  private LayoutService layoutService;
+  private final LayoutService layoutService;
+
+  LayoutController(LayoutService layoutService) {
+    this.layoutService = layoutService;
+  }
 
   @GetMapping(value = "/findLayoutCount")
   public String findLayoutCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
