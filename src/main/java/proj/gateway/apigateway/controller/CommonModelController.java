@@ -2,26 +2,22 @@ package proj.gateway.apigateway.controller;
 
 import java.util.HashMap;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.CommonModelService;
 
-@RestController("CommonModelController")
+@RestController
+@RequiredArgsConstructor
 public class CommonModelController {
 
-  @Resource(name = "CommonModelService")
   private final CommonModelService commonModelService;
-
-  CommonModelController(CommonModelService commonModelService) {
-    this.commonModelService = commonModelService;
-  }
 
   @GetMapping(value = "/clientHealth")
   public String clientHealth(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

@@ -2,7 +2,6 @@ package proj.gateway.apigateway.controller;
 
 import java.util.HashMap;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,19 +9,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.LayoutService;
 
-@RestController("LayoutController")
+@RestController
+@RequiredArgsConstructor
 public class LayoutController {
 
-  @Resource(name = "LayoutService")
   private final LayoutService layoutService;
-
-  LayoutController(LayoutService layoutService) {
-    this.layoutService = layoutService;
-  }
 
   @GetMapping(value = "/findLayoutCount")
   public String findLayoutCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

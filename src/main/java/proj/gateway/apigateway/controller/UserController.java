@@ -3,7 +3,6 @@ package proj.gateway.apigateway.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,19 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.UserService;
 
-@RestController("UserController")
+@RestController
+@RequiredArgsConstructor
 public class UserController {
 
-  @Resource(name = "UserService")
   private final UserService userService;
-
-  UserController(UserService userService) {
-    this.userService = userService;
-  }
 
   @GetMapping(value = "/findUser")
   public String findUser(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {

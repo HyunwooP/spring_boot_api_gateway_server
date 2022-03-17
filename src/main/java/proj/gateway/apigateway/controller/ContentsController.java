@@ -3,7 +3,6 @@ package proj.gateway.apigateway.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,19 +12,16 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.ContentsService;
 
-@RestController("ContentsController")
+@RestController
+@RequiredArgsConstructor
 public class ContentsController {
 
-  @Resource(name = "ContentsService")
   private final ContentsService contentsService;
-
-  ContentsController(ContentsService contentsService) {
-    this.contentsService = contentsService;
-  }
 
   @GetMapping(value = "/findContentsCount")
   public String findContentsCount(HttpServletRequest request, HttpServletResponse response)

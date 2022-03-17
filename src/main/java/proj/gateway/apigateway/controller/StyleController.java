@@ -2,7 +2,6 @@ package proj.gateway.apigateway.controller;
 
 import java.util.HashMap;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,19 +9,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.StyleService;
 
-@RestController("StyleController")
+@RestController
+@RequiredArgsConstructor
 public class StyleController {
 
-  @Resource(name = "StyleService")
   private final StyleService styleService;
-
-  StyleController(StyleService styleService) {
-    this.styleService = styleService;
-  }
 
   @GetMapping(value = "/findStyleCount")
   public String findStyleCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
