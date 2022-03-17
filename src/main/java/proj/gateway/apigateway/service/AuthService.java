@@ -12,7 +12,7 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service("AuthService")
+@Service
 public class AuthService extends CommonService {
 
   @CircuitBreaker(name = "signInUser", fallbackMethod = "signInUserFallBack")

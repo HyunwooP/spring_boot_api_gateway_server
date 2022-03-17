@@ -11,7 +11,7 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service("ThemeService")
+@Service
 public class ThemeService extends CommonService {
 
   @CircuitBreaker(name = "findThemeCount", fallbackMethod = "findThemeCountFallBack")

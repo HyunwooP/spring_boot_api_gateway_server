@@ -11,7 +11,7 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service("StyleService")
+@Service
 public class StyleService extends CommonService {
 
   @CircuitBreaker(name = "findStyleCount", fallbackMethod = "findStyleCountFallBack")

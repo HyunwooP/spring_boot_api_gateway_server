@@ -11,7 +11,7 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service("CommonModelService")
+@Service
 public class CommonModelService extends CommonService {
 
   @CircuitBreaker(name = "clientHealth", fallbackMethod = "clientHealthFallBack")

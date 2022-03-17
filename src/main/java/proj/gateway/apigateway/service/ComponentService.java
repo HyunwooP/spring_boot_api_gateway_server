@@ -11,7 +11,7 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 import proj.gateway.apigateway.common.service.CommonService;
 
-@Service("ComponentService")
+@Service
 public class ComponentService extends CommonService {
 
   @CircuitBreaker(name = "findComponentCount", fallbackMethod = "findComponentCountFallBack")
