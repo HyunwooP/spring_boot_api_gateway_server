@@ -21,7 +21,9 @@ https://github.com/awakelife93/node-api-template
 https://github.com/awakelife93/node-design-template
 
 ## [노트]
-
+#
+[lombok 설치 시 에러](https://github.com/GabrielBB/vscode-lombok/issues/23)
+#
 ### 설명
 
 ## 작성자
@@ -37,6 +39,7 @@ Author: 박현우
 Spring
 Spring Cloud
 Resilience4j
+Lombok
 ```
 
 ## 실행
