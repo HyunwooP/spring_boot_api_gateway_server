@@ -3,6 +3,7 @@ package proj.gateway.apigateway.common.component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +15,12 @@ public class AuthInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
     String token = request.getHeader("authorization");
+    String method = request.getMethod();
+
+    // options method로 들어오면 그냥 무조건 통과...
+    if (method.equals(HttpMethod.OPTIONS.name())) {
+      return true;
+    }
 
     if (token == null) {
       return false;
