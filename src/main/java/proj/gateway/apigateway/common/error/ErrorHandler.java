@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
-import proj.gateway.apigateway.common.error.exceptions.NotCertificateException;
 
 @EnableWebMvc
 @RestControllerAdvice
@@ -94,14 +93,5 @@ public class ErrorHandler {
 
     HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.BAD_REQUEST);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrorMap);
-  }
-
-  @ExceptionHandler(value = NotCertificateException.class)
-  public ResponseEntity<HashMap<String, Object>> notCertificateExceptionHandler(HttpServletRequest request,
-      Throwable throwable) throws Exception {
-    System.out.println("============= No Certificate Error =============" + " : " + new Date().getTime());
-
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.FORBIDDEN);
-    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseErrorMap);
   }
 }
