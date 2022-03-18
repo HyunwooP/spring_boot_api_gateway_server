@@ -28,16 +28,6 @@ public class Endpoint {
     return enumMap;
   }
 
-  public static Map<String, String> getCertificateEndPoints() {
-    Map<String, String> enumMap = new HashMap<String, String>();
-
-    for (CertificateEndPoints endpoint : CertificateEndPoints.values()) {
-      enumMap.put(endpoint.name(), "/" + endpoint.toString());
-    }
-
-    return enumMap;
-  }
-
   private static enum ApiServerEndPoints {
     findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
     removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
@@ -46,10 +36,5 @@ public class Endpoint {
   private static enum DesignServerEndPoints {
     findThemeItem, findComponent, findLayout, findStyle, findTheme, findComponentCount, findLayoutCount, findStyleCount,
     findThemeCount, removeComponent, removeLayout, removeStyle, removeTheme, designHealth
-  }
-
-  private static enum CertificateEndPoints {
-    signOut, findDashboardCount, findContentsCount, createContents, updateContents, removeContents, findUser,
-    findUserCount, findUserProfile, updateUser, removeUser, tokenRemoveUser
   }
 }
