@@ -1,6 +1,7 @@
 package proj.gateway.apigateway.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -12,7 +13,13 @@ public class CorsConfig implements WebMvcConfigurer {
     final String reactClientUrl = "http://localhost:3000";
     final String reactAdminUrl = "http://localhost:3003";
 
-    registry.addMapping("/**").allowedOrigins(reactClientUrl, reactAdminUrl).allowedMethods("GET",
-        "PUT", "DELETE", "POST", "PATCH");
+    registry.addMapping("/**")
+        .allowedOrigins(reactClientUrl, reactAdminUrl)
+        .allowedMethods(
+            HttpMethod.GET.name(),
+            HttpMethod.PUT.name(),
+            HttpMethod.DELETE.name(),
+            HttpMethod.POST.name(),
+            HttpMethod.PATCH.name());
   }
 }
