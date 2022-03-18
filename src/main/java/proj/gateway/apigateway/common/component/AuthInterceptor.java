@@ -7,20 +7,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import proj.gateway.apigateway.common.error.exceptions.NotCertificateException;
-import proj.gateway.apigateway.common.utils.CertificateUtils;
-
 @Component
-public class Interceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-      throws NotCertificateException {
-    String path = request.getRequestURI();
+      throws Exception {
     String token = request.getHeader("authorization");
 
-    if (!CertificateUtils.certificate(token, path)) {
-      throw new NotCertificateException();
+    if (token == null) {
+      return false;
     }
 
     return true;

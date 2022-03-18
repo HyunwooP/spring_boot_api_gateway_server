@@ -2,13 +2,10 @@ package proj.gateway.apigateway.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import proj.gateway.apigateway.common.component.Interceptor;
-
 @Configuration
-public class ProtocolConfig implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
@@ -17,10 +14,5 @@ public class ProtocolConfig implements WebMvcConfigurer {
 
     registry.addMapping("/**").allowedOrigins(reactClientUrl, reactAdminUrl).allowedMethods("GET",
         "PUT", "DELETE", "POST", "PATCH");
-  }
-
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new Interceptor()).addPathPatterns("/**");
   }
 }
