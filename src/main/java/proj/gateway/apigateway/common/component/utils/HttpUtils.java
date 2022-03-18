@@ -1,4 +1,4 @@
-package proj.gateway.apigateway.common.utils;
+package proj.gateway.apigateway.common.component.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

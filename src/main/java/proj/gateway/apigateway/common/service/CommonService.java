@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import proj.gateway.apigateway.common.commonEnum.Endpoint;
+import proj.gateway.apigateway.common.component.utils.ConvertUtils;
+import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.NotFoundAPIException;
-import proj.gateway.apigateway.common.utils.ConvertUtils;
-import proj.gateway.apigateway.common.utils.HttpUtils;
 
 @Service
 public class CommonService {

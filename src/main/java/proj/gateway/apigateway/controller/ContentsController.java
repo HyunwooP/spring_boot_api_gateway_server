@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
-import proj.gateway.apigateway.common.utils.HttpUtils;
 import proj.gateway.apigateway.service.ContentsService;
 
 @RestController
