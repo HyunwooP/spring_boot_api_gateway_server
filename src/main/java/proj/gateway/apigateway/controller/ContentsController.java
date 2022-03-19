@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,8 @@ public class ContentsController {
   }
 
   @PostMapping(value = "/createContents")
-  public String createContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+  public String createContents(HttpServletRequest request, HttpServletResponse response,
+      @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = contentsService.createContents(request, body);
@@ -56,7 +58,8 @@ public class ContentsController {
   }
 
   @PatchMapping(value = "/updateContents")
-  public String updateContents(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+  public String updateContents(HttpServletRequest request, HttpServletResponse response,
+      @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = contentsService.updateContents(request, body);

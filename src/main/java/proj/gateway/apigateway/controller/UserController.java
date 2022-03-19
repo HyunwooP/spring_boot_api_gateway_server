@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,8 @@ public class UserController {
   }
 
   @PatchMapping(value = "/updateUser")
-  public String updateUser(HttpServletRequest request, HttpServletResponse response, Map<String, Object> body)
+  public String updateUser(HttpServletRequest request, HttpServletResponse response,
+      @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
       HashMap<String, Object> apiResponse = userService.updateUser(request, body);
