@@ -10,8 +10,8 @@ public class CorsConfig implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    final String reactClientUrl = "http://localhost:3000";
-    final String reactAdminUrl = "http://localhost:3003";
+    final String reactClientUrl = "http://localhost:4000";
+    final String reactAdminUrl = "http://localhost:4005";
 
     registry.addMapping("/**")
         .allowedOrigins(reactClientUrl, reactAdminUrl)
