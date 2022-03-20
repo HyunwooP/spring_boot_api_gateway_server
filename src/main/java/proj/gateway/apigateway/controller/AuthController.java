@@ -53,15 +53,4 @@ public class AuthController {
       throw new APIResponseException(exception);
     }
   }
-
-  @PostMapping(value = "/signUp")
-  public String signUp(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> body)
-      throws APIResponseException {
-    try {
-      HashMap<String, Object> apiResponse = authService.signUp(request, body);
-      return HttpUtils.send(apiResponse, response);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
-  }
 }
