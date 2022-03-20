@@ -29,8 +29,9 @@ public class Endpoint {
   }
 
   private static enum ApiServerEndPoints {
-    findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut, signUp,
-    removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth
+    findUser, findUserProfile, findUserCount, findContents, findContentsCount, signInUser, signInAdmin, signOut,
+    removeUser, tokenRemoveUser, updateUser, createContents, updateContents, findDashboardCount, clientHealth,
+    createUser
   }
 
   private static enum DesignServerEndPoints {
