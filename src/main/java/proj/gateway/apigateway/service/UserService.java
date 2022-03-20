@@ -45,6 +45,16 @@ public class UserService extends CommonService {
     return queryRequest(queryString, path, method, token);
   }
 
+  @CircuitBreaker(name = "createUser", fallbackMethod = "createUserFallBack")
+  public HashMap<String, Object> createUser(HttpServletRequest request, Map<String, Object> body)
+      throws APIResponseException {
+    String path = request.getRequestURI();
+    String method = request.getMethod();
+    String token = request.getHeader("authorization");
+
+    return bodyRequest(path, method, token, body);
+  }
+
   @CircuitBreaker(name = "updateUser", fallbackMethod = "updateUserFallBack")
   public HashMap<String, Object> updateUser(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -90,6 +100,13 @@ public class UserService extends CommonService {
   public HashMap<String, Object> findUserProfileFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== findUserProfileFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public HashMap<String, Object> createUserFallBack(HttpServletRequest request, Map<String, Object> body,
+      Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== createUserFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 

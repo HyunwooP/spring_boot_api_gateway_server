@@ -45,16 +45,6 @@ public class AuthService extends CommonService {
     return bodyRequest(path, method, token, body);
   }
 
-  @CircuitBreaker(name = "signUp", fallbackMethod = "signUpFallBack")
-  public HashMap<String, Object> signUp(HttpServletRequest request, Map<String, Object> body)
-      throws APIResponseException {
-    String path = request.getRequestURI();
-    String method = request.getMethod();
-    String token = request.getHeader("authorization");
-
-    return bodyRequest(path, method, token, body);
-  }
-
   public HashMap<String, Object> signInUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
@@ -73,13 +63,6 @@ public class AuthService extends CommonService {
       Throwable throwable)
       throws FallBackException {
     System.out.println("============== signOutFallBack ==============");
-    throw new FallBackException(throwable.getMessage());
-  }
-
-  public HashMap<String, Object> signUpFallBack(HttpServletRequest request, Map<String, Object> body,
-      Throwable throwable)
-      throws FallBackException {
-    System.out.println("============== signUpFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 }
