@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,9 +20,9 @@ public class HttpUtils {
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
     // https://stackoverflow.com/questions/25163131/httpurlconnection-invalid-http-method-patch
-    if (method.equals("PATCH") || method.equals("PUT")) {
+    if (method.equals(HttpMethod.PATCH.name()) || method.equals(HttpMethod.PUT.name())) {
       connection.setRequestProperty("X-HTTP-Method-Override", method);
-      method = "POST";
+      method = HttpMethod.POST.name();
     }
 
     connection.setRequestMethod(method);
