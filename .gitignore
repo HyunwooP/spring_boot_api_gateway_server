@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Gradle files
+.gradle/
+build/
+
+# Generated files
+bin/
+gen/
+out/
