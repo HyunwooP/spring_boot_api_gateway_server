@@ -1,12 +1,14 @@
-package proj.gateway.apigateway.common.component;
+package proj.gateway.apigateway.config;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class RestModule {
+@Configuration
+public class RestConfig {
 
   @Bean
   public RestTemplate restTemplate() {
