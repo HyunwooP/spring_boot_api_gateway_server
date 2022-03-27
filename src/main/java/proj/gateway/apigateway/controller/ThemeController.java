@@ -1,6 +1,6 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +21,10 @@ public class ThemeController {
   private final ThemeService themeService;
 
   @GetMapping(value = "/findThemeCount")
-  public String findThemeCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findThemeCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = themeService.findThemeCount(request);
+      Map<String, Object> apiResponse = themeService.findThemeCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -31,9 +32,10 @@ public class ThemeController {
   }
 
   @GetMapping(value = "/findThemeItem")
-  public String findThemeItem(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findThemeItem(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = themeService.findThemeItem(request);
+      Map<String, Object> apiResponse = themeService.findThemeItem(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -41,9 +43,10 @@ public class ThemeController {
   }
 
   @GetMapping(value = "/findTheme")
-  public String findTheme(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findTheme(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = themeService.findTheme(request);
+      Map<String, Object> apiResponse = themeService.findTheme(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -51,9 +54,10 @@ public class ThemeController {
   }
 
   @DeleteMapping(value = "/removeTheme")
-  public String removeTheme(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> removeTheme(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = themeService.removeTheme(request);
+      Map<String, Object> apiResponse = themeService.removeTheme(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

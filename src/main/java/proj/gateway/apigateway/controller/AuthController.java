@@ -1,6 +1,5 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +21,10 @@ public class AuthController {
   private final AuthService authService;
 
   @PostMapping(value = "/signInUser")
-  public String signInUser(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> signInUser(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = authService.signInUser(request, body);
+      Map<String, Object> apiResponse = authService.signInUser(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -33,10 +32,10 @@ public class AuthController {
   }
 
   @PostMapping(value = "/signInAdmin")
-  public String signInAdmin(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> signInAdmin(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = authService.signInAdmin(request, body);
+      Map<String, Object> apiResponse = authService.signInAdmin(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -44,10 +43,11 @@ public class AuthController {
   }
 
   @PostMapping(value = "/signOut")
-  public String signOut(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> body)
+  public Map<String, Object> signOut(HttpServletRequest request, HttpServletResponse response,
+      @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = authService.signOut(request, body);
+      Map<String, Object> apiResponse = authService.signOut(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

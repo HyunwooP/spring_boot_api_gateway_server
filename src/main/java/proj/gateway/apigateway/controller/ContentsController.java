@@ -1,6 +1,5 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +24,10 @@ public class ContentsController {
   private final ContentsService contentsService;
 
   @GetMapping(value = "/findContentsCount")
-  public String findContentsCount(HttpServletRequest request, HttpServletResponse response)
+  public Map<String, Object> findContentsCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = contentsService.findContentsCount(request);
+      Map<String, Object> apiResponse = contentsService.findContentsCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -36,9 +35,10 @@ public class ContentsController {
   }
 
   @GetMapping(value = "/findContents")
-  public String findContents(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findContents(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = contentsService.findContents(request);
+      Map<String, Object> apiResponse = contentsService.findContents(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -46,11 +46,11 @@ public class ContentsController {
   }
 
   @PostMapping(value = "/createContents")
-  public String createContents(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> createContents(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = contentsService.createContents(request, body);
+      Map<String, Object> apiResponse = contentsService.createContents(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -58,11 +58,11 @@ public class ContentsController {
   }
 
   @PatchMapping(value = "/updateContents")
-  public String updateContents(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> updateContents(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = contentsService.updateContents(request, body);
+      Map<String, Object> apiResponse = contentsService.updateContents(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -70,9 +70,10 @@ public class ContentsController {
   }
 
   @DeleteMapping(value = "/removeContents")
-  public String removeContents(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> removeContents(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = contentsService.removeContents(request);
+      Map<String, Object> apiResponse = contentsService.removeContents(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

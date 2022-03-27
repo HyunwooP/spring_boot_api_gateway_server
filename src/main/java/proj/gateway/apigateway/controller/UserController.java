@@ -1,6 +1,5 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +24,10 @@ public class UserController {
   private final UserService userService;
 
   @GetMapping(value = "/findUser")
-  public String findUser(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findUser(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.findUser(request);
+      Map<String, Object> apiResponse = userService.findUser(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -35,9 +35,10 @@ public class UserController {
   }
 
   @GetMapping(value = "/findUserCount")
-  public String findUserCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findUserCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.findUserCount(request);
+      Map<String, Object> apiResponse = userService.findUserCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -45,9 +46,10 @@ public class UserController {
   }
 
   @GetMapping(value = "/findUserProfile")
-  public String findUserProfile(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findUserProfile(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.findUserProfile(request);
+      Map<String, Object> apiResponse = userService.findUserProfile(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -55,11 +57,11 @@ public class UserController {
   }
 
   @PostMapping(value = "/createUser")
-  public String createUser(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> createUser(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.createUser(request, body);
+      Map<String, Object> apiResponse = userService.createUser(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException e) {
       throw new APIResponseException(e.getMessage());
@@ -67,11 +69,11 @@ public class UserController {
   }
 
   @PatchMapping(value = "/updateUser")
-  public String updateUser(HttpServletRequest request, HttpServletResponse response,
+  public Map<String, Object> updateUser(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.updateUser(request, body);
+      Map<String, Object> apiResponse = userService.updateUser(request, body);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException e) {
       throw new APIResponseException(e.getMessage());
@@ -79,9 +81,10 @@ public class UserController {
   }
 
   @DeleteMapping(value = "/removeUser")
-  public String removeUser(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> removeUser(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.removeUser(request);
+      Map<String, Object> apiResponse = userService.removeUser(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -89,9 +92,10 @@ public class UserController {
   }
 
   @DeleteMapping(value = "/tokenRemoveUser")
-  public String tokenRemoveUser(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> tokenRemoveUser(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = userService.tokenRemoveUser(request);
+      Map<String, Object> apiResponse = userService.tokenRemoveUser(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

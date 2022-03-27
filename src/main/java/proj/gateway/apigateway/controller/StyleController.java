@@ -1,6 +1,6 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +21,10 @@ public class StyleController {
   private final StyleService styleService;
 
   @GetMapping(value = "/findStyleCount")
-  public String findStyleCount(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findStyleCount(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = styleService.findStyleCount(request);
+      Map<String, Object> apiResponse = styleService.findStyleCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -31,9 +32,10 @@ public class StyleController {
   }
 
   @GetMapping(value = "/findStyle")
-  public String findStyle(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findStyle(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = styleService.findStyle(request);
+      Map<String, Object> apiResponse = styleService.findStyle(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -41,9 +43,10 @@ public class StyleController {
   }
 
   @DeleteMapping(value = "/removeStyle")
-  public String removeStyle(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> removeStyle(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = styleService.removeStyle(request);
+      Map<String, Object> apiResponse = styleService.removeStyle(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

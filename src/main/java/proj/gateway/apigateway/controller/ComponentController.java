@@ -1,6 +1,6 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +21,10 @@ public class ComponentController {
   private final ComponentService componentService;
 
   @GetMapping(value = "/findComponentCount")
-  public String findComponentCount(HttpServletRequest request, HttpServletResponse response)
+  public Map<String, Object> findComponentCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = componentService.findComponentCount(request);
+      Map<String, Object> apiResponse = componentService.findComponentCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -32,9 +32,10 @@ public class ComponentController {
   }
 
   @GetMapping(value = "/findComponent")
-  public String findComponent(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> findComponent(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = componentService.findComponent(request);
+      Map<String, Object> apiResponse = componentService.findComponent(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -42,9 +43,10 @@ public class ComponentController {
   }
 
   @DeleteMapping(value = "removeComponent")
-  public String removeComponent(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> removeComponent(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = componentService.removeComponent(request);
+      Map<String, Object> apiResponse = componentService.removeComponent(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);

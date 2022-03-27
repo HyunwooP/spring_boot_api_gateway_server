@@ -1,6 +1,6 @@
 package proj.gateway.apigateway.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,10 @@ public class CommonModelController {
   private final CommonModelService commonModelService;
 
   @GetMapping(value = "/clientHealth")
-  public String clientHealth(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> clientHealth(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = commonModelService.clientHealth(request);
+      Map<String, Object> apiResponse = commonModelService.clientHealth(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -30,9 +31,10 @@ public class CommonModelController {
   }
 
   @GetMapping(value = "/designHealth")
-  public String designHealth(HttpServletRequest request, HttpServletResponse response) throws APIResponseException {
+  public Map<String, Object> designHealth(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = commonModelService.designHealth(request);
+      Map<String, Object> apiResponse = commonModelService.designHealth(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
@@ -40,10 +42,10 @@ public class CommonModelController {
   }
 
   @GetMapping(value = "/findDashboardCount")
-  public String findDashboardCount(HttpServletRequest request, HttpServletResponse response)
+  public Map<String, Object> findDashboardCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      HashMap<String, Object> apiResponse = commonModelService.findDashboardCount(request);
+      Map<String, Object> apiResponse = commonModelService.findDashboardCount(request);
       return HttpUtils.send(apiResponse, response);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
