@@ -1,58 +1,92 @@
 package proj.gateway.apigateway.common.component.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import io.github.resilience4j.core.lang.Nullable;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class HttpUtils {
 
-  public static HttpURLConnection generateRequest(String url, String method, String token) throws IOException {
-    URL endpoint = new URL(url);
-    HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
+  private final RestTemplate restTemplate;
 
-    // https://stackoverflow.com/questions/25163131/httpurlconnection-invalid-http-method-patch
-    if (method.equals(HttpMethod.PATCH.name()) || method.equals(HttpMethod.PUT.name())) {
-      connection.setRequestProperty("X-HTTP-Method-Override", method);
-      method = HttpMethod.POST.name();
-    }
+  private static Map<String, Object> generateResponseModal(ResponseEntity<Map<String, Object>> exchangeResponse) {
+    HashMap<String, Object> response = new HashMap<String, Object>();
 
-    connection.setRequestMethod(method);
-    connection.setDoInput(true);
-    connection.setDoOutput(true);
-    connection.setRequestProperty("Cache-Control", "no-cache");
-    connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-    connection.setRequestProperty("authorization", token);
-    return connection;
+    response.put("status", exchangeResponse.getStatusCode().value());
+    response.put("data", exchangeResponse.getBody());
+
+    return response;
+  };
+
+  private Map<String, Object> request(HttpMethod method, String url, String token,
+      @Nullable MultiValueMap<String, Object> body) {
+    final HttpHeaders headers = new HttpHeaders();
+    headers.set("authorization", token);
+    final HttpEntity<Object> entity = new HttpEntity<>(body, headers);
+    final ResponseEntity<Map<String, Object>> exchangeResponse = restTemplate.exchange(
+        url,
+        method,
+        entity,
+        new ParameterizedTypeReference<Map<String, Object>>() {
+        });
+
+    return generateResponseModal(exchangeResponse);
   }
 
-  public static String generateResponse(HttpURLConnection request) throws IOException {
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-    StringBuffer stringBuffer = new StringBuffer();
-    String inputLine;
-
-    while ((inputLine = bufferedReader.readLine()) != null) {
-      stringBuffer.append(inputLine);
-    }
-    bufferedReader.close();
-
-    String _response = stringBuffer.toString();
-    return _response;
+  private Map<String, Object> queryRequest(HttpMethod method, String url, String token) {
+    return request(method, url, token, null);
   }
 
-  public static String send(HashMap<String, Object> apiResponse, HttpServletResponse response) {
+  private Map<String, Object> bodyRequest(HttpMethod method, String url, String token, Map<String, Object> body) {
+    MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+
+    for (String key : body.keySet()) {
+      parameters.add(key, body.get(key));
+    }
+
+    return request(method, url, token, parameters);
+  }
+
+  public Map<String, Object> get(String url, String token) {
+    return queryRequest(HttpMethod.GET, url, token);
+  }
+
+  public Map<String, Object> delete(String url, String token) {
+    return queryRequest(HttpMethod.DELETE, url, token);
+  }
+
+  public Map<String, Object> post(String url, String token, Map<String, Object> body) {
+    return bodyRequest(HttpMethod.POST, url, token, body);
+  }
+
+  public Map<String, Object> patch(String url, String token, Map<String, Object> body) {
+    return bodyRequest(HttpMethod.PATCH, url, token, body);
+  }
+
+  public Map<String, Object> put(String url, String token, Map<String, Object> body) {
+    return bodyRequest(HttpMethod.PUT, url, token, body);
+  }
+
+  public static Map<String, Object> send(Map<String, Object> apiResponse, HttpServletResponse response) {
     int status = (int) apiResponse.get("status");
-    String jsonString = (String) apiResponse.get("data");
+    Map<String, Object> responseJson = (Map<String, Object>) apiResponse.get("data");
 
     response.setStatus(status);
-    return jsonString;
+    return responseJson;
   }
 }
