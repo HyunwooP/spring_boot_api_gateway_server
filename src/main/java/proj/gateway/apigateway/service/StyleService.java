@@ -1,62 +1,63 @@
 package proj.gateway.apigateway.service;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.RequiredArgsConstructor;
+import proj.gateway.apigateway.common.component.HttpModule;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
-import proj.gateway.apigateway.common.service.CommonService;
 
 @Service
-public class StyleService extends CommonService {
+@RequiredArgsConstructor
+public class StyleService {
+
+  private final HttpModule httpModule;
 
   @CircuitBreaker(name = "findStyleCount", fallbackMethod = "findStyleCountFallBack")
-  public HashMap<String, Object> findStyleCount(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> findStyleCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.getRequest(queryString, path, token);
   }
 
   @CircuitBreaker(name = "findStyle", fallbackMethod = "findStyleFallBack")
-  public HashMap<String, Object> findStyle(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> findStyle(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.getRequest(queryString, path, token);
   }
 
   @CircuitBreaker(name = "removeStyle", fallbackMethod = "removeStyleFallBack")
-  public HashMap<String, Object> removeStyle(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> removeStyle(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.deleteRequest(queryString, path, token);
   }
 
-  public HashMap<String, Object> findStyleCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> findStyleCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== findStyleCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public HashMap<String, Object> findStyleFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> findStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== findStyleFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public HashMap<String, Object> removeStyleFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> removeStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== removeStyleFallBack ==============");
     throw new FallBackException(throwable.getMessage());

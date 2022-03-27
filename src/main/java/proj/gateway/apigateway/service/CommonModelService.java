@@ -1,62 +1,63 @@
 package proj.gateway.apigateway.service;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.RequiredArgsConstructor;
+import proj.gateway.apigateway.common.component.HttpModule;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
-import proj.gateway.apigateway.common.service.CommonService;
 
 @Service
-public class CommonModelService extends CommonService {
+@RequiredArgsConstructor
+public class CommonModelService {
+
+  private final HttpModule httpModule;
 
   @CircuitBreaker(name = "clientHealth", fallbackMethod = "clientHealthFallBack")
-  public HashMap<String, Object> clientHealth(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> clientHealth(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.getRequest(queryString, path, token);
   }
 
   @CircuitBreaker(name = "designHealth", fallbackMethod = "designHealthFallBack")
-  public HashMap<String, Object> designHealth(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> designHealth(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.getRequest(queryString, path, token);
   }
 
   @CircuitBreaker(name = "findDashboardCount", fallbackMethod = "findDashboardCountFallBack")
-  public HashMap<String, Object> findDashboardCount(HttpServletRequest request) throws APIResponseException {
+  public Map<String, Object> findDashboardCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
     String path = request.getRequestURI();
-    String method = request.getMethod();
     String token = request.getHeader("authorization");
 
-    return queryRequest(queryString, path, method, token);
+    return httpModule.getRequest(queryString, path, token);
   }
 
-  public HashMap<String, Object> clientHealthFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> clientHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== clientHealthFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public HashMap<String, Object> designHealthFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> designHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== designHealthFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public HashMap<String, Object> findDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> findDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
     System.out.println("============== findDashboardCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
