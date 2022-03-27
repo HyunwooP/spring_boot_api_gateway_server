@@ -34,6 +34,7 @@ Spring
 Spring Cloud
 Resilience4j
 Lombok
+Http Components
 ```
 ## 실행
 1. git clone project
