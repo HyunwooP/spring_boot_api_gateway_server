@@ -47,7 +47,7 @@ public class HttpModule {
       String domain = generateDomain(path);
       String url = domain + path + (queryString != null ? "?" + queryString : "");
 
-      response = httpUtils.request(method, url, token);
+      response = httpUtils.request(method, url, token, null);
 
       logger.info("queryRequest - " + url);
       return response;
