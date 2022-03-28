@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.UserService;
 
@@ -27,8 +26,7 @@ public class UserController {
   public Map<String, Object> findUser(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.findUser(request);
-      return HttpUtils.send(apiResponse, response);
+      return userService.findUser(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -38,8 +36,7 @@ public class UserController {
   public Map<String, Object> findUserCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.findUserCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return userService.findUserCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -49,8 +46,7 @@ public class UserController {
   public Map<String, Object> findUserProfile(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.findUserProfile(request);
-      return HttpUtils.send(apiResponse, response);
+      return userService.findUserProfile(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -61,10 +57,9 @@ public class UserController {
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.createUser(request, body);
-      return HttpUtils.send(apiResponse, response);
-    } catch (APIResponseException e) {
-      throw new APIResponseException(e.getMessage());
+      return userService.createUser(request, body);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
     }
   }
 
@@ -73,10 +68,9 @@ public class UserController {
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.updateUser(request, body);
-      return HttpUtils.send(apiResponse, response);
-    } catch (APIResponseException e) {
-      throw new APIResponseException(e.getMessage());
+      return userService.updateUser(request, body);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
     }
   }
 
@@ -84,8 +78,7 @@ public class UserController {
   public Map<String, Object> removeUser(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.removeUser(request);
-      return HttpUtils.send(apiResponse, response);
+      return userService.removeUser(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -95,8 +88,7 @@ public class UserController {
   public Map<String, Object> tokenRemoveUser(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = userService.tokenRemoveUser(request);
-      return HttpUtils.send(apiResponse, response);
+      return userService.tokenRemoveUser(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

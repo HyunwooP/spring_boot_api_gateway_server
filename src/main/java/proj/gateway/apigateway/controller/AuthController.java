@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.AuthService;
 
@@ -24,8 +23,7 @@ public class AuthController {
   public Map<String, Object> signInUser(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = authService.signInUser(request, body);
-      return HttpUtils.send(apiResponse, response);
+      return authService.signInUser(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -35,8 +33,7 @@ public class AuthController {
   public Map<String, Object> signInAdmin(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = authService.signInAdmin(request, body);
-      return HttpUtils.send(apiResponse, response);
+      return authService.signInAdmin(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -47,8 +44,7 @@ public class AuthController {
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = authService.signOut(request, body);
-      return HttpUtils.send(apiResponse, response);
+      return authService.signOut(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

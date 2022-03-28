@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ComponentService;
 
@@ -24,8 +23,7 @@ public class ComponentController {
   public Map<String, Object> findComponentCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = componentService.findComponentCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return componentService.findComponentCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -35,8 +33,7 @@ public class ComponentController {
   public Map<String, Object> findComponent(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = componentService.findComponent(request);
-      return HttpUtils.send(apiResponse, response);
+      return componentService.findComponent(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -46,8 +43,7 @@ public class ComponentController {
   public Map<String, Object> removeComponent(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = componentService.removeComponent(request);
-      return HttpUtils.send(apiResponse, response);
+      return componentService.removeComponent(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

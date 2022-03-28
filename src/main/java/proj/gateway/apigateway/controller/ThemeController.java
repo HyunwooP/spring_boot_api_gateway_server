@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ThemeService;
 
@@ -24,8 +23,7 @@ public class ThemeController {
   public Map<String, Object> findThemeCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = themeService.findThemeCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return themeService.findThemeCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -35,8 +33,7 @@ public class ThemeController {
   public Map<String, Object> findThemeItem(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = themeService.findThemeItem(request);
-      return HttpUtils.send(apiResponse, response);
+      return themeService.findThemeItem(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -46,8 +43,7 @@ public class ThemeController {
   public Map<String, Object> findTheme(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = themeService.findTheme(request);
-      return HttpUtils.send(apiResponse, response);
+      return themeService.findTheme(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -57,8 +53,7 @@ public class ThemeController {
   public Map<String, Object> removeTheme(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = themeService.removeTheme(request);
-      return HttpUtils.send(apiResponse, response);
+      return themeService.removeTheme(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

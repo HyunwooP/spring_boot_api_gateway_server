@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.CommonModelService;
 
@@ -23,8 +22,7 @@ public class CommonModelController {
   public Map<String, Object> clientHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = commonModelService.clientHealth(request);
-      return HttpUtils.send(apiResponse, response);
+      return commonModelService.clientHealth(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -34,8 +32,7 @@ public class CommonModelController {
   public Map<String, Object> designHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = commonModelService.designHealth(request);
-      return HttpUtils.send(apiResponse, response);
+      return commonModelService.designHealth(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -45,8 +42,7 @@ public class CommonModelController {
   public Map<String, Object> findDashboardCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = commonModelService.findDashboardCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return commonModelService.findDashboardCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

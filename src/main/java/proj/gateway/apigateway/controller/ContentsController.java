@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ContentsService;
 
@@ -27,8 +26,7 @@ public class ContentsController {
   public Map<String, Object> findContentsCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = contentsService.findContentsCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return contentsService.findContentsCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -38,8 +36,7 @@ public class ContentsController {
   public Map<String, Object> findContents(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = contentsService.findContents(request);
-      return HttpUtils.send(apiResponse, response);
+      return contentsService.findContents(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -50,8 +47,7 @@ public class ContentsController {
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = contentsService.createContents(request, body);
-      return HttpUtils.send(apiResponse, response);
+      return contentsService.createContents(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -62,8 +58,7 @@ public class ContentsController {
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = contentsService.updateContents(request, body);
-      return HttpUtils.send(apiResponse, response);
+      return contentsService.updateContents(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -73,8 +68,7 @@ public class ContentsController {
   public Map<String, Object> removeContents(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = contentsService.removeContents(request);
-      return HttpUtils.send(apiResponse, response);
+      return contentsService.removeContents(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

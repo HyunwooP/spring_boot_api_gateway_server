@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.LayoutService;
 
@@ -24,8 +23,7 @@ public class LayoutController {
   public Map<String, Object> findLayoutCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = layoutService.findLayoutCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return layoutService.findLayoutCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -35,8 +33,7 @@ public class LayoutController {
   public Map<String, Object> findLayout(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = layoutService.findLayout(request);
-      return HttpUtils.send(apiResponse, response);
+      return layoutService.findLayout(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -46,8 +43,7 @@ public class LayoutController {
   public Map<String, Object> removeLayout(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = layoutService.removeLayout(request);
-      return HttpUtils.send(apiResponse, response);
+      return layoutService.removeLayout(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

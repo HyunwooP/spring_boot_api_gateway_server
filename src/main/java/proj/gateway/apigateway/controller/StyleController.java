@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.StyleService;
 
@@ -24,8 +23,7 @@ public class StyleController {
   public Map<String, Object> findStyleCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = styleService.findStyleCount(request);
-      return HttpUtils.send(apiResponse, response);
+      return styleService.findStyleCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -35,8 +33,7 @@ public class StyleController {
   public Map<String, Object> findStyle(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = styleService.findStyle(request);
-      return HttpUtils.send(apiResponse, response);
+      return styleService.findStyle(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
@@ -46,8 +43,7 @@ public class StyleController {
   public Map<String, Object> removeStyle(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      Map<String, Object> apiResponse = styleService.removeStyle(request);
-      return HttpUtils.send(apiResponse, response);
+      return styleService.removeStyle(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
