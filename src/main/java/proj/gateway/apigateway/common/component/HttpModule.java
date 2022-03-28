@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,7 @@ public class HttpModule {
       String domain = generateDomain(path);
       String url = domain + path + (queryString != null ? "?" + queryString : "");
 
-      response = httpUtils.queryRequest(method, url, token);
+      response = httpUtils.request(method, url, token);
 
       logger.info("queryRequest - " + url);
       return response;
@@ -74,7 +76,13 @@ public class HttpModule {
       String domain = generateDomain(path);
       String url = domain + path;
 
-      response = httpUtils.bodyRequest(method, url, token, body);
+      MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+
+      for (String key : body.keySet()) {
+        parameters.add(key, body.get(key).toString());
+      }
+
+      response = httpUtils.request(method, url, token, parameters);
 
       logger.info("bodyRequest - " + url);
       return response;
