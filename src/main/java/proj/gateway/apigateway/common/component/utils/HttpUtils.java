@@ -46,11 +46,11 @@ public class HttpUtils {
     return generateResponseModal(exchangeResponse);
   }
 
-  private Map<String, Object> queryRequest(HttpMethod method, String url, String token) {
+  public Map<String, Object> queryRequest(HttpMethod method, String url, String token) {
     return request(method, url, token, null);
   }
 
-  private Map<String, Object> bodyRequest(HttpMethod method, String url, String token, Map<String, Object> body) {
+  public Map<String, Object> bodyRequest(HttpMethod method, String url, String token, Map<String, Object> body) {
     MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
     for (String key : body.keySet()) {

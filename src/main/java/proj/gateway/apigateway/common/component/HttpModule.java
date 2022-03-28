@@ -45,11 +45,7 @@ public class HttpModule {
       String domain = generateDomain(path);
       String url = domain + path + (queryString != null ? "?" + queryString : "");
 
-      if (HttpMethod.GET == method) {
-        response = httpUtils.get(url, token);
-      } else if (HttpMethod.DELETE == method) {
-        response = httpUtils.delete(url, token);
-      }
+      response = httpUtils.queryRequest(method, url, token);
 
       logger.info("queryRequest - " + url);
       return response;
@@ -78,13 +74,7 @@ public class HttpModule {
       String domain = generateDomain(path);
       String url = domain + path;
 
-      if (HttpMethod.POST == method) {
-        response = httpUtils.post(url, token, body);
-      } else if (HttpMethod.PATCH == method) {
-        response = httpUtils.patch(url, token, body);
-      } else if (HttpMethod.PUT == method) {
-        response = httpUtils.put(url, token, body);
-      }
+      response = httpUtils.bodyRequest(method, url, token, body);
 
       logger.info("bodyRequest - " + url);
       return response;
