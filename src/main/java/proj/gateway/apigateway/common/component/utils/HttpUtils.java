@@ -15,7 +15,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import io.github.resilience4j.core.lang.Nullable;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -33,8 +32,7 @@ public class HttpUtils {
     return response;
   };
 
-  private Map<String, Object> request(HttpMethod method, String url, String token,
-      @Nullable MultiValueMap<String, Object> body) {
+  private Map<String, Object> request(HttpMethod method, String url, String token, MultiValueMap<String, String> body) {
     final HttpHeaders headers = new HttpHeaders();
     headers.set("authorization", token);
     final HttpEntity<Object> entity = new HttpEntity<>(body, headers);
@@ -53,10 +51,10 @@ public class HttpUtils {
   }
 
   private Map<String, Object> bodyRequest(HttpMethod method, String url, String token, Map<String, Object> body) {
-    MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+    MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
     for (String key : body.keySet()) {
-      parameters.add(key, body.get(key));
+      parameters.add(key, body.get(key).toString());
     }
 
     return request(method, url, token, parameters);
