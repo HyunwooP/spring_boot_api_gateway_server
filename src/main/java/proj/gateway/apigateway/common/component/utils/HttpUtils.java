@@ -36,18 +36,4 @@ public class HttpUtils {
 
     return generateResponseModal(exchangeResponse);
   }
-
-  public Map<String, Object> request(HttpMethod method, String url, String token) {
-    final HttpHeaders headers = new HttpHeaders();
-    headers.set("authorization", token);
-    final HttpEntity<Object> entity = new HttpEntity<>(headers);
-    final ResponseEntity<Map<String, Object>> exchangeResponse = restTemplate.exchange(
-        url,
-        method,
-        entity,
-        new ParameterizedTypeReference<Map<String, Object>>() {
-        });
-
-    return generateResponseModal(exchangeResponse);
-  }
 }
