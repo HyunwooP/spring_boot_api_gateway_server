@@ -60,26 +60,6 @@ public class HttpUtils {
     return request(method, url, token, parameters);
   }
 
-  public Map<String, Object> get(String url, String token) {
-    return queryRequest(HttpMethod.GET, url, token);
-  }
-
-  public Map<String, Object> delete(String url, String token) {
-    return queryRequest(HttpMethod.DELETE, url, token);
-  }
-
-  public Map<String, Object> post(String url, String token, Map<String, Object> body) {
-    return bodyRequest(HttpMethod.POST, url, token, body);
-  }
-
-  public Map<String, Object> patch(String url, String token, Map<String, Object> body) {
-    return bodyRequest(HttpMethod.PATCH, url, token, body);
-  }
-
-  public Map<String, Object> put(String url, String token, Map<String, Object> body) {
-    return bodyRequest(HttpMethod.PUT, url, token, body);
-  }
-
   public static Map<String, Object> send(Map<String, Object> apiResponse, HttpServletResponse response) {
     int status = (int) apiResponse.get("status");
     Map<String, Object> responseJson = (Map<String, Object>) apiResponse.get("data");
