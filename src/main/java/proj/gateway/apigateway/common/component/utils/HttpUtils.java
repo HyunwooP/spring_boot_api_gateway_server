@@ -19,10 +19,6 @@ public class HttpUtils {
 
   private final RestTemplate restTemplate;
 
-  private Map<String, Object> generateResponseModal(ResponseEntity<Map<String, Object>> exchangeResponse) {
-    return exchangeResponse.getBody();
-  };
-
   public Map<String, Object> request(HttpMethod method, String url, String token, MultiValueMap<String, String> body) {
     final HttpHeaders headers = new HttpHeaders();
     headers.set("authorization", token);
@@ -34,6 +30,6 @@ public class HttpUtils {
         new ParameterizedTypeReference<Map<String, Object>>() {
         });
 
-    return generateResponseModal(exchangeResponse);
+    return exchangeResponse.getBody();
   }
 }
