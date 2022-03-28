@@ -1,9 +1,6 @@
 package proj.gateway.apigateway.common.component.utils;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -23,13 +20,8 @@ public class HttpUtils {
 
   private final RestTemplate restTemplate;
 
-  private static Map<String, Object> generateResponseModal(ResponseEntity<Map<String, Object>> exchangeResponse) {
-    HashMap<String, Object> response = new HashMap<String, Object>();
-
-    response.put("status", exchangeResponse.getStatusCode().value());
-    response.put("data", exchangeResponse.getBody());
-
-    return response;
+  private Map<String, Object> generateResponseModal(ResponseEntity<Map<String, Object>> exchangeResponse) {
+    return exchangeResponse.getBody();
   };
 
   private Map<String, Object> request(HttpMethod method, String url, String token, MultiValueMap<String, String> body) {
@@ -58,13 +50,5 @@ public class HttpUtils {
     }
 
     return request(method, url, token, parameters);
-  }
-
-  public static Map<String, Object> send(Map<String, Object> apiResponse, HttpServletResponse response) {
-    int status = (int) apiResponse.get("status");
-    Map<String, Object> responseJson = (Map<String, Object>) apiResponse.get("data");
-
-    response.setStatus(status);
-    return responseJson;
   }
 }
