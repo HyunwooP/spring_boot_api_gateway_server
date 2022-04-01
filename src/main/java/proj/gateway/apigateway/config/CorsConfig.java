@@ -1,5 +1,6 @@
 package proj.gateway.apigateway.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -8,13 +9,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+  @Value("{domain.client}")
+  private String clientDomain;
+
+  @Value("{domain.admin}")
+  private String adminDomain;
+
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    final String reactClientUrl = "http://localhost:4000";
-    final String reactAdminUrl = "http://localhost:4005";
-
     registry.addMapping("/**")
-        .allowedOrigins(reactClientUrl, reactAdminUrl)
+        .allowedOrigins(clientDomain, adminDomain)
         .allowedMethods(
             HttpMethod.GET.name(),
             HttpMethod.PUT.name(),

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,15 +26,21 @@ public class HttpModule {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+  @Value("{domain.apiServer}")
+  private String apiServerDomain;
+
+  @Value("{domain.designServer}")
+  private String designServerDomain;
+
   private String generateDomain(String path) {
     Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndPoints();
     if (apiServerEndpoints.containsValue(path)) {
-      return "http://localhost:3000";
+      return apiServerDomain;
     }
 
     Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndPoints();
     if (designServerEndpoints.containsValue(path)) {
-      return "http://localhost:3005";
+      return designServerDomain;
     }
 
     throw new NotFoundAPIException();
