@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,84 +19,98 @@ public class UserService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findUser", fallbackMethod = "findUserFallBack")
-  public Map<String, Object> findUser(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.apiServer}")
+  private String apiServerDomain;
+
+  @CircuitBreaker(name = "getUserCount", fallbackMethod = "getUserCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findUserCount", fallbackMethod = "findUserCountFallBack")
-  public Map<String, Object> findUserCount(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getUser", fallbackMethod = "getUserFallBack")
+  public Map<String, Object> getUser(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findUserProfile", fallbackMethod = "findUserProfileFallBack")
-  public Map<String, Object> findUserProfile(HttpServletRequest request) throws APIResponseException {
+  @CircuitBreaker(name = "getUsers", fallbackMethod = "getUsersFallBack")
+  public Map<String, Object> getUsers(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "getProfile", fallbackMethod = "getProfileFallBack")
+  public Map<String, Object> getProfile(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
   }
 
   @CircuitBreaker(name = "createUser", fallbackMethod = "createUserFallBack")
-  public Map<String, Object> createUser(HttpServletRequest request, Map<String, Object> body)
+  public Map<String, Object> create(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.postRequest(path, token, body);
+    return httpModule.postRequest(url, token, body);
   }
 
   @CircuitBreaker(name = "updateUser", fallbackMethod = "updateUserFallBack")
-  public Map<String, Object> updateUser(HttpServletRequest request, Map<String, Object> body)
+  public Map<String, Object> update(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.patchRequest(path, token, body);
+    return httpModule.patchRequest(url, token, body);
   }
 
   @CircuitBreaker(name = "removeUser", fallbackMethod = "removeUserFallBack")
-  public Map<String, Object> removeUser(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
   @CircuitBreaker(name = "tokenRemoveUser", fallbackMethod = "tokenRemoveUserFallBack")
-  public Map<String, Object> tokenRemoveUser(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> tokenRemove(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findUserFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getUserCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findUserFallBack ==============");
+    System.out.println("============== getUserCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findUserCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findUserCountFallBack ==============");
+    System.out.println("============== getUserFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findUserProfileFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getUsersFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findUserProfileFallBack ==============");
+    System.out.println("============== getUsersFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getProfileFallBack(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getProfileFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 

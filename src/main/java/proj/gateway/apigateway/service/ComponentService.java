@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,42 +19,58 @@ public class ComponentService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findComponentCount", fallbackMethod = "findComponentCountFallBack")
-  public Map<String, Object> findComponentCount(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.designServer}")
+  private String designServerDomain;
+
+  @CircuitBreaker(name = "getComponentCount", fallbackMethod = "getComponentCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findComponent", fallbackMethod = "findComponentFallBack")
-  public Map<String, Object> findComponent(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getComponent", fallbackMethod = "getComponentFallBack")
+  public Map<String, Object> getComponent(HttpServletRequest request) throws APIResponseException {
+    String url = designServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "getComponents", fallbackMethod = "getComponentsFallBack")
+  public Map<String, Object> getComponents(HttpServletRequest request) throws APIResponseException {
+    String queryString = request.getQueryString();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
   }
 
   @CircuitBreaker(name = "removeComponent", fallbackMethod = "removeComponentFallBack")
-  public Map<String, Object> removeComponent(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = designServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findComponentCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getComponentCountFallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findComponentCountFallBack ==============");
+    System.out.println("============== getComponentCountFallback ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findComponentFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getComponentFallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findComponentFallBack ==============");
+    System.out.println("============== getComponentFallback ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getComponentsFallback(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getComponentsFallback ==============");
     throw new FallBackException(throwable.getMessage());
   }
 

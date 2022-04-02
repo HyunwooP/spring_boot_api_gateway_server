@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,42 +19,58 @@ public class LayoutService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findLayoutCount", fallbackMethod = "findLayoutCountFallBack")
-  public Map<String, Object> findLayoutCount(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.designServer}")
+  private String designServerDomain;
+
+  @CircuitBreaker(name = "getLayoutCount", fallbackMethod = "getLayoutCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findLayout", fallbackMethod = "findLayoutFallBack")
-  public Map<String, Object> findLayout(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getLayout", fallbackMethod = "getLayoutFallBack")
+  public Map<String, Object> getLayout(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "getLayouts", fallbackMethod = "getLayoutsFallBack")
+  public Map<String, Object> getLayouts(HttpServletRequest request) throws APIResponseException {
+    String queryString = request.getQueryString();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
   }
 
   @CircuitBreaker(name = "removeLayout", fallbackMethod = "removeLayoutFallBack")
-  public Map<String, Object> removeLayout(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findLayoutCountFallBack ==============");
+    System.out.println("============== getLayoutCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findLayoutFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getLayoutFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findLayoutFallBack ==============");
+    System.out.println("============== getLayoutFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getLayoutsFallBack(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getLayoutsFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 

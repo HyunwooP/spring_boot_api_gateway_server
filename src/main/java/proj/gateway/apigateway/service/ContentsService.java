@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,60 +19,76 @@ public class ContentsService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findContentsCount", fallbackMethod = "findContentsCountFallBack")
-  public Map<String, Object> findContentsCount(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.apiServer}")
+  private String apiServerDomain;
+
+  @CircuitBreaker(name = "getContentsCount", fallbackMethod = "getContentsCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findContents", fallbackMethod = "findContentsFallBack")
-  public Map<String, Object> findContents(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getContent", fallbackMethod = "getContentFallBack")
+  public Map<String, Object> getContent(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "createContents", fallbackMethod = "createContentsFallBack")
-  public Map<String, Object> createContents(HttpServletRequest request, Map<String, Object> body)
+  @CircuitBreaker(name = "getContents", fallbackMethod = "getContentsFallBack")
+  public Map<String, Object> getContents(HttpServletRequest request) throws APIResponseException {
+    String queryString = request.getQueryString();
+    String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "createContent", fallbackMethod = "createContentFallBack")
+  public Map<String, Object> create(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.postRequest(path, token, body);
+    return httpModule.postRequest(url, token, body);
   }
 
-  @CircuitBreaker(name = "updateContents", fallbackMethod = "updateContentsFallBack")
-  public Map<String, Object> updateContents(HttpServletRequest request, Map<String, Object> body)
+  @CircuitBreaker(name = "updateContent", fallbackMethod = "updateContentsFallBack")
+  public Map<String, Object> update(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
-    String path = request.getRequestURI();
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.patchRequest(path, token, body);
+    return httpModule.patchRequest(url, token, body);
   }
 
-  @CircuitBreaker(name = "removeContents", fallbackMethod = "removeContentsFallBack")
-  public Map<String, Object> removeContents(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "removeContent", fallbackMethod = "removeContentFallBack")
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findContentsCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getContentsCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findContentsCountFallBack ==============");
+    System.out.println("============== getContentsCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findContentsFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getContentFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findContentsFallBack ==============");
+    System.out.println("============== getContentFallBack ==============" + throwable.getMessage());
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getContentsFallBack(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getContentsFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
@@ -89,9 +106,9 @@ public class ContentsService {
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> removeContentsFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> removeContentFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeContentsFallBack ==============");
+    System.out.println("============== removeContentFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

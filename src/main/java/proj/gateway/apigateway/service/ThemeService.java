@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,57 +19,72 @@ public class ThemeService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findThemeCount", fallbackMethod = "findThemeCountFallBack")
-  public Map<String, Object> findThemeCount(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.designServer}")
+  private String designServerDomain;
+
+  @CircuitBreaker(name = "getThemeCount", fallbackMethod = "getThemeCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findThemeItem", fallbackMethod = "findThemeItemFallBack")
-  public Map<String, Object> findThemeItem(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getThemeItem", fallbackMethod = "getThemeItemFallBack")
+  public Map<String, Object> getThemeItem(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findTheme", fallbackMethod = "findThemeFallBack")
-  public Map<String, Object> findTheme(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getTheme", fallbackMethod = "getThemeFallBack")
+  public Map<String, Object> getTheme(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "getThemes", fallbackMethod = "getThemesFallBack")
+  public Map<String, Object> getThemes(HttpServletRequest request) throws APIResponseException {
+    String queryString = request.getQueryString();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
   }
 
   @CircuitBreaker(name = "removeTheme", fallbackMethod = "removeThemeFallBack")
-  public Map<String, Object> removeTheme(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findThemeCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getThemeCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findThemeCountFallBack ==============");
+    System.out.println("============== getThemeCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findThemeItemFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getThemeItemFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findThemeItemFallBack ==============");
+    System.out.println("============== getThemeItemFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findThemeFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getThemeFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findThemeFallBack ==============");
+    System.out.println("============== getThemeFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getThemesFallBack(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getThemesFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 

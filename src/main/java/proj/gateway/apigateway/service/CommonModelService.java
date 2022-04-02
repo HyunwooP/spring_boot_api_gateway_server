@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,48 +19,51 @@ public class CommonModelService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "clientHealth", fallbackMethod = "clientHealthFallBack")
-  public Map<String, Object> clientHealth(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @Value("${domain.apiServer}")
+  private String apiServerDomain;
+
+  @Value("${domain.designServer}")
+  private String designServerDomain;
+
+  @CircuitBreaker(name = "getClientHealth", fallbackMethod = "getClientHealthFallBack")
+  public Map<String, Object> getClientHealth(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "designHealth", fallbackMethod = "designHealthFallBack")
-  public Map<String, Object> designHealth(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getDesignHealth", fallbackMethod = "getDesignHealthFallBack")
+  public Map<String, Object> getDesignHealth(HttpServletRequest request) throws APIResponseException {
+    String url = designServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findDashboardCount", fallbackMethod = "findDashboardCountFallBack")
-  public Map<String, Object> findDashboardCount(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getDashboardCount", fallbackMethod = "getDashboardCountFallBack")
+  public Map<String, Object> getDashboardCount(HttpServletRequest request) throws APIResponseException {
+    String url = apiServerDomain + request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  public Map<String, Object> clientHealthFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getClientHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== clientHealthFallBack ==============");
+    System.out.println("============== getClientHealthFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> designHealthFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getDesignHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== designHealthFallBack ==============");
+    System.out.println("============== getDesignHealthFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findDashboardCountFallBack ==============");
+    System.out.println("============== getDashboardCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 }

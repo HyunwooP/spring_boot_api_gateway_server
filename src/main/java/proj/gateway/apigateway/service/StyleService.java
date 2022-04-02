@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,42 +19,58 @@ public class StyleService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "findStyleCount", fallbackMethod = "findStyleCountFallBack")
-  public Map<String, Object> findStyleCount(HttpServletRequest request) throws APIResponseException {
+  @Value("${domain.designServer}")
+  private String designServerDomain;
+
+  @CircuitBreaker(name = "getStyleCount", fallbackMethod = "getStyleCountFallBack")
+  public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
   }
 
-  @CircuitBreaker(name = "findStyle", fallbackMethod = "findStyleFallBack")
-  public Map<String, Object> findStyle(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  @CircuitBreaker(name = "getStyle", fallbackMethod = "getStyleFallBack")
+  public Map<String, Object> getStyle(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(queryString, path, token);
+    return httpModule.getRequest(url, token);
+  }
+
+  @CircuitBreaker(name = "getStyles", fallbackMethod = "getStylesFallBack")
+  public Map<String, Object> getStyles(HttpServletRequest request) throws APIResponseException {
+    String queryString = request.getQueryString();
+    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+    String token = request.getHeader("authorization");
+
+    return httpModule.getRequest(url, token);
   }
 
   @CircuitBreaker(name = "removeStyle", fallbackMethod = "removeStyleFallBack")
-  public Map<String, Object> removeStyle(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String path = request.getRequestURI();
+  public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
+    String url = request.getRequestURI();
     String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(queryString, path, token);
+    return httpModule.deleteRequest(url, token);
   }
 
-  public Map<String, Object> findStyleCountFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getStyleCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findStyleCountFallBack ==============");
+    System.out.println("============== getStyleCountFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> findStyleFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> getStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== findStyleFallBack ==============");
+    System.out.println("============== getStyleFallBack ==============");
+    throw new FallBackException(throwable.getMessage());
+  }
+
+  public Map<String, Object> getStylesFallBack(HttpServletRequest request, Throwable throwable)
+      throws FallBackException {
+    System.out.println("============== getStylesFallBack ==============");
     throw new FallBackException(throwable.getMessage());
   }
 
