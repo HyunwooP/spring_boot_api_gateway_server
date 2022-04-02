@@ -13,11 +13,12 @@ public class RestConfig {
   @Bean
   public RestTemplate restTemplate() {
     HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-    factory.setReadTimeout(5000);
-    factory.setConnectTimeout(3000);
     HttpClient httpClient = HttpClientBuilder.create()
         .setMaxConnTotal(50)
         .setMaxConnPerRoute(20).build();
+
+    factory.setReadTimeout(5000);
+    factory.setConnectTimeout(3000);
     factory.setHttpClient(httpClient);
 
     RestTemplate restTemplate = new RestTemplate(factory);
