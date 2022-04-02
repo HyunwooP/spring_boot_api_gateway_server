@@ -58,25 +58,25 @@ public class StyleService {
 
   public Map<String, Object> getStyleCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getStyleCountFallBack ==============");
+    System.out.println("============== getStyleCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getStyleFallBack ==============");
+    System.out.println("============== getStyleFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getStylesFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getStylesFallBack ==============");
+    System.out.println("============== getStylesFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> removeStyleFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeStyleFallBack ==============");
+    System.out.println("============== removeStyleFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

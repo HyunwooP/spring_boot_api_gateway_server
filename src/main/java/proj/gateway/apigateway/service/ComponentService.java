@@ -58,25 +58,25 @@ public class ComponentService {
 
   public Map<String, Object> getComponentCountFallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getComponentCountFallback ==============");
+    System.out.println("============== getComponentCountFallback ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getComponentFallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getComponentFallback ==============");
+    System.out.println("============== getComponentFallback ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getComponentsFallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getComponentsFallback ==============");
+    System.out.println("============== getComponentsFallback ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> removeComponentFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeComponentFallBack ==============");
+    System.out.println("============== removeComponentFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

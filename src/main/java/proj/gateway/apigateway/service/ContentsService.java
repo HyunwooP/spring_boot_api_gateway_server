@@ -76,7 +76,7 @@ public class ContentsService {
 
   public Map<String, Object> getContentsCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getContentsCountFallBack ==============");
+    System.out.println("============== getContentsCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
@@ -95,14 +95,14 @@ public class ContentsService {
   public Map<String, Object> createContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== createContentsFallBack ==============");
+    System.out.println("============== createContentsFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> updateContentsFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== updateContentsFallBack ==============");
+    System.out.println("============== updateContentsFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 

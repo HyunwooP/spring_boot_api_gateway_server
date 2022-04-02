@@ -58,25 +58,25 @@ public class LayoutService {
 
   public Map<String, Object> getLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getLayoutCountFallBack ==============");
+    System.out.println("============== getLayoutCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getLayoutFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getLayoutFallBack ==============");
+    System.out.println("============== getLayoutFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getLayoutsFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getLayoutsFallBack ==============");
+    System.out.println("============== getLayoutsFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> removeLayoutFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeLayoutFallBack ==============");
+    System.out.println("============== removeLayoutFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

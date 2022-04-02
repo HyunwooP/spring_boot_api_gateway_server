@@ -66,31 +66,31 @@ public class ThemeService {
 
   public Map<String, Object> getThemeCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getThemeCountFallBack ==============");
+    System.out.println("============== getThemeCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getThemeItemFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getThemeItemFallBack ==============");
+    System.out.println("============== getThemeItemFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getThemeFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getThemeFallBack ==============");
+    System.out.println("============== getThemeFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getThemesFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getThemesFallBack ==============");
+    System.out.println("============== getThemesFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> removeThemeFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeThemeFallBack ==============");
+    System.out.println("============== removeThemeFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

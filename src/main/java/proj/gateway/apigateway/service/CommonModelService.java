@@ -51,19 +51,19 @@ public class CommonModelService {
 
   public Map<String, Object> getClientHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getClientHealthFallBack ==============");
+    System.out.println("============== getClientHealthFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getDesignHealthFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getDesignHealthFallBack ==============");
+    System.out.println("============== getDesignHealthFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getDashboardCountFallBack ==============");
+    System.out.println("============== getDashboardCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

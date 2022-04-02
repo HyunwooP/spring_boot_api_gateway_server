@@ -92,19 +92,19 @@ public class UserService {
 
   public Map<String, Object> getUserCountFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getUserCountFallBack ==============");
+    System.out.println("============== getUserCountFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getUserFallBack ==============");
+    System.out.println("============== getUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> getUsersFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getUsersFallBack ==============");
+    System.out.println("============== getUsersFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
@@ -117,26 +117,26 @@ public class UserService {
   public Map<String, Object> createUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== createUserFallBack ==============");
+    System.out.println("============== createUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> updateUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== updateUserFallBack ==============");
+    System.out.println("============== updateUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> removeUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== removeUserFallBack ==============");
+    System.out.println("============== removeUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> tokenRemoveUserFallBack(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== tokenRemoveUserFallBack ==============");
+    System.out.println("============== tokenRemoveUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }

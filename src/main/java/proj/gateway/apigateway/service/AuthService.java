@@ -48,21 +48,21 @@ public class AuthService {
   public Map<String, Object> signInUserFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== signInUserFallBack ==============");
+    System.out.println("============== signInUserFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> signInAdminFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== signInAdminFallBack ==============");
+    System.out.println("============== signInAdminFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
   public Map<String, Object> signOutFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== signOutFallBack ==============");
+    System.out.println("============== signOutFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 }
