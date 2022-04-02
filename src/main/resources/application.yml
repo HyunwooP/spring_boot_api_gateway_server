@@ -15,15 +15,19 @@ resilience4j:
         waitDurationInOpenState: 10s
     instances:
       # API Server
-      findUser:
+      getUser:
         baseConfig: default
-      findUserProfile:
+      getUsers:
         baseConfig: default
-      findUserCount:
+      getProfile:
         baseConfig: default
-      findContents:
+      getUserCount:
         baseConfig: default
-      findContentsCount:
+      getContent:
+        baseConfig: default
+      getContents:
+        baseConfig: default
+      getContentsCount:
         baseConfig: default
       signInUser:
         baseConfig: default
@@ -33,38 +37,50 @@ resilience4j:
         baseConfig: default
       signUp:
         baseConfig: default
-      removeUser:
-        baseConfig: default
       tokenRemoveUser:
+        baseConfig: default
+      createUser:
         baseConfig: default
       updateUser:
         baseConfig: default
-      createContents:
+      removeUser:
         baseConfig: default
-      updateContents:
+      createContent:
         baseConfig: default
-      findDashboardCount:
+      updateContent:
         baseConfig: default
-      clientHealth:
+      removeContent:
+        baseConfig: default
+      getDashboardCount:
+        baseConfig: default
+      getClientHealth:
         baseConfig: default
       # Design Server
-      findThemeItem:
+      getThemeItem:
         baseConfig: default
-      findComponent:
+      getComponent:
         baseConfig: default
-      findLayout:
+      getComponents:
         baseConfig: default
-      findStyle:
+      getLayout:
         baseConfig: default
-      findTheme:
+      getLayouts:
         baseConfig: default
-      findComponentCount:
+      getStyle:
         baseConfig: default
-      findLayoutCount:
+      getStyles:
         baseConfig: default
-      findStyleCount:
+      getTheme:
         baseConfig: default
-      findThemeCount:
+      getThemes:
+        baseConfig: default
+      getComponentCount:
+        baseConfig: default
+      getLayoutCount:
+        baseConfig: default
+      getStyleCount:
+        baseConfig: default
+      getThemeCount:
         baseConfig: default
       removeComponent:
         baseConfig: default
@@ -74,7 +90,7 @@ resilience4j:
         baseConfig: default
       removeTheme:
         baseConfig: default
-      designHealth:
+      getDesignHealth:
         baseConfig: default
 domain:
   client: http://localhost:4000
