@@ -14,7 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.commonEnum.Endpoint;
 import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.NotFoundAPIException;
@@ -32,28 +31,11 @@ public class HttpModule {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
-  private String generateDomain(String path) {
-    Map<String, String> apiServerEndpoints = Endpoint.getApiServerEndPoints();
-    if (apiServerEndpoints.containsValue(path)) {
-      return apiServerDomain;
-    }
-
-    Map<String, String> designServerEndpoints = Endpoint.getDesignServerEndPoints();
-    if (designServerEndpoints.containsValue(path)) {
-      return designServerDomain;
-    }
-
-    throw new NotFoundAPIException();
-  }
-
-  private Map<String, Object> queryRequest(String path, String token, String queryString, HttpMethod method)
+  private Map<String, Object> queryRequest(String url, String token, HttpMethod method)
       throws APIResponseException {
     Map<String, Object> response = new HashMap<String, Object>();
 
     try {
-      String domain = generateDomain(path);
-      String url = domain + path + (queryString != null ? "?" + queryString : "");
-
       response = httpUtils.request(method, url, token, null);
 
       logger.info("queryRequest - " + url);
@@ -75,14 +57,11 @@ public class HttpModule {
     }
   }
 
-  private Map<String, Object> bodyRequest(String path, String token, Map<String, Object> body, HttpMethod method)
+  private Map<String, Object> bodyRequest(String url, String token, Map<String, Object> body, HttpMethod method)
       throws APIResponseException {
     Map<String, Object> response = new HashMap<String, Object>();
 
     try {
-      String domain = generateDomain(path);
-      String url = domain + path;
-
       MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
       for (String key : body.keySet()) {
@@ -110,28 +89,26 @@ public class HttpModule {
     }
   }
 
-  public Map<String, Object> getRequest(String queryString, String path, String token)
-      throws APIResponseException {
-    return queryRequest(path, token, queryString, HttpMethod.GET);
+  public Map<String, Object> getRequest(String url, String token) throws APIResponseException {
+    return queryRequest(url, token, HttpMethod.GET);
   }
 
-  public Map<String, Object> deleteRequest(String queryString, String path, String token)
-      throws APIResponseException {
-    return queryRequest(path, token, queryString, HttpMethod.DELETE);
+  public Map<String, Object> deleteRequest(String url, String token) throws APIResponseException {
+    return queryRequest(url, token, HttpMethod.DELETE);
   }
 
-  public Map<String, Object> postRequest(String path, String token, Map<String, Object> body)
+  public Map<String, Object> postRequest(String url, String token, Map<String, Object> body)
       throws APIResponseException {
-    return bodyRequest(path, token, body, HttpMethod.POST);
+    return bodyRequest(url, token, body, HttpMethod.POST);
   }
 
-  public Map<String, Object> patchRequest(String path, String token, Map<String, Object> body)
+  public Map<String, Object> patchRequest(String url, String token, Map<String, Object> body)
       throws APIResponseException {
-    return bodyRequest(path, token, body, HttpMethod.PATCH);
+    return bodyRequest(url, token, body, HttpMethod.PATCH);
   }
 
-  public Map<String, Object> putRequest(String path, String token, Map<String, Object> body)
+  public Map<String, Object> putRequest(String url, String token, Map<String, Object> body)
       throws APIResponseException {
-    return bodyRequest(path, token, body, HttpMethod.PUT);
+    return bodyRequest(url, token, body, HttpMethod.PUT);
   }
 }
