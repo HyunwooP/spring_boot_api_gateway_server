@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,4 +33,14 @@ public class HttpUtils {
 
     return exchangeResponse.getBody();
   }
+
+  public MultiValueMap<String, String> generateBody(Map<String, Object> body) {
+    MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+    for (String key : body.keySet()) {
+      parameters.add(key, body.get(key).toString());
+    }
+
+    return parameters;
+  }
+
 }
