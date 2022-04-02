@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -17,78 +18,89 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.UserService;
 
 @RestController
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
 
-  @GetMapping(value = "/findUser")
-  public Map<String, Object> findUser(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/count")
+  public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return userService.findUser(request);
+      return userService.getCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/findUserCount")
-  public Map<String, Object> findUserCount(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/{userId}")
+  public Map<String, Object> getUser(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return userService.findUserCount(request);
+      return userService.getUser(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/findUserProfile")
-  public Map<String, Object> findUserProfile(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping()
+  public Map<String, Object> getUsers(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return userService.findUserProfile(request);
+      return userService.getUsers(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @PostMapping(value = "/createUser")
-  public Map<String, Object> createUser(HttpServletRequest request, HttpServletResponse response,
+  @GetMapping("/profile")
+  public Map<String, Object> getProfile(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
+    try {
+      return userService.getProfile(request);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
+    }
+  }
+
+  @PostMapping()
+  public Map<String, Object> create(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      return userService.createUser(request, body);
+      return userService.create(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @PatchMapping(value = "/updateUser")
-  public Map<String, Object> updateUser(HttpServletRequest request, HttpServletResponse response,
+  @PatchMapping("/{userId}")
+  public Map<String, Object> update(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
     try {
-      return userService.updateUser(request, body);
+      return userService.update(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @DeleteMapping(value = "/removeUser")
-  public Map<String, Object> removeUser(HttpServletRequest request, HttpServletResponse response)
+  @DeleteMapping("/{userId}")
+  public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return userService.removeUser(request);
+      return userService.remove(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @DeleteMapping(value = "/tokenRemoveUser")
-  public Map<String, Object> tokenRemoveUser(HttpServletRequest request, HttpServletResponse response)
+  @DeleteMapping("/tokenRemove")
+  public Map<String, Object> tokenRemove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return userService.tokenRemoveUser(request);
+      return userService.tokenRemove(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

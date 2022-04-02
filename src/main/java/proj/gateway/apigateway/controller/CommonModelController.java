@@ -18,31 +18,31 @@ public class CommonModelController {
 
   private final CommonModelService commonModelService;
 
-  @GetMapping(value = "/clientHealth")
-  public Map<String, Object> clientHealth(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/clientHealth")
+  public Map<String, Object> getClientHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return commonModelService.clientHealth(request);
+      return commonModelService.getClientHealth(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/designHealth")
-  public Map<String, Object> designHealth(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/designHealth")
+  public Map<String, Object> getDesignHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return commonModelService.designHealth(request);
+      return commonModelService.getDesignHealth(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/findDashboardCount")
-  public Map<String, Object> findDashboardCount(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/dashboardCount")
+  public Map<String, Object> getDashboardCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return commonModelService.findDashboardCount(request);
+      return commonModelService.getDashboardCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }

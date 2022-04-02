@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -14,46 +15,57 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ThemeService;
 
 @RestController
+@RequestMapping("themes")
 @RequiredArgsConstructor
 public class ThemeController {
 
   private final ThemeService themeService;
 
-  @GetMapping(value = "/findThemeCount")
-  public Map<String, Object> findThemeCount(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping(value = "/getCount")
+  public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return themeService.findThemeCount(request);
+      return themeService.getCount(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/findThemeItem")
-  public Map<String, Object> findThemeItem(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/getThemeItem")
+  public Map<String, Object> getThemeItem(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return themeService.findThemeItem(request);
+      return themeService.getThemeItem(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @GetMapping(value = "/findTheme")
-  public Map<String, Object> findTheme(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping("/{themeId}")
+  public Map<String, Object> getTheme(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return themeService.findTheme(request);
+      return themeService.getTheme(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @DeleteMapping(value = "/removeTheme")
-  public Map<String, Object> removeTheme(HttpServletRequest request, HttpServletResponse response)
+  @GetMapping()
+  public Map<String, Object> getThemes(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
-      return themeService.removeTheme(request);
+      return themeService.getThemes(request);
+    } catch (APIResponseException exception) {
+      throw new APIResponseException(exception);
+    }
+  }
+
+  @DeleteMapping("/{themeId}")
+  public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
+      throws APIResponseException {
+    try {
+      return themeService.remove(request);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
