@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -14,32 +15,23 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.AuthService;
 
 @RestController
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
   private final AuthService authService;
 
-  @PostMapping(value = "/signInUser")
-  public Map<String, Object> signInUser(HttpServletRequest request, HttpServletResponse response,
+  @PostMapping("/signIn")
+  public Map<String, Object> signIn(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
-      return authService.signInUser(request, body);
+      return authService.signIn(request, body);
     } catch (APIResponseException exception) {
       throw new APIResponseException(exception);
     }
   }
 
-  @PostMapping(value = "/signInAdmin")
-  public Map<String, Object> signInAdmin(HttpServletRequest request, HttpServletResponse response,
-      @RequestBody Map<String, Object> body) throws APIResponseException {
-    try {
-      return authService.signInAdmin(request, body);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
-  }
-
-  @PostMapping(value = "/signOut")
+  @PostMapping("/signOut")
   public Map<String, Object> signOut(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {

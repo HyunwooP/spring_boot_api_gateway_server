@@ -18,17 +18,8 @@ public class AuthService {
 
   private final HttpModule httpModule;
 
-  @CircuitBreaker(name = "signInUser", fallbackMethod = "signInUserFallBack")
-  public Map<String, Object> signInUser(HttpServletRequest request, Map<String, Object> body)
-      throws APIResponseException {
-    String path = request.getRequestURI();
-    String token = request.getHeader("authorization");
-
-    return httpModule.postRequest(path, token, body);
-  }
-
-  @CircuitBreaker(name = "signInAdmin", fallbackMethod = "signInAdminFallBack")
-  public Map<String, Object> signInAdmin(HttpServletRequest request, Map<String, Object> body)
+  @CircuitBreaker(name = "signIn", fallbackMethod = "signInFallBack")
+  public Map<String, Object> signIn(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
     String path = request.getRequestURI();
     String token = request.getHeader("authorization");
@@ -45,17 +36,10 @@ public class AuthService {
     return httpModule.postRequest(path, token, body);
   }
 
-  public Map<String, Object> signInUserFallBack(HttpServletRequest request, Map<String, Object> body,
+  public Map<String, Object> signInFallBack(HttpServletRequest request, Map<String, Object> body,
       Throwable throwable)
       throws FallBackException {
-    System.out.println("============== signInUserFallBack ==============" + throwable.getMessage());
-    throw new FallBackException(throwable.getMessage());
-  }
-
-  public Map<String, Object> signInAdminFallBack(HttpServletRequest request, Map<String, Object> body,
-      Throwable throwable)
-      throws FallBackException {
-    System.out.println("============== signInAdminFallBack ==============" + throwable.getMessage());
+    System.out.println("============== signInFallBack ==============" + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 

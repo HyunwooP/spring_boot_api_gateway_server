@@ -29,13 +29,9 @@ resilience4j:
         baseConfig: default
       getContentsCount:
         baseConfig: default
-      signInUser:
-        baseConfig: default
-      signInAdmin:
+      signIn:
         baseConfig: default
       signOut:
-        baseConfig: default
-      signUp:
         baseConfig: default
       tokenRemoveUser:
         baseConfig: default
