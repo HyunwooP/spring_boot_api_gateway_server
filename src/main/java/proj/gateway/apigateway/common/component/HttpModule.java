@@ -26,10 +26,10 @@ public class HttpModule {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  @Value("{domain.apiServer}")
+  @Value("${domain.apiServer}")
   private String apiServerDomain;
 
-  @Value("{domain.designServer}")
+  @Value("${domain.designServer}")
   private String designServerDomain;
 
   private String generateDomain(String path) {

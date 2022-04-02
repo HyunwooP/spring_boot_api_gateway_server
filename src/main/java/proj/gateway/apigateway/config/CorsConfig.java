@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
-  @Value("{domain.client}")
+  @Value("${domain.client}")
   private String clientDomain;
 
-  @Value("{domain.admin}")
+  @Value("${domain.admin}")
   private String adminDomain;
 
   @Override
