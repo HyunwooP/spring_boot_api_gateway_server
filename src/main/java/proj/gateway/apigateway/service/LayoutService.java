@@ -5,11 +5,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
-import proj.gateway.apigateway.common.component.HttpModule;
+import proj.gateway.apigateway.common.component.utils.HttpUtils;
 import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 
@@ -17,43 +19,59 @@ import proj.gateway.apigateway.common.error.exceptions.FallBackException;
 @RequiredArgsConstructor
 public class LayoutService {
 
-  private final HttpModule httpModule;
+  private final HttpUtils httpUtils;
 
   @Value("${domain.designServer}")
   private String designServerDomain;
 
   @CircuitBreaker(name = "getLayoutCount", fallbackMethod = "getLayoutCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
-    String token = request.getHeader("authorization");
+    try {
+      String queryString = request.getQueryString();
+      String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(url, token);
+      return httpUtils.request(HttpMethod.GET, url, token, null);
+    } catch (HttpClientErrorException exception) {
+      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+    }
   }
 
   @CircuitBreaker(name = "getLayout", fallbackMethod = "getLayoutFallBack")
   public Map<String, Object> getLayout(HttpServletRequest request) throws APIResponseException {
-    String url = request.getRequestURI();
-    String token = request.getHeader("authorization");
+    try {
+      String url = request.getRequestURI();
+      String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(url, token);
+      return httpUtils.request(HttpMethod.GET, url, token, null);
+    } catch (HttpClientErrorException exception) {
+      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+    }
   }
 
   @CircuitBreaker(name = "getLayouts", fallbackMethod = "getLayoutsFallBack")
   public Map<String, Object> getLayouts(HttpServletRequest request) throws APIResponseException {
-    String queryString = request.getQueryString();
-    String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
-    String token = request.getHeader("authorization");
+    try {
+      String queryString = request.getQueryString();
+      String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String token = request.getHeader("authorization");
 
-    return httpModule.getRequest(url, token);
+      return httpUtils.request(HttpMethod.GET, url, token, null);
+    } catch (HttpClientErrorException exception) {
+      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+    }
   }
 
   @CircuitBreaker(name = "removeLayout", fallbackMethod = "removeLayoutFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
-    String url = request.getRequestURI();
-    String token = request.getHeader("authorization");
+    try {
+      String url = request.getRequestURI();
+      String token = request.getHeader("authorization");
 
-    return httpModule.deleteRequest(url, token);
+      return httpUtils.request(HttpMethod.DELETE, url, token, null);
+    } catch (HttpClientErrorException exception) {
+      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+    }
   }
 
   public Map<String, Object> getLayoutCountFallBack(HttpServletRequest request, Throwable throwable)
