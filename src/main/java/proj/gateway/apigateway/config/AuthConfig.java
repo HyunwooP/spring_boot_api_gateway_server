@@ -15,8 +15,17 @@ public class AuthConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(authInterceptor).addPathPatterns("/signOut", "/findDashboardCount", "/findContentsCount",
-        "/createContents", "/updateContents", "/removeContents", "/findUser", "/findUserCount", "/findUserProfile",
-        "/updateUser", "/removeUser", "/tokenRemoveUser");
+    registry.addInterceptor(authInterceptor).addPathPatterns(
+        "/signOut",
+        "/dashboardCount",
+        "/clientHealth",
+        "/designHealth",
+        "/contents/count",
+        "/contents/{contentId}",
+        "/users",
+        "/users/{userId}",
+        "/users/count",
+        "/users/profile",
+        "/users/tokenRemove");
   }
 }
