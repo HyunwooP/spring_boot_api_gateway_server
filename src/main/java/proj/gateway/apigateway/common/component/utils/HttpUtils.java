@@ -43,4 +43,7 @@ public class HttpUtils {
     return parameters;
   }
 
+  public String generateQueryString(String domain, String endPoint, String queryString) {
+    return domain + endPoint + (queryString != null ? "?" + queryString : "");
+  }
 }

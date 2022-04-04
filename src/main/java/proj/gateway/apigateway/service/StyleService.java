@@ -28,7 +28,7 @@ public class StyleService {
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
       String queryString = request.getQueryString();
-      String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String url = httpUtils.generateQueryString(designServerDomain, request.getRequestURI(), queryString);
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -53,7 +53,7 @@ public class StyleService {
   public Map<String, Object> getStyles(HttpServletRequest request) throws APIResponseException {
     try {
       String queryString = request.getQueryString();
-      String url = designServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String url = httpUtils.generateQueryString(designServerDomain, request.getRequestURI(), queryString);
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);

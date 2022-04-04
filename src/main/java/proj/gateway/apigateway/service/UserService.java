@@ -28,7 +28,7 @@ public class UserService {
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
       String queryString = request.getQueryString();
-      String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String url = httpUtils.generateQueryString(apiServerDomain, request.getRequestURI(), queryString);
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -53,7 +53,7 @@ public class UserService {
   public Map<String, Object> getUsers(HttpServletRequest request) throws APIResponseException {
     try {
       String queryString = request.getQueryString();
-      String url = apiServerDomain + request.getRequestURI() + (queryString != null ? "?" + queryString : "");
+      String url = httpUtils.generateQueryString(apiServerDomain, request.getRequestURI(), queryString);
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
