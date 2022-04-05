@@ -24,7 +24,7 @@ public class AuthInterceptor implements HandlerInterceptor {
       return true;
     }
 
-    if (token == null) {
+    if (token == null || token.isBlank()) {
       throw new NotCertificateException();
     }
 
