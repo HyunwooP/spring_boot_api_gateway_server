@@ -20,7 +20,7 @@ import proj.gateway.apigateway.common.error.exceptions.NotCertificateException;
 @EnableWebMvc
 @RestControllerAdvice
 public class ErrorHandler {
-  private static final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {
+  private final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {
     {
       put(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED");
       put(HttpStatus.FORBIDDEN, "FORBIDDEN");
