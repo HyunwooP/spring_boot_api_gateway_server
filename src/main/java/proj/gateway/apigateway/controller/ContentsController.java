@@ -18,13 +18,13 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ContentsService;
 
 @RestController
-@RequestMapping("/contents")
+@RequestMapping("contents")
 @RequiredArgsConstructor
 public class ContentsController {
 
   private final ContentsService contentsService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -34,7 +34,7 @@ public class ContentsController {
     }
   }
 
-  @GetMapping(value = "/{contentId}")
+  @GetMapping("{contentId}")
   public Map<String, Object> getContent(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -65,7 +65,7 @@ public class ContentsController {
     }
   }
 
-  @PatchMapping("/{contentId}")
+  @PatchMapping("{contentId}")
   public Map<String, Object> update(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
@@ -76,7 +76,7 @@ public class ContentsController {
     }
   }
 
-  @DeleteMapping("/{contentId}")
+  @DeleteMapping("{contentId}")
   public Map<String, Object> remove(HttpServletRequest request)
       throws APIResponseException {
     try {

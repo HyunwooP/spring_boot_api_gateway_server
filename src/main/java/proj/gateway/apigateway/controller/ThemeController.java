@@ -21,7 +21,7 @@ public class ThemeController {
 
   private final ThemeService themeService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -31,7 +31,7 @@ public class ThemeController {
     }
   }
 
-  @GetMapping("/themeItem")
+  @GetMapping("themeItem")
   public Map<String, Object> getThemeItem(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -41,7 +41,7 @@ public class ThemeController {
     }
   }
 
-  @GetMapping("/{themeId}")
+  @GetMapping("{themeId}")
   public Map<String, Object> getTheme(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -61,7 +61,7 @@ public class ThemeController {
     }
   }
 
-  @DeleteMapping("/{themeId}")
+  @DeleteMapping("{themeId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

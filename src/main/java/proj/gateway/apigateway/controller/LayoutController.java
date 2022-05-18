@@ -15,13 +15,13 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.LayoutService;
 
 @RestController
-@RequestMapping("/layouts")
+@RequestMapping("layouts")
 @RequiredArgsConstructor
 public class LayoutController {
 
   private final LayoutService layoutService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -31,7 +31,7 @@ public class LayoutController {
     }
   }
 
-  @GetMapping("/{layoutId}")
+  @GetMapping("{layoutId}")
   public Map<String, Object> getLayout(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -51,7 +51,7 @@ public class LayoutController {
     }
   }
 
-  @DeleteMapping("/{layoutId}")
+  @DeleteMapping("{layoutId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

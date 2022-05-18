@@ -15,13 +15,13 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.ComponentService;
 
 @RestController
-@RequestMapping("/components")
+@RequestMapping("components")
 @RequiredArgsConstructor
 public class ComponentController {
 
   private final ComponentService componentService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -51,7 +51,7 @@ public class ComponentController {
     }
   }
 
-  @DeleteMapping("/{componentId}")
+  @DeleteMapping("{componentId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

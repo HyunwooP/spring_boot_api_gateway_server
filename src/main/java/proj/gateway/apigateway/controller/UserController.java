@@ -18,13 +18,13 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -34,7 +34,7 @@ public class UserController {
     }
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("{userId}")
   public Map<String, Object> getUser(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -54,7 +54,7 @@ public class UserController {
     }
   }
 
-  @GetMapping("/profile")
+  @GetMapping("profile")
   public Map<String, Object> getProfile(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -75,7 +75,7 @@ public class UserController {
     }
   }
 
-  @PatchMapping("/{userId}")
+  @PatchMapping("{userId}")
   public Map<String, Object> update(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
@@ -86,7 +86,7 @@ public class UserController {
     }
   }
 
-  @DeleteMapping("/{userId}")
+  @DeleteMapping("{userId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -96,7 +96,7 @@ public class UserController {
     }
   }
 
-  @DeleteMapping("/tokenRemove")
+  @DeleteMapping("tokenRemove")
   public Map<String, Object> tokenRemove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

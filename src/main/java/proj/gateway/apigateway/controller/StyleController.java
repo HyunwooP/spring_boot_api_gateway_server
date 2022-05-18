@@ -21,7 +21,7 @@ public class StyleController {
 
   private final StyleService styleService;
 
-  @GetMapping("/count")
+  @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -31,7 +31,7 @@ public class StyleController {
     }
   }
 
-  @GetMapping("/{styleId}")
+  @GetMapping("{styleId}")
   public Map<String, Object> getStyle(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -51,7 +51,7 @@ public class StyleController {
     }
   }
 
-  @DeleteMapping(value = "/{styleId}")
+  @DeleteMapping("{styleId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

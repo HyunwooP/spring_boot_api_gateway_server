@@ -18,7 +18,7 @@ public class CommonModelController {
 
   private final CommonModelService commonModelService;
 
-  @GetMapping("/clientHealth")
+  @GetMapping("clientHealth")
   public Map<String, Object> getClientHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -28,7 +28,7 @@ public class CommonModelController {
     }
   }
 
-  @GetMapping("/designHealth")
+  @GetMapping("designHealth")
   public Map<String, Object> getDesignHealth(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {
@@ -38,7 +38,7 @@ public class CommonModelController {
     }
   }
 
-  @GetMapping("/dashboardCount")
+  @GetMapping("dashboardCount")
   public Map<String, Object> getDashboardCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
     try {

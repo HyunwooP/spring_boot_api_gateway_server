@@ -15,13 +15,13 @@ import proj.gateway.apigateway.common.error.exceptions.APIResponseException;
 import proj.gateway.apigateway.service.AuthService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 public class AuthController {
 
   private final AuthService authService;
 
-  @PostMapping("/signIn")
+  @PostMapping("signIn")
   public Map<String, Object> signIn(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
     try {
@@ -31,7 +31,7 @@ public class AuthController {
     }
   }
 
-  @PostMapping("/signOut")
+  @PostMapping("signOut")
   public Map<String, Object> signOut(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
