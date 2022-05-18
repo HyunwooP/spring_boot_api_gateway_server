@@ -40,7 +40,7 @@ public class ThemeService {
   @CircuitBreaker(name = "getThemeItem", fallbackMethod = "getThemeItemFallBack")
   public Map<String, Object> getThemeItem(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -52,7 +52,7 @@ public class ThemeService {
   @CircuitBreaker(name = "getTheme", fallbackMethod = "getThemeFallBack")
   public Map<String, Object> getTheme(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -77,7 +77,7 @@ public class ThemeService {
   @CircuitBreaker(name = "removeTheme", fallbackMethod = "removeThemeFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.DELETE, url, token, null);

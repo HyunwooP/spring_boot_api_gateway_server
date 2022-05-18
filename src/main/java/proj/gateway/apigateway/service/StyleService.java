@@ -40,7 +40,7 @@ public class StyleService {
   @CircuitBreaker(name = "getStyle", fallbackMethod = "getStyleFallBack")
   public Map<String, Object> getStyle(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -65,9 +65,9 @@ public class StyleService {
   @CircuitBreaker(name = "removeStyle", fallbackMethod = "removeStyleFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
-
+      System.out.println(url);
       return httpUtils.request(HttpMethod.DELETE, url, token, null);
     } catch (HttpClientErrorException exception) {
       throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));

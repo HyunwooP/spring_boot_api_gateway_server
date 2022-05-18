@@ -40,7 +40,7 @@ public class LayoutService {
   @CircuitBreaker(name = "getLayout", fallbackMethod = "getLayoutFallBack")
   public Map<String, Object> getLayout(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
@@ -65,7 +65,7 @@ public class LayoutService {
   @CircuitBreaker(name = "removeLayout", fallbackMethod = "removeLayoutFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {
-      String url = request.getRequestURI();
+      String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.DELETE, url, token, null);
