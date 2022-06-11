@@ -6,19 +6,19 @@
 
 ## Client Repository
 
-https://github.com/awakelife93/react-template
+https://github.com/awakelife93/react-boilerplate
 
 ## Admin Repository
 
-https://github.com/awakelife93/react-admin-template
+https://github.com/awakelife93/react-admin-boilerplate
 
 ## API Server Repository
 
-https://github.com/awakelife93/node-api-template
+https://github.com/awakelife93/express-boilerplate
 
 ## Style Server Repository
 
-https://github.com/awakelife93/node-design-template
+https://github.com/awakelife93/express-design-system-boilerplate
 
 ## [노트]
 [lombok 설치 시 에러](https://github.com/GabrielBB/vscode-lombok/issues/23)
