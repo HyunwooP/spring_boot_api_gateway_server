@@ -35,7 +35,7 @@ dependencies {
     testAnnotationProcessor 'org.springframework.boot:spring-boot-starter-tomcat:2.5.2'
 }
 
-group = 'proj.gateway'
+group = 'com.awakelife93'
 version = '0.0.1-SNAPSHOT'
 description = 'api-gateway'
 java.sourceCompatibility = JavaVersion.VERSION_15
