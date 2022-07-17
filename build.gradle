@@ -5,6 +5,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'org.springframework.boot' version '2.5.1'
 }
 
 repositories {
@@ -37,7 +38,7 @@ dependencies {
 
 group = 'com.awakelife93'
 version = '0.0.1-SNAPSHOT'
-description = 'api-gateway'
+description = 'apigateway'
 java.sourceCompatibility = JavaVersion.VERSION_15
 
 publishing {
