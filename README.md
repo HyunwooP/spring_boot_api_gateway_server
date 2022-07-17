@@ -29,6 +29,7 @@ https://github.com/awakelife93/express-design-system-boilerplate
 3. Inspect the endpoint and associate it with the corresponding server's host.
    (If not applicable, the request is not made to each server.)
 4. By using a circuit breaker, failure is prevented.
+5. If you run jvm as a docker container, do docker build & run.
 
 ## Author
 ```
