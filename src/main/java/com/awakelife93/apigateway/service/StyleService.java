@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class StyleService {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
+  @RateLimiter(name = "getStyleCount")
   @CircuitBreaker(name = "getStyleCount", fallbackMethod = "getStyleCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class StyleService {
     }
   }
 
+  @RateLimiter(name = "getStyle")
   @CircuitBreaker(name = "getStyle", fallbackMethod = "getStyleFallBack")
   public Map<String, Object> getStyle(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class StyleService {
     }
   }
 
+  @RateLimiter(name = "getStyles")
   @CircuitBreaker(name = "getStyles", fallbackMethod = "getStylesFallBack")
   public Map<String, Object> getStyles(HttpServletRequest request) throws APIResponseException {
     try {
@@ -62,6 +66,7 @@ public class StyleService {
     }
   }
 
+  @RateLimiter(name = "removeStyle")
   @CircuitBreaker(name = "removeStyle", fallbackMethod = "removeStyleFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {

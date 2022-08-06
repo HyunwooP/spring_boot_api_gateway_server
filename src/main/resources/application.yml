@@ -2,7 +2,8 @@ resilience4j:
   ratelimiter:
     configs:
       default:
-        limitForPeriod: 50
+        # Limit of up to 500 requests in 10 seconds
+        limitForPeriod: 500
         limitRefreshPeriod: 10s
         timeoutDuration: 1s
     instances:

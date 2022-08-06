@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class ContentsService {
   @Value("${domain.apiServer}")
   private String apiServerDomain;
 
+  @RateLimiter(name = "getContentsCount")
   @CircuitBreaker(name = "getContentsCount", fallbackMethod = "getContentsCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class ContentsService {
     }
   }
 
+  @RateLimiter(name = "getContent")
   @CircuitBreaker(name = "getContent", fallbackMethod = "getContentFallBack")
   public Map<String, Object> getContent(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class ContentsService {
     }
   }
 
+  @RateLimiter(name = "getContents")
   @CircuitBreaker(name = "getContents", fallbackMethod = "getContentsFallBack")
   public Map<String, Object> getContents(HttpServletRequest request) throws APIResponseException {
     try {
@@ -62,6 +66,7 @@ public class ContentsService {
     }
   }
 
+  @RateLimiter(name = "createContent")
   @CircuitBreaker(name = "createContent", fallbackMethod = "createContentFallBack")
   public Map<String, Object> create(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -75,6 +80,7 @@ public class ContentsService {
     }
   }
 
+  @RateLimiter(name = "updateContent")
   @CircuitBreaker(name = "updateContent", fallbackMethod = "updateContentsFallBack")
   public Map<String, Object> update(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -88,6 +94,7 @@ public class ContentsService {
     }
   }
 
+  @RateLimiter(name = "removeContent")
   @CircuitBreaker(name = "removeContent", fallbackMethod = "removeContentFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {

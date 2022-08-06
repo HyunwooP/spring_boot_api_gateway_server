@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class ThemeService {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
+  @RateLimiter(name = "getThemeCount")
   @CircuitBreaker(name = "getThemeCount", fallbackMethod = "getThemeCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class ThemeService {
     }
   }
 
+  @RateLimiter(name = "getThemeItem")
   @CircuitBreaker(name = "getThemeItem", fallbackMethod = "getThemeItemFallBack")
   public Map<String, Object> getThemeItem(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class ThemeService {
     }
   }
 
+  @RateLimiter(name = "getTheme")
   @CircuitBreaker(name = "getTheme", fallbackMethod = "getThemeFallBack")
   public Map<String, Object> getTheme(HttpServletRequest request) throws APIResponseException {
     try {
@@ -61,6 +65,7 @@ public class ThemeService {
     }
   }
 
+  @RateLimiter(name = "getThemes")
   @CircuitBreaker(name = "getThemes", fallbackMethod = "getThemesFallBack")
   public Map<String, Object> getThemes(HttpServletRequest request) throws APIResponseException {
     try {
@@ -74,6 +79,7 @@ public class ThemeService {
     }
   }
 
+  @RateLimiter(name = "removeTheme")
   @CircuitBreaker(name = "removeTheme", fallbackMethod = "removeThemeFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {

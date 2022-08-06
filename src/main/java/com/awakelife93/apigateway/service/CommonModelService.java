@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -27,6 +28,7 @@ public class CommonModelService {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
+  @RateLimiter(name = "getClientHealth")
   @CircuitBreaker(name = "getClientHealth", fallbackMethod = "getClientHealthFallBack")
   public Map<String, Object> getClientHealth(HttpServletRequest request) throws APIResponseException {
     try {
@@ -39,6 +41,7 @@ public class CommonModelService {
     }
   }
 
+  @RateLimiter(name = "getDesignHealth")
   @CircuitBreaker(name = "getDesignHealth", fallbackMethod = "getDesignHealthFallBack")
   public Map<String, Object> getDesignHealth(HttpServletRequest request) throws APIResponseException {
     try {
@@ -51,6 +54,7 @@ public class CommonModelService {
     }
   }
 
+  @RateLimiter(name = "getDashboardCount")
   @CircuitBreaker(name = "getDashboardCount", fallbackMethod = "getDashboardCountFallBack")
   public Map<String, Object> getDashboardCount(HttpServletRequest request) throws APIResponseException {
     try {

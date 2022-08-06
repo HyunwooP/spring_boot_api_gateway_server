@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class AuthService {
   @Value("${domain.apiServer}")
   private String apiServerDomain;
 
+  @RateLimiter(name = "signIn")
   @CircuitBreaker(name = "signIn", fallbackMethod = "signInFallBack")
   public Map<String, Object> signIn(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -37,6 +39,7 @@ public class AuthService {
     }
   }
 
+  @RateLimiter(name = "signOut")
   @CircuitBreaker(name = "signOut", fallbackMethod = "signOutFallBack")
   public Map<String, Object> signOut(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {

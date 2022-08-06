@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class ComponentService {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
+  @RateLimiter(name = "getComponentCount")
   @CircuitBreaker(name = "getComponentCount", fallbackMethod = "getComponentCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class ComponentService {
     }
   }
 
+  @RateLimiter(name = "getComponent")
   @CircuitBreaker(name = "getComponent", fallbackMethod = "getComponentFallBack")
   public Map<String, Object> getComponent(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class ComponentService {
     }
   }
 
+  @RateLimiter(name = "getComponents")
   @CircuitBreaker(name = "getComponents", fallbackMethod = "getComponentsFallBack")
   public Map<String, Object> getComponents(HttpServletRequest request) throws APIResponseException {
     try {
@@ -62,6 +66,7 @@ public class ComponentService {
     }
   }
 
+  @RateLimiter(name = "removeComponent")
   @CircuitBreaker(name = "removeComponent", fallbackMethod = "removeComponentFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {

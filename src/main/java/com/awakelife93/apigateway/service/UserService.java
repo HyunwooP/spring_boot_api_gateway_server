@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class UserService {
   @Value("${domain.apiServer}")
   private String apiServerDomain;
 
+  @RateLimiter(name = "getUserCount")
   @CircuitBreaker(name = "getUserCount", fallbackMethod = "getUserCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "getUser")
   @CircuitBreaker(name = "getUser", fallbackMethod = "getUserFallBack")
   public Map<String, Object> getUser(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "getUsers")
   @CircuitBreaker(name = "getUsers", fallbackMethod = "getUsersFallBack")
   public Map<String, Object> getUsers(HttpServletRequest request) throws APIResponseException {
     try {
@@ -62,6 +66,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "getProfile")
   @CircuitBreaker(name = "getProfile", fallbackMethod = "getProfileFallBack")
   public Map<String, Object> getProfile(HttpServletRequest request) throws APIResponseException {
     try {
@@ -74,6 +79,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "createUser")
   @CircuitBreaker(name = "createUser", fallbackMethod = "createUserFallBack")
   public Map<String, Object> create(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -87,6 +93,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "updateUser")
   @CircuitBreaker(name = "updateUser", fallbackMethod = "updateUserFallBack")
   public Map<String, Object> update(HttpServletRequest request, Map<String, Object> body)
       throws APIResponseException {
@@ -100,6 +107,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "removeUser")
   @CircuitBreaker(name = "removeUser", fallbackMethod = "removeUserFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {
@@ -112,6 +120,7 @@ public class UserService {
     }
   }
 
+  @RateLimiter(name = "tokenRemoveUser")
   @CircuitBreaker(name = "tokenRemoveUser", fallbackMethod = "tokenRemoveUserFallBack")
   public Map<String, Object> tokenRemove(HttpServletRequest request) throws APIResponseException {
     try {

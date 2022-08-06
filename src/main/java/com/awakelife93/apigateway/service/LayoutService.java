@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
@@ -24,6 +25,7 @@ public class LayoutService {
   @Value("${domain.designServer}")
   private String designServerDomain;
 
+  @RateLimiter(name = "getLayoutCount")
   @CircuitBreaker(name = "getLayoutCount", fallbackMethod = "getLayoutCountFallBack")
   public Map<String, Object> getCount(HttpServletRequest request) throws APIResponseException {
     try {
@@ -37,6 +39,7 @@ public class LayoutService {
     }
   }
 
+  @RateLimiter(name = "getLayout")
   @CircuitBreaker(name = "getLayout", fallbackMethod = "getLayoutFallBack")
   public Map<String, Object> getLayout(HttpServletRequest request) throws APIResponseException {
     try {
@@ -49,6 +52,7 @@ public class LayoutService {
     }
   }
 
+  @RateLimiter(name = "getLayouts")
   @CircuitBreaker(name = "getLayouts", fallbackMethod = "getLayoutsFallBack")
   public Map<String, Object> getLayouts(HttpServletRequest request) throws APIResponseException {
     try {
@@ -62,6 +66,7 @@ public class LayoutService {
     }
   }
 
+  @RateLimiter(name = "removeLayout")
   @CircuitBreaker(name = "removeLayout", fallbackMethod = "removeLayoutFallBack")
   public Map<String, Object> remove(HttpServletRequest request) throws APIResponseException {
     try {
