@@ -1,4 +1,85 @@
 resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        limitForPeriod: 50
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
+    instances:
+      # API Server
+      getUser:
+        baseConfig: default
+      getUsers:
+        baseConfig: default
+      getProfile:
+        baseConfig: default
+      getUserCount:
+        baseConfig: default
+      getContent:
+        baseConfig: default
+      getContents:
+        baseConfig: default
+      getContentsCount:
+        baseConfig: default
+      signIn:
+        baseConfig: default
+      signOut:
+        baseConfig: default
+      tokenRemoveUser:
+        baseConfig: default
+      createUser:
+        baseConfig: default
+      updateUser:
+        baseConfig: default
+      removeUser:
+        baseConfig: default
+      createContent:
+        baseConfig: default
+      updateContent:
+        baseConfig: default
+      removeContent:
+        baseConfig: default
+      getDashboardCount:
+        baseConfig: default
+      getClientHealth:
+        baseConfig: default
+      # Design Server
+      getThemeItem:
+        baseConfig: default
+      getComponent:
+        baseConfig: default
+      getComponents:
+        baseConfig: default
+      getLayout:
+        baseConfig: default
+      getLayouts:
+        baseConfig: default
+      getStyle:
+        baseConfig: default
+      getStyles:
+        baseConfig: default
+      getTheme:
+        baseConfig: default
+      getThemes:
+        baseConfig: default
+      getComponentCount:
+        baseConfig: default
+      getLayoutCount:
+        baseConfig: default
+      getStyleCount:
+        baseConfig: default
+      getThemeCount:
+        baseConfig: default
+      removeComponent:
+        baseConfig: default
+      removeLayout:
+        baseConfig: default
+      removeStyle:
+        baseConfig: default
+      removeTheme:
+        baseConfig: default
+      getDesignHealth:
+        baseConfig: default  
   circuitbreaker:
     configs:
       default:
