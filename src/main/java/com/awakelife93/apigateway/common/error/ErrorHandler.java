@@ -58,10 +58,11 @@ public class ErrorHandler {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseErrorMap);
   }
 
+  // * fallback (rate limiter or circuit breaker) 이 없는 API 스레드는 해당 Handler로 처리...
   @ExceptionHandler(APIResponseException.class)
   private ResponseEntity<HashMap<String, Object>> apiResponseExceptionHandler(Throwable throwable) {
     System.out.println("============= API Error =============" + " : " + new Date().getTime());
-    String status = throwable.getMessage();
+    String status = throwable.getCause().getMessage();
     HttpStatus apiErrorCode = HttpStatus.valueOf(Integer.parseInt(status));
 
     HashMap<String, Object> responseErrorMap = getResponseErrorMap(apiErrorCode);
