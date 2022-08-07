@@ -16,7 +16,7 @@ public class AuthConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(authInterceptor).addPathPatterns(
-        "/signOut",
+        "/auth/signOut",
         "/dashboardCount",
         "/clientHealth",
         "/designHealth",
