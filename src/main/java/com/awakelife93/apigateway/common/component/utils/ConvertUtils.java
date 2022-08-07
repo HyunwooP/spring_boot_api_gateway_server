@@ -16,4 +16,11 @@ public class ConvertUtils {
 
     return jsonParams;
   }
+
+  public static Map<String, String> jsonStringToObject(String param) throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    Map<String, String> map = mapper.readValue(param, Map.class);
+
+    return map;
+  }
 }
