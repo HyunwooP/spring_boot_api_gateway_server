@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
@@ -34,7 +35,7 @@ public class ComponentService {
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
-    } catch (HttpClientErrorException exception) {
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
       throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
     }
   }
@@ -47,7 +48,7 @@ public class ComponentService {
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
-    } catch (HttpClientErrorException exception) {
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
       throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
     }
   }
@@ -61,7 +62,7 @@ public class ComponentService {
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.GET, url, token, null);
-    } catch (HttpClientErrorException exception) {
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
       throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
     }
   }
@@ -74,7 +75,7 @@ public class ComponentService {
       String token = request.getHeader("authorization");
 
       return httpUtils.request(HttpMethod.DELETE, url, token, null);
-    } catch (HttpClientErrorException exception) {
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
       throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
     }
   }
