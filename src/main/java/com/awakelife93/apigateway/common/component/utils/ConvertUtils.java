@@ -2,10 +2,10 @@ package com.awakelife93.apigateway.common.component.utils;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class ConvertUtils {

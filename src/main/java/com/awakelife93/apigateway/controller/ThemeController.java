@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
 import com.awakelife93.apigateway.service.ThemeService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("themes")

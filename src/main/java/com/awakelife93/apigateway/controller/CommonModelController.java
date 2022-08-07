@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
 import com.awakelife93.apigateway.service.CommonModelService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

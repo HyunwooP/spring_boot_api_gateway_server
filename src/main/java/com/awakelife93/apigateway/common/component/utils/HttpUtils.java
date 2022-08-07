@@ -36,7 +36,7 @@ public class HttpUtils {
 
   public MultiValueMap<String, String> generateBody(Map<String, Object> body) {
     MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-    
+
     for (String key : body.keySet()) {
       parameters.add(key, body.get(key).toString());
     }

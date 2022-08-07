@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
-import lombok.RequiredArgsConstructor;
 import com.awakelife93.apigateway.common.component.utils.HttpUtils;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
 import com.awakelife93.apigateway.common.error.exceptions.FallBackException;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
