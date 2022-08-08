@@ -37,11 +37,7 @@ public class ComponentController {
   @GetMapping()
   public Map<String, Object> getComponents(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return componentService.getComponents(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return componentService.getComponents(request);
   }
 
   @DeleteMapping("{componentId}")
