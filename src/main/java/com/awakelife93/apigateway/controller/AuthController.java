@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.AuthService;
+import com.awakelife93.apigateway.service.auth.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,21 +25,13 @@ public class AuthController {
   @PostMapping("signIn")
   public Map<String, Object> signIn(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body) throws APIResponseException {
-    try {
-      return authService.signIn(request, body);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return authService.signIn(request, body);
   }
 
   @PostMapping("signOut")
   public Map<String, Object> signOut(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
-    try {
-      return authService.signOut(request, body);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return authService.signOut(request, body);
   }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.ComponentService;
+import com.awakelife93.apigateway.service.component.ComponentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,21 +25,13 @@ public class ComponentController {
   @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return componentService.getCount(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return componentService.getCount(request);
   }
 
   @GetMapping("{componentId}")
   public Map<String, Object> getComponent(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return componentService.getComponent(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return componentService.getComponent(request);
   }
 
   @GetMapping()
@@ -55,10 +47,6 @@ public class ComponentController {
   @DeleteMapping("{componentId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return componentService.remove(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return componentService.remove(request);
   }
 }

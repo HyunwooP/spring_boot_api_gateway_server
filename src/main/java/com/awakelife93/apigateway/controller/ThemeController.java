@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.ThemeService;
+import com.awakelife93.apigateway.service.theme.ThemeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,50 +25,30 @@ public class ThemeController {
   @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return themeService.getCount(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return themeService.getCount(request);
   }
 
   @GetMapping("themeItem")
   public Map<String, Object> getThemeItem(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return themeService.getThemeItem(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return themeService.getThemeItem(request);
   }
 
   @GetMapping("{themeId}")
   public Map<String, Object> getTheme(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return themeService.getTheme(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return themeService.getTheme(request);
   }
 
   @GetMapping()
   public Map<String, Object> getThemes(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return themeService.getThemes(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return themeService.getThemes(request);
   }
 
   @DeleteMapping("{themeId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return themeService.remove(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return themeService.remove(request);
   }
 }

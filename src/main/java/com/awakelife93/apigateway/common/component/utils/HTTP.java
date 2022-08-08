@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class HttpUtils {
+public class HTTP {
 
   private final RestTemplate restTemplate;
 

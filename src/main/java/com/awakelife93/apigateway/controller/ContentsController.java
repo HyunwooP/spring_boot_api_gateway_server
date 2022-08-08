@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.ContentsService;
+import com.awakelife93.apigateway.service.contents.ContentsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,62 +28,38 @@ public class ContentsController {
   @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return contentsService.getCount(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.getCount(request);
   }
 
   @GetMapping("{contentId}")
   public Map<String, Object> getContent(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return contentsService.getContent(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.getContent(request);
   }
 
   @GetMapping()
   public Map<String, Object> getContents(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return contentsService.getContents(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.getContents(request);
   }
 
   @PostMapping()
   public Map<String, Object> create(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
-    try {
-      return contentsService.create(request, body);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.create(request, body);
   }
 
   @PatchMapping("{contentId}")
   public Map<String, Object> update(HttpServletRequest request, HttpServletResponse response,
       @RequestBody Map<String, Object> body)
       throws APIResponseException {
-    try {
-      return contentsService.update(request, body);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.update(request, body);
   }
 
   @DeleteMapping("{contentId}")
   public Map<String, Object> remove(HttpServletRequest request)
       throws APIResponseException {
-    try {
-      return contentsService.remove(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return contentsService.remove(request);
   }
 }

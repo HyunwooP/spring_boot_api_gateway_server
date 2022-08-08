@@ -19,12 +19,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     String token = request.getHeader("authorization");
     String method = request.getMethod();
 
-    // options method로 들어오면 그냥 무조건 통과...
     if (method.equals(HttpMethod.OPTIONS.name())) {
       return true;
     }
 
-    if (token == null || token.isBlank()) {
+    if (token == null || token.isBlank() || !token.startsWith("Bearer ")) {
       throw new NotCertificateException();
     }
 

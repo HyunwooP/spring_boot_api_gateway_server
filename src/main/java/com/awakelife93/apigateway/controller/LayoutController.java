@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.LayoutService;
+import com.awakelife93.apigateway.service.layout.LayoutService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,40 +25,24 @@ public class LayoutController {
   @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return layoutService.getCount(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return layoutService.getCount(request);
   }
 
   @GetMapping("{layoutId}")
   public Map<String, Object> getLayout(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return layoutService.getLayout(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return layoutService.getLayout(request);
   }
 
   @GetMapping()
   public Map<String, Object> getLayouts(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return layoutService.getLayouts(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return layoutService.getLayouts(request);
   }
 
   @DeleteMapping("{layoutId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return layoutService.remove(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return layoutService.remove(request);
   }
 }

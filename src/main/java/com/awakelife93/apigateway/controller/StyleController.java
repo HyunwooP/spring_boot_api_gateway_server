@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
-import com.awakelife93.apigateway.service.StyleService;
+import com.awakelife93.apigateway.service.style.StyleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,40 +25,24 @@ public class StyleController {
   @GetMapping("count")
   public Map<String, Object> getCount(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return styleService.getCount(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return styleService.getCount(request);
   }
 
   @GetMapping("{styleId}")
   public Map<String, Object> getStyle(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return styleService.getStyle(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return styleService.getStyle(request);
   }
 
   @GetMapping()
   public Map<String, Object> getStyles(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return styleService.getStyles(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return styleService.getStyles(request);
   }
 
   @DeleteMapping("{styleId}")
   public Map<String, Object> remove(HttpServletRequest request, HttpServletResponse response)
       throws APIResponseException {
-    try {
-      return styleService.remove(request);
-    } catch (APIResponseException exception) {
-      throw new APIResponseException(exception);
-    }
+    return styleService.remove(request);
   }
 }

@@ -2,6 +2,7 @@ package com.awakelife93.apigateway.common.error;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,13 +14,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.awakelife93.apigateway.common.component.utils.Convert;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
 import com.awakelife93.apigateway.common.error.exceptions.FallBackException;
 import com.awakelife93.apigateway.common.error.exceptions.NotCertificateException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import lombok.RequiredArgsConstructor;
 
 @EnableWebMvc
+@RequiredArgsConstructor
 @RestControllerAdvice
 public class ErrorHandler {
+
+  private final Convert convert;
+
   private final HashMap<HttpStatus, String> errorMap = new HashMap<HttpStatus, String>() {
     {
       put(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED");
@@ -37,72 +46,99 @@ public class ErrorHandler {
     return errorMap.get(status);
   }
 
-  private HashMap<String, Object> getResponseErrorMap(HttpStatus status) {
-    HashMap<String, Object> responseErrorMap = new HashMap<String, Object>();
+  private ErrorResponse getErrorMap(HttpStatus status) {
+    ErrorResponse responseErrorMap = new ErrorResponse();
 
-    String message = getErrorMessage(status);
+    responseErrorMap.status = status.value();
+    responseErrorMap.message = getErrorMessage(status);
 
-    responseErrorMap.put("status", status.value());
-    responseErrorMap.put("message", message);
+    return responseErrorMap;
+  }
+
+  private ErrorResponse getResponseErrorMap(String response) {
+    ErrorResponse responseErrorMap = new ErrorResponse();
+
+    try {
+      Map<String, Object> responseJson = convert.jsonStringToObject(response);
+
+      HttpStatus status = responseJson.get("status") == null ? HttpStatus.INTERNAL_SERVER_ERROR
+          : HttpStatus.valueOf((int) responseJson.get("status"));
+
+      String message = responseJson.get("message") == null ? getErrorMessage(status)
+          : (String) responseJson.get("message");
+
+      responseErrorMap.status = status.value();
+      responseErrorMap.message = message;
+      responseErrorMap.data = responseJson.get("data");
+
+    } catch (JsonProcessingException exception) {
+
+      // * In case of rate limiter case for common fallback for each model in service
+      // * layer...
+      boolean isRateLimit = response.contains("RateLimiter");
+
+      responseErrorMap.status = isRateLimit ? HttpStatus.TOO_MANY_REQUESTS.value()
+          : HttpStatus.INTERNAL_SERVER_ERROR.value();
+      responseErrorMap.message = response;
+    }
 
     return responseErrorMap;
   }
 
   @ExceptionHandler(Exception.class)
-  private ResponseEntity<HashMap<String, Object>> exceptionHandler(Throwable throwable) {
+  private ResponseEntity<ErrorResponse> exceptionHandler(Throwable throwable) {
     System.out.println("============= Unknown Error =============" + " : " + new Date().getTime());
-    System.out.println(throwable.getMessage());
+    System.out.println(throwable.getCause());
     System.out.println("=========================================");
 
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.INTERNAL_SERVER_ERROR);
+    ErrorResponse responseErrorMap = getErrorMap(HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseErrorMap);
   }
 
-  // * fallback (rate limiter or circuit breaker) 이 없는 API 스레드는 해당 Handler로 처리...
-  @ExceptionHandler(APIResponseException.class)
-  private ResponseEntity<HashMap<String, Object>> apiResponseExceptionHandler(Throwable throwable) {
-    System.out.println("============= API Error =============" + " : " + new Date().getTime());
-    String status = throwable.getCause().getMessage();
-    HttpStatus apiErrorCode = HttpStatus.valueOf(Integer.parseInt(status));
-
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(apiErrorCode);
-    return ResponseEntity.status(apiErrorCode).body(responseErrorMap);
-  }
-
   @ExceptionHandler(NoHandlerFoundException.class)
-  private ResponseEntity<HashMap<String, Object>> notFoundExceptionHandler(Throwable throwable) {
+  private ResponseEntity<ErrorResponse> notFoundExceptionHandler(Throwable throwable) {
     System.out.println("============= NotFound Error =============" + " : " + new Date().getTime());
 
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.NOT_FOUND);
+    ErrorResponse responseErrorMap = getErrorMap(HttpStatus.NOT_FOUND);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseErrorMap);
   }
 
-  @ExceptionHandler(FallBackException.class)
-  private ResponseEntity<HashMap<String, Object>> fallbackExceptionHandler(Throwable throwable) {
-    System.out.println("============= FallBack Error =============" + " : " + new Date().getTime());
-    String status = throwable.getMessage();
-    HttpStatus fallBackErrorCode = status == null ? HttpStatus.TOO_MANY_REQUESTS
-        : HttpStatus.valueOf(Integer.parseInt(status));
-
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(fallBackErrorCode);
-    return ResponseEntity.status(fallBackErrorCode).body(responseErrorMap);
-  }
-
   @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<HashMap<String, Object>> methodNotSupportExceptionHandler(HttpServletRequest request,
-      Throwable throwable) throws Exception {
+  public ResponseEntity<ErrorResponse> methodNotSupportExceptionHandler(HttpServletRequest request,
+      Throwable throwable) {
     System.out.println("============= RestFul Error =============" + " : " + new Date().getTime());
 
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.BAD_REQUEST);
+    ErrorResponse responseErrorMap = getErrorMap(HttpStatus.BAD_REQUEST);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrorMap);
   }
 
   @ExceptionHandler(value = NotCertificateException.class)
-  public ResponseEntity<HashMap<String, Object>> notCertificateExceptionHandler(HttpServletRequest request,
-      Throwable throwable) throws Exception {
+  public ResponseEntity<ErrorResponse> notCertificateExceptionHandler(HttpServletRequest request, Throwable throwable) {
     System.out.println("============= No Certificate Error =============" + " : " + new Date().getTime());
 
-    HashMap<String, Object> responseErrorMap = getResponseErrorMap(HttpStatus.FORBIDDEN);
+    ErrorResponse responseErrorMap = getErrorMap(HttpStatus.FORBIDDEN);
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseErrorMap);
   }
+
+  // * API threads without fallback (rate limiter or circuit breaker) are handled
+  // * by the corresponding Handler...
+  @ExceptionHandler(APIResponseException.class)
+  private ResponseEntity<ErrorResponse> apiResponseExceptionHandler(Throwable throwable) {
+    System.out.println("============= API Error =============" + " : " + new Date().getTime());
+    String params = throwable.getCause().getMessage();
+
+    ErrorResponse responseErrorMap = getResponseErrorMap(params);
+    return ResponseEntity.status(responseErrorMap.status).body(responseErrorMap);
+  }
+
+  // * Errors that occur in the Service Layer are caught here.
+  @ExceptionHandler(FallBackException.class)
+  private ResponseEntity<ErrorResponse> fallBackExceptionHandler(Throwable throwable) {
+    System.out.println("============= FallBack Error =============" + " : " + new Date().getTime());
+    String params = throwable.getMessage();
+
+    ErrorResponse responseErrorMap = getResponseErrorMap(params);
+    return ResponseEntity.status(responseErrorMap.status).body(responseErrorMap);
+  }
+
 }

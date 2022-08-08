@@ -1,4 +1,4 @@
-package com.awakelife93.apigateway.service;
+package com.awakelife93.apigateway.service.common;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import com.awakelife93.apigateway.common.component.utils.HttpUtils;
+import com.awakelife93.apigateway.common.component.utils.HTTP;
 import com.awakelife93.apigateway.common.error.exceptions.APIResponseException;
 import com.awakelife93.apigateway.common.error.exceptions.FallBackException;
 
@@ -20,9 +20,9 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CommonModelService {
+public class CommonServiceImpl implements CommonService {
 
-  private final HttpUtils httpUtils;
+  private final HTTP http;
 
   @Value("${domain.apiServer}")
   private String apiServerDomain;
@@ -31,59 +31,48 @@ public class CommonModelService {
   private String designServerDomain;
 
   @RateLimiter(name = "getClientHealth")
-  @CircuitBreaker(name = "getClientHealth", fallbackMethod = "getClientHealthFallBack")
+  @CircuitBreaker(name = "getClientHealth", fallbackMethod = "fallback")
   public Map<String, Object> getClientHealth(HttpServletRequest request) throws APIResponseException {
     try {
       String url = apiServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
-      return httpUtils.request(HttpMethod.GET, url, token, null);
+      return http.request(HttpMethod.GET, url, token, null);
     } catch (HttpClientErrorException | HttpServerErrorException exception) {
-      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+      throw new APIResponseException(exception.getResponseBodyAsString());
     }
   }
 
   @RateLimiter(name = "getDesignHealth")
-  @CircuitBreaker(name = "getDesignHealth", fallbackMethod = "getDesignHealthFallBack")
+  @CircuitBreaker(name = "getDesignHealth", fallbackMethod = "fallback")
   public Map<String, Object> getDesignHealth(HttpServletRequest request) throws APIResponseException {
     try {
       String url = designServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
-      return httpUtils.request(HttpMethod.GET, url, token, null);
+      return http.request(HttpMethod.GET, url, token, null);
     } catch (HttpClientErrorException | HttpServerErrorException exception) {
-      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+      throw new APIResponseException(exception.getResponseBodyAsString());
     }
   }
 
   @RateLimiter(name = "getDashboardCount")
-  @CircuitBreaker(name = "getDashboardCount", fallbackMethod = "getDashboardCountFallBack")
+  @CircuitBreaker(name = "getDashboardCount", fallbackMethod = "fallback")
   public Map<String, Object> getDashboardCount(HttpServletRequest request) throws APIResponseException {
     try {
       String url = apiServerDomain + request.getRequestURI();
       String token = request.getHeader("authorization");
 
-      return httpUtils.request(HttpMethod.GET, url, token, null);
+      return http.request(HttpMethod.GET, url, token, null);
     } catch (HttpClientErrorException | HttpServerErrorException exception) {
-      throw new APIResponseException(Integer.toString(exception.getRawStatusCode()));
+      throw new APIResponseException(exception.getResponseBodyAsString());
     }
   }
 
-  public Map<String, Object> getClientHealthFallBack(HttpServletRequest request, Throwable throwable)
+  public Map<String, Object> fallback(HttpServletRequest request, Throwable throwable)
       throws FallBackException {
-    System.out.println("============== getClientHealthFallBack ==============" + throwable.getMessage());
+    System.out.println("Common FallBack Error = " + request.getRequestURI() + " " + throwable.getMessage());
     throw new FallBackException(throwable.getMessage());
   }
 
-  public Map<String, Object> getDesignHealthFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallBackException {
-    System.out.println("============== getDesignHealthFallBack ==============" + throwable.getMessage());
-    throw new FallBackException(throwable.getMessage());
-  }
-
-  public Map<String, Object> getDashboardCountFallBack(HttpServletRequest request, Throwable throwable)
-      throws FallBackException {
-    System.out.println("============== getDashboardCountFallBack ==============" + throwable.getMessage());
-    throw new FallBackException(throwable.getMessage());
-  }
 }
