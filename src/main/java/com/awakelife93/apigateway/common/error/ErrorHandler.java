@@ -79,7 +79,7 @@ public class ErrorHandler {
 
       responseErrorMap.status = isRateLimit ? HttpStatus.TOO_MANY_REQUESTS.value()
           : HttpStatus.INTERNAL_SERVER_ERROR.value();
-      responseErrorMap.message = response;
+      responseErrorMap.message = isRateLimit ? response : exception.getMessage();
     }
 
     return responseErrorMap;
