@@ -7,4 +7,5 @@ public class ErrorResponse {
   public String message;
 
   public Object data;
+
 }
